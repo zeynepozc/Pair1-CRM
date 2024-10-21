@@ -15,7 +15,7 @@ public class UpdateOfferResponseDto {
     private Long id;
     private String description;
     private Double discountValue;
-    private boolean isActive; // isActive statusu
+    private boolean isActive; // isActive status boolean or string?
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 }

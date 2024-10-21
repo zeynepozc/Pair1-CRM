@@ -51,9 +51,9 @@ public class CorporateCustomersController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        GetByIdCorporateCustomerResponseDto country = corporateCustomerService.getById(id);
+        GetByIdCorporateCustomerResponseDto customer = corporateCustomerService.getById(id);
 
-        if (country != null) {
+        if (customer != null) {
             corporateCustomerService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

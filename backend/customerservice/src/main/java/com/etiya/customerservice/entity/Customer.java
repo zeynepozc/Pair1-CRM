@@ -1,6 +1,6 @@
 package com.etiya.customerservice.entity;
 
-import com.etiya.customerservice.core.entity.BaseEntity;
+import io.github.cagataysero.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

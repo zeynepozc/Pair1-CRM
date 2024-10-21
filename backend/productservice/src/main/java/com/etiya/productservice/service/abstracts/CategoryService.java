@@ -9,6 +9,7 @@ import com.etiya.productservice.service.dto.responses.category.UpdateCategoryRes
 
 import java.util.List;
 
+
 public interface CategoryService {
     List<ListCategoryResponseDto> getAll();
     GetByIdCategoryResponseDto getById(Long id);

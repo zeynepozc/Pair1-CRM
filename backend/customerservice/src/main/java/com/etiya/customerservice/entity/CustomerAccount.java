@@ -24,7 +24,7 @@ public class CustomerAccount extends BaseEntity
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    private Customer customer;
 
     @Column(name = "account_status")
     private String accountStatus;

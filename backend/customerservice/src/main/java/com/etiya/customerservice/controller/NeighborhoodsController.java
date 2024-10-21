@@ -50,9 +50,9 @@ public class NeighborhoodsController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        GetByIdNeighborhoodResponseDto country = neighborhoodService.getById(id);
+        GetByIdNeighborhoodResponseDto neighborhood = neighborhoodService.getById(id);
 
-        if (country != null) {
+        if (neighborhood != null) {
             neighborhoodService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

@@ -50,9 +50,9 @@ public class ContactMediumAddressesController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        GetByIdContactMediumAddressResponseDto country = contactMediumAddressService.getById(id);
+        GetByIdContactMediumAddressResponseDto contactMediumAddress = contactMediumAddressService.getById(id);
 
-        if (country != null) {
+        if (contactMediumAddress != null) {
             contactMediumAddressService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

@@ -3,6 +3,7 @@ package com.etiya.productservice.controller;
 import com.etiya.productservice.service.abstracts.OfferProductService;
 import com.etiya.productservice.service.dto.request.offerProduct.*;
 import com.etiya.productservice.service.dto.responses.offerProduct.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +25,26 @@ public class OfferProductsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GetByIdOfferProductResponseDto>> getAll() {
-        List<GetByIdOfferProductResponseDto> offerProducts = offerProductService.getAll();
+    public ResponseEntity<List<ListOfferProductResponseDto>> getAll() {
+        List<ListOfferProductResponseDto> offerProducts = offerProductService.getAll();
         return ResponseEntity.ok(offerProducts);
     }
 
     @PostMapping
-    public ResponseEntity<Void> add(@RequestBody CreateOfferProductRequestDto createOfferProductRequestDto) {
-        offerProductService.add(createOfferProductRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<CreateOfferProductResponseDto> add(@RequestBody CreateOfferProductRequestDto createOfferProductRequestDto) {
+        CreateOfferProductResponseDto response = offerProductService.add(createOfferProductRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UpdateOfferProductResponseDto> update(@PathVariable Long id, @RequestBody @Valid UpdateOfferProductRequestDto updateOfferProductRequestDto) {
+
+        UpdateOfferProductResponseDto offerProduct = offerProductService.update(id, updateOfferProductRequestDto);
+        if (offerProduct != null) {
+            return ResponseEntity.ok(offerProduct);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -41,4 +53,3 @@ public class OfferProductsController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
-

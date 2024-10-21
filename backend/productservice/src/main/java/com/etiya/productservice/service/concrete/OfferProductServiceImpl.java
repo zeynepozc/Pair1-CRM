@@ -1,12 +1,8 @@
 package com.etiya.productservice.service.concrete;
 
-import com.etiya.productservice.entity.Offer;
 import com.etiya.productservice.entity.OfferProduct;
-import com.etiya.productservice.entity.Product;
 import com.etiya.productservice.mapper.OfferProductMapper;
 import com.etiya.productservice.repository.OfferProductRepository;
-import com.etiya.productservice.repository.OfferRepository;
-import com.etiya.productservice.repository.ProductRepository;
 import com.etiya.productservice.service.abstracts.OfferProductService;
 import com.etiya.productservice.service.dto.request.offerProduct.*;
 import com.etiya.productservice.service.dto.responses.offerProduct.*;
@@ -21,10 +17,7 @@ import java.util.stream.Collectors;
 public class OfferProductServiceImpl implements OfferProductService {
 
     private final OfferProductRepository offerProductRepository;
-    private final ProductRepository productRepository;
-    private final OfferRepository offerRepository;
     private final OfferProductMapper offerProductMapper;
-
 
     @Override
     public GetByIdOfferProductResponseDto getById(Long id) {
@@ -34,23 +27,26 @@ public class OfferProductServiceImpl implements OfferProductService {
     }
 
     @Override
-    public List<GetByIdOfferProductResponseDto> getAll() {
-        return offerProductRepository.findAll().stream()
-                .map(offerProductMapper::getByIdOfferProductResponseDtoFromOfferProduct)
-                .collect(Collectors.toList());
+    public List<ListOfferProductResponseDto> getAll() {
+        List<OfferProduct> offerProducts = offerProductRepository.findAll();
+        return offerProductMapper.offerProductListToListOfferProductResponseDto(offerProducts);
     }
 
     @Override
-    public void add(CreateOfferProductRequestDto createOfferProductRequestDto) {
-        Product product = productRepository.findById(createOfferProductRequestDto.getProductId())
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + createOfferProductRequestDto.getProductId()));
-        Offer offer = offerRepository.findById(createOfferProductRequestDto.getOfferId())
-                .orElseThrow(() -> new RuntimeException("Offer not found with id: " + createOfferProductRequestDto.getOfferId()));
+    public CreateOfferProductResponseDto add(CreateOfferProductRequestDto createOfferProductRequestDto) {
+        // todo
+        OfferProduct offerProduct = offerProductMapper.offerProductFromCreateOfferProductRequestDto(createOfferProductRequestDto);
+        OfferProduct addedOfferProduct = offerProductRepository.save(offerProduct);
+        return offerProductMapper.createOfferProductResponseDtoFromOfferProduct(addedOfferProduct);
+    }
 
-        OfferProduct offerProduct = new OfferProduct();
-        offerProduct.setProduct(product);
-        offerProduct.setOffer(offer);
-        offerProductRepository.save(offerProduct);
+
+    @Override
+    public UpdateOfferProductResponseDto update(Long id, UpdateOfferProductRequestDto updateOfferProductRequestDto) {
+        OfferProduct offerProduct = offerProductMapper.offerProductFromUpdateOfferProductRequestDto(updateOfferProductRequestDto);
+        offerProduct.setId(id);
+        OfferProduct updatedOfferProduct = offerProductRepository.save(offerProduct);
+        return offerProductMapper.updateOfferProductResponseDtoFromOfferProduct(updatedOfferProduct);
     }
 
     @Override

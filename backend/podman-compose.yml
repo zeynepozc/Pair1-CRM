@@ -142,6 +142,23 @@ services:
       eureka:
         condition: service_healthy
 
+  userservice:
+    container_name: userservice
+    image: "localhost/userservice"
+    ports:
+      - 8083:8083
+    networks:
+      - common
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8888/eureka/
+      - EUREKA_INSTANCE_HOSTNAME=userservice
+      - SPRING_CLOUD_CONFIG_URI=http://configserver:8001
+      - SPRING_CLOUD_CONFIG_PROFILE=dev
+      - SPRING_CLOUD_CONFIG_LABEL=main
+    depends_on:
+      eureka:
+        condition: service_healthy
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.1
     hostname: zookeeper

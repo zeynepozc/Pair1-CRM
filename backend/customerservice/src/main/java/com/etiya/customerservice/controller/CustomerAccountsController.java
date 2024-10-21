@@ -50,9 +50,9 @@ public class CustomerAccountsController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        GetByIdCustomerAccountResponseDto country = customerAccountService.getById(id);
+        GetByIdCustomerAccountResponseDto customerAccount = customerAccountService.getById(id);
 
-        if (country != null) {
+        if (customerAccount != null) {
             customerAccountService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {

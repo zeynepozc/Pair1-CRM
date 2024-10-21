@@ -1,6 +1,7 @@
 package com.etiya.customerservice.entity;
 
 
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
