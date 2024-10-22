@@ -3,8 +3,10 @@ package com.etiya.userservice.service.auth;
 import com.etiya.userservice.service.dto.LoginRequest;
 import com.etiya.userservice.service.dto.TokenResponse;
 import com.etiya.userservice.service.user.UserService;
+import io.github.cagataysero.security.BaseJwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +23,11 @@ public class AuthServiceImpl implements AuthService {
         if(!passwordMatching)
             throw new RuntimeException("E-posta veya şifre hatalı.");
 
-        return baseJwtService.generateToken(user.getUsername());
+        return new TokenResponse(baseJwtService.generateToken(user.getUsername()), true);
+    }
+
+    @Override
+    public String encodePassword(String password){
+        return passwordEncoder.encode(password);
     }
 }

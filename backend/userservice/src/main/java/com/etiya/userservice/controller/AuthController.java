@@ -19,4 +19,9 @@ public class AuthController {
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest){
         return ResponseEntity.ok(authService.login(loginRequest));
     }
+
+    @PostMapping("encode")
+    public String login(@RequestBody String password){
+        return authService.encodePassword(password);
+    }
 }

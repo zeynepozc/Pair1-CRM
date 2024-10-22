@@ -21,6 +21,7 @@ public class BaseJwtService {
 
 
     public String generateToken(String userName) {
+        // TODO claim ile role ekle
         return Jwts
                 .builder()
                 .issuedAt(new Date(System.currentTimeMillis()))
