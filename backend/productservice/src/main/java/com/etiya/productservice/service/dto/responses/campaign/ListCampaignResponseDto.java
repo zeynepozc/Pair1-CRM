@@ -14,5 +14,4 @@ public class ListCampaignResponseDto {
     private String description;
     private Double discountValue;
     private boolean isActive;
-    private String message;
 }
