@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class GetByIdBillingProductResponseDto {
     private Long id;
-    private Long customerAccountId;
+    private Long billingAccountId;
     private List<Long> productIdList;
 }

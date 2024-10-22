@@ -8,6 +8,7 @@ import java.util.List;
 
 @FeignClient(name="productservice")
 public interface ProductServiceClient {
+
     @PostMapping("/api/products/search")
     List<Product> findAllByIds(List<Long> ids);
 }

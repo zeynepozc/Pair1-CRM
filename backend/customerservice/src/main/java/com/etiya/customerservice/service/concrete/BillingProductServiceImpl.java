@@ -1,6 +1,8 @@
 package com.etiya.customerservice.service.concrete;
 
+import com.etiya.customerservice.client.ProductServiceClient;
 import com.etiya.customerservice.entity.BillingProduct;
+import com.etiya.customerservice.entity.Product;
 import com.etiya.customerservice.mapper.BillingProductMapper;
 import com.etiya.customerservice.repository.BillingProductRepository;
 import com.etiya.customerservice.service.abstracts.BillingProductService;
@@ -20,6 +22,7 @@ public class BillingProductServiceImpl implements BillingProductService
 {
     private final BillingProductRepository billingProductRepository;
     private final BillingProductMapper billingProductMapper;
+    private final ProductServiceClient productServiceClient;
 
 
     @Override
@@ -36,6 +39,8 @@ public class BillingProductServiceImpl implements BillingProductService
 
     @Override
     public CreateBillingProductResponseDto add(CreateBillingProductRequestDto createBillingProductRequestDto) {
+
+
         BillingProduct billingProduct = billingProductMapper.billingProductFromCreateBillingProductRequestDto(createBillingProductRequestDto);
         return billingProductMapper.createBillingProductResponseDtoFromBillingProduct(billingProductRepository.save(billingProduct));
     }

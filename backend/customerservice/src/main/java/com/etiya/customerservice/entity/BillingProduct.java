@@ -22,7 +22,7 @@ public class BillingProduct extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "billing_account_id", referencedColumnName = "id")
-    private BillingAccount customerAccount;
+    private BillingAccount billingAccount;
 
     @ElementCollection
     private List<Long> productIdList;
