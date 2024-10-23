@@ -30,6 +30,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="1.8" />
+      <module name="identityservice" target="22" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
