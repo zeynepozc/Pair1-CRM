@@ -27,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
         if(!passwordMatching)
             throw new RuntimeException("E-posta veya şifre hatalı.");
 
-        return new TokenResponse(baseJwtService.generateToken(user.getUsername(),roles), true);
+        return new TokenResponse(baseJwtService.generateToken(user.getUsername()), true);
     }
 
     @Override
