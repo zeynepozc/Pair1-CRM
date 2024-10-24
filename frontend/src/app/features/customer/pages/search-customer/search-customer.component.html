@@ -1,0 +1,116 @@
+<div class="max-w-7xl mx-auto p-6">
+  <h2 class="text-2xl font-semibold mb-4">Search Customer</h2>
+
+  <div class="border-t border-gray-300 pt-4">
+    <form [formGroup]="form" class="grid grid-cols-6 gap-4">
+      <div class="col-span-1">
+        <label for="natId" class="block text-sm font-medium text-gray-700"
+          >NAT ID No:</label
+        >
+        <input
+          id="natId"
+          type="text"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="natId"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <label for="customerId" class="block text-sm font-medium text-gray-700"
+          >CustomerID:</label
+        >
+        <input
+          id="customerId"
+          type="text"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="customerId"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <label for="firstName" class="block text-sm font-medium text-gray-700"
+          >First Name:</label
+        >
+        <input
+          id="firstName"
+          type="text"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="firstName"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <label for="lastName" class="block text-sm font-medium text-gray-700"
+          >Last Name:</label
+        >
+        <input
+          id="lastName"
+          type="text"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="lastName"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <label for="phoneNo" class="block text-sm font-medium text-gray-700"
+          >Phone No:</label
+        >
+        <input
+          id="phoneNo"
+          type="text"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="phoneNo"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <label for="email" class="block text-sm font-medium text-gray-700"
+          >Email:</label
+        >
+        <input
+          id="email"
+          type="text"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="email"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <label for="isActive" class="block text-sm font-medium text-gray-700"
+          >Is Active:</label
+        >
+        <input
+          id="isActive"
+          type="text"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="isActive"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <label for="createdDate" class="block text-sm font-medium text-gray-700"
+          >Created Date:</label
+        >
+        <input
+          id="createdDate"
+          type="date"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
+          name="createdDate"
+        />
+      </div>
+    </form>
+  </div>
+
+  <div class="flex justify-end mt-4">
+    <button
+      class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded mr-2"
+    >
+      Clear
+    </button>
+    <button
+      class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Search
+    </button>
+  </div>
+</div>
