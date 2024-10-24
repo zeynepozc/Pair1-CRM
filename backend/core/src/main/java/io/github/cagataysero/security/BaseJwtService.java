@@ -21,7 +21,7 @@ public class BaseJwtService {
     //@Value("${jwt.secret_key}")
     private String SECRET_KEY = "cx4YnoSF1vOn3DCTpckRFlhhuSMWM1reEOrnoGQMrFUlE5kLCvPWaORnZ3hkkCxI7rf1YAznsTn5uM0detQksaFcCDGVHDVQzNB20Wu0EEIDxdlvfdlnAgryUtN7sQyTnmdzu5aM2pg9MKR8OKUHfMZkwEDjVXHuxsI9vRKnYoCnfiQv5Hv4SlC";
 
-    public String generateToken(String userName) {
+
         // TODO claim ile role ekle
     public String generateToken(String userName, List<String> roles) {
         return Jwts
@@ -29,6 +29,15 @@ public class BaseJwtService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .claim("roles", roles)
+                .subject(userName)
+                .signWith(getSignKey())
+                .compact();
+    }
+    public String generateToken(String userName) {
+        return Jwts
+                .builder()
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .subject(userName)
                 .signWith(getSignKey())
                 .compact();

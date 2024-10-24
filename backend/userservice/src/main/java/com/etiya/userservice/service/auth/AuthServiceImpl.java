@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -18,12 +21,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse login(LoginRequest loginRequest) {
+        List<String> roles = new ArrayList<>();
         UserDetails user = userService.loadUserByUsername(loginRequest.getEmail());
         boolean passwordMatching = passwordEncoder.matches(loginRequest.getPassword(), user.getPassword());
         if(!passwordMatching)
             throw new RuntimeException("E-posta veya şifre hatalı.");
 
-        return new TokenResponse(baseJwtService.generateToken(user.getUsername()), true);
+        return new TokenResponse(baseJwtService.generateToken(user.getUsername(),roles), true);
     }
 
     @Override
