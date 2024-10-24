@@ -20,13 +20,9 @@ public class BaseJwtService {
     //@Value("${jwt.secret_key}")
     private String SECRET_KEY = "cx4YnoSF1vOn3DCTpckRFlhhuSMWM1reEOrnoGQMrFUlE5kLCvPWaORnZ3hkkCxI7rf1YAznsTn5uM0detQksaFcCDGVHDVQzNB20Wu0EEIDxdlvfdlnAgryUtN7sQyTnmdzu5aM2pg9MKR8OKUHfMZkwEDjVXHuxsI9vRKnYoCnfiQv5Hv4SlC";
 
-
-<<<<<<< HEAD
     public String generateToken(String userName) {
         // TODO claim ile role ekle
-=======
     public String generateToken(String userName, List<String> roles) {
->>>>>>> origin/master
         return Jwts
                 .builder()
                 .issuedAt(new Date(System.currentTimeMillis()))
