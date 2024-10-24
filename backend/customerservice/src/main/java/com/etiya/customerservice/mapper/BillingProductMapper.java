@@ -14,18 +14,18 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class BillingProductMapper {
 
-    @Mapping(source="customerAccountId", target = "customerAccount.id")
+    @Mapping(source="billingAccountId", target = "billingAccount.id")
     public abstract BillingProduct billingProductFromCreateBillingProductRequestDto(CreateBillingProductRequestDto dto);
 
-    @Mapping(source="customerAccount.id", target = "customerAccountId")
+    @Mapping(source="billingAccount.id", target = "billingAccountId")
     public abstract CreateBillingProductResponseDto createBillingProductResponseDtoFromBillingProduct(BillingProduct billingProduct);
 
-    @Mapping(source="customerAccount.id", target = "customerAccountId")
+    @Mapping(source="billingAccount.id", target = "billingAccountId")
     public abstract GetByIdBillingProductResponseDto getByIdBillingProductResponseDtoFromBillingProduct(BillingProduct billingProduct);
 
-    @Mapping(source="customerAccount.id", target = "customerAccountId")
+    @Mapping(source="billingAccount.id", target = "billingAccountId")
     public abstract List<ListBillingProductResponseDto> listBillingProductResponseDtoListFromBillingProductList(List<BillingProduct> billingProduct);
 
-    @Mapping(source="customerAccount.id", target = "customerAccountId")
+    @Mapping(source="billingAccount.id", target = "billingAccountId")
     public abstract ListBillingProductResponseDto billingProductToListBillingProductResponseDto(BillingProduct billingProduct);
 }

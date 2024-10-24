@@ -16,7 +16,8 @@ import java.util.List;
 @RestController()
 @RequestMapping("/api/billingproducts")
 @RequiredArgsConstructor
-public class BillingProductsController {
+public class
+BillingProductsController {
     private final BillingProductService billingProductService;
 
     @GetMapping

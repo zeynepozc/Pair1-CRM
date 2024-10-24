@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateBillingProductRequestDto {
     @NotNull
-    private Long customerAccountId;
+    private Long billingAccountId;
 
     private List<Long> productIdList;
 }
