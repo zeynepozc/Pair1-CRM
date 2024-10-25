@@ -1,8 +1,6 @@
 package com.etiya.customerservice.service.dto.request.individualCustomer;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +22,7 @@ public class CreateIndividualCustomerRequestDto {
     private String firstName;
     @NotEmpty
     private String lastName;
-    @NotBlank
+
     private String middleName;
     @NotEmpty
     private String fatherName;
@@ -33,6 +31,8 @@ public class CreateIndividualCustomerRequestDto {
     @NotEmpty
     private String gender;
 
+    @NotNull(message = "Birth date is required.")
+    @Past(message = "Birth date must be a date in the past.")
     private LocalDate birthDate;
 
 }

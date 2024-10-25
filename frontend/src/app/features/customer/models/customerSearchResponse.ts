@@ -1,5 +1,5 @@
 export interface CustomerSearchResponse {
-    natId: string;
+    natID: string;
     customerId: number;
     firstName: string;
     lastName: string;

@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.concrete;
 
+import com.etiya.customerservice.entity.ContactMedium;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.mapper.IndividualCustomerMapper;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
@@ -9,11 +10,15 @@ import com.etiya.customerservice.service.dto.request.individualCustomer.SearchIn
 import com.etiya.customerservice.service.dto.request.individualCustomer.UpdateIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.response.individualCustomer.*;
 
+import com.etiya.customerservice.specification.CustomerSpecifications;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -57,16 +62,55 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
 
     @Override
     public List<SearchIndividualCustomerResponseDto> searchByFilters(SearchIndividualCustomerRequestDto dto){
-        return individualCustomerRepository.searchCustomers(
-                dto.getNatId(),
-                dto.getCustomerId(),
-                dto.getFirstName(),
-                dto.getLastName(),
-                dto.getPhoneNo(),
-                dto.getEmail(),
-                dto.isActive(),
-                dto.getCreatedDate()
+         Specification<IndividualCustomer> spec = Specification.where(CustomerSpecifications.hasNatId(dto.getNatID()))
+                        .and(CustomerSpecifications.hasCustomerId(dto.getCustomerId()))
+                        .and(CustomerSpecifications.hasFirstName(dto.getFirstName()))
+                        .and(CustomerSpecifications.hasLastName(dto.getLastName()))
+                        .and(CustomerSpecifications.hasPhoneNo(dto.getPhoneNo()))
+                        .and(CustomerSpecifications.hasEmail(dto.getEmail()))
+                        .and(CustomerSpecifications.isActive(dto.isActive()))
+                        .and(CustomerSpecifications.hasCreatedDate(dto.getCreatedDate()));
 
-        );
+         List<IndividualCustomer> customers = individualCustomerRepository.findAll(spec);
+
+         return customers.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
+
+
+    private SearchIndividualCustomerResponseDto convertToDto(IndividualCustomer customer) {
+        // todo liste dönebilir
+        ContactMedium contactMedium = customer.getContactMediumList().isEmpty() ? null : customer.getContactMediumList().get(0);
+
+        SearchIndividualCustomerResponseDto responseDto = new SearchIndividualCustomerResponseDto();
+
+        responseDto.setNatID(customer.getNatID());
+        responseDto.setCustomerId(customer.getId());
+        responseDto.setFirstName(customer.getFirstName());
+        responseDto.setLastName(customer.getLastName());
+
+        if (contactMedium != null) {
+            if (contactMedium.getHomePhone() != null) {
+                responseDto.setPhoneNo(contactMedium.getHomePhone());
+            } else {
+                responseDto.setPhoneNo(contactMedium.getMobilePhone());
+            }
+        } else {
+            responseDto.setPhoneNo(null);
+        }
+
+        if (contactMedium != null) {
+            responseDto.setEmail(contactMedium.getEmail());
+        } else {
+            responseDto.setEmail(null);
+        }
+
+        responseDto.setCreatedDate(customer.getCreatedDate());
+        responseDto.setActive(customer.getDeletedDate() == null ? true : false);
+        return responseDto;
+    }
+
+
+
 }

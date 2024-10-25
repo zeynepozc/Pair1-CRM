@@ -1,1 +1,72 @@
-<p>create-customer works!</p>
+<div class="max-w-7xl mx-auto p-6 bg-gray-50 min-h-screen">
+    <!-- Tabs Section -->
+    <div class="flex space-x-4 border-b mb-6">
+      <button class="pb-2 text-gray-700 font-semibold border-b-4 border-gray-700">Customer Info</button>
+      <button class="pb-2 text-gray-500 font-semibold">Address</button>
+      <button class="pb-2 text-gray-500 font-semibold">Contact Medium</button>
+      <button class="pb-2 text-gray-500 font-semibold">Customer Account</button>
+    </div>
+  
+    <!-- Create Customer Form -->
+    <h2 class="text-lg font-bold mb-4">Create Customer</h2>
+  
+    <form [formGroup]="form" class="grid grid-cols-2 gap-6">
+      <!-- First Name and Middle Name -->
+      <div class="col-span-1">
+        <label for="firstName" class="block text-gray-700">First Name*</label>
+        <input formControlName="firstName" id="firstName" type="text" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+  
+      <div class="col-span-1">
+        <label for="middleName" class="block text-gray-700">Middle Name</label>
+        <input formControlName="middleName" id="middleName" type="text" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+  
+      <!-- Last Name and Birth Date -->
+      <div class="col-span-1">
+        <label for="lastName" class="block text-gray-700">Last Name*</label>
+        <input formControlName="lastName" id="lastName" type="text" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+  
+      <div class="col-span-1">
+        <label for="birthDate" class="block text-gray-700">Birth Date*</label>
+        <input formControlName="birthDate" id="birthDate" type="date" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+  
+      <!-- Gender and Father Name -->
+      <div class="col-span-1">
+        <label for="gender" class="block text-gray-700">Gender*</label>
+        <select formControlName="gender" id="gender" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+  
+      <div class="col-span-1">
+        <label for="fatherName" class="block text-gray-700">Father Name*</label>
+        <input formControlName="fatherName" id="fatherName" type="text" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+  
+      <!-- Mother Name and Nationality ID -->
+      <div class="col-span-1">
+        <label for="motherName" class="block text-gray-700">Mother Name*</label>
+        <input formControlName="motherName" id="motherName" type="text" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+  
+      <div class="col-span-1">
+        <label for="nationalityId" class="block text-gray-700">Nationality ID*</label>
+        <div class="flex items-center">
+          <input formControlName="natID" id="nationalityId" type="text" class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input type="checkbox" class="ml-2">
+        </div>
+      </div>
+    </form>
+  
+    <!-- Action Buttons -->
+    <div class="mt-6 flex justify-end space-x-4">
+      <button class="px-4 py-2 text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300">Cancel</button>
+      <button (click)="submitForm()" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">Next</button>
+    </div>
+  </div>
+  

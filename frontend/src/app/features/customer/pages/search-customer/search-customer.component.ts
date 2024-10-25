@@ -18,12 +18,12 @@ import { CustomerSearchResponse } from '../../models/customerSearchResponse';
 })
 export class SearchCustomerComponent implements OnInit {
   form!: FormGroup;
-  searchData!: CustomerSearchRequest;
+  searchData!: CustomerSearchRequest[];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private customerService: CustomerService,
-  ) {}
+    constructor(
+      private formBuilder: FormBuilder,
+      private customerService: CustomerService,
+    ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -31,13 +31,13 @@ export class SearchCustomerComponent implements OnInit {
 
   buildForm(): void {
     this.form = this.formBuilder.group({
-      natId: ['', []], 
+      natId: [null, []], 
       customerId: [null, []], 
-      firstName: ['', []], 
-      lastName: ['', []],
-      phoneNo: new FormControl('', Validators.pattern(/^(\+?\d{1,3})?[-.\s]?\d{10}$/)), 
-      email: new FormControl('', [Validators.email]), 
-      isActive: [false, []], 
+      firstName: [null, []], 
+      lastName: [null, []],
+      phoneNo: [null, [Validators.pattern(/^(\+?\d{1,3})?[-.\s]?\d{10}$/)]], 
+      email: [null, [Validators.email]], 
+      isActive: [null, []], 
       createdDate: [null, []] 
     });
   }
@@ -48,7 +48,6 @@ export class SearchCustomerComponent implements OnInit {
 
       return;
     }
-    // en az bir alan dolacak
     const isAnyFieldFilled = Object.values(this.form.controls).some(
       (control) => control.value !== null && control.value !== '' && control.value !== false
     );
@@ -58,17 +57,19 @@ export class SearchCustomerComponent implements OnInit {
       return;
     }
     
-    this.searchData = this.form.value as CustomerSearchRequest;
-
-    console.log('Arama Verisi:', this.searchData);
+    console.log('Arama Verisi:', this.form.value);
   
-    this.customerService.searchCustomer(this.searchData).subscribe({
-      next:(response:CustomerSearchResponse)=> {
-        console.log("Başarılı");
+    this.customerService.searchCustomer(this.form.value as CustomerSearchRequest).subscribe({
+      next:(response:CustomerSearchResponse[])=> {
         console.log(response);
-        
+        this.searchData = response;
       }
     })
+  }
+
+  clearForm(){
+    console.log("clear");
+    this.form.reset();
   }
 
   hasError(controlName: string) {
@@ -81,4 +82,5 @@ export class SearchCustomerComponent implements OnInit {
     return this.form.valid;
   }
   
+
 }
