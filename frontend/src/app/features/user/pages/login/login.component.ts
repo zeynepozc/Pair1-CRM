@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,7 +17,7 @@ import { StorageService } from '../../../../shared/services/storage.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form!: FormGroup;
   // Reactive Forms
   constructor(
@@ -52,6 +52,7 @@ export class LoginComponent {
       next: (response: TokenResponse) => {
         console.log('Giriş başarılı token alındı:', response);
         this.storageService.set('token', response.token);
+        this.router.navigateByUrl('/customer/search-customer');
       },
     });
   }
