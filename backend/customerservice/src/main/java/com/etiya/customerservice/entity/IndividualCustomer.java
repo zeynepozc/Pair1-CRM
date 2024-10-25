@@ -40,4 +40,5 @@ public class IndividualCustomer extends Customer
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
 }

@@ -2,11 +2,9 @@ package com.etiya.customerservice.controller;
 
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.dto.request.individualCustomer.CreateIndividualCustomerRequestDto;
+import com.etiya.customerservice.service.dto.request.individualCustomer.SearchIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.UpdateIndividualCustomerRequestDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.CreateIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.GetByIdIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.ListIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.UpdateIndividualCustomerResponseDto;
+import com.etiya.customerservice.service.dto.response.individualCustomer.*;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +34,13 @@ public class IndividualCustomersController {
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+  }
+
+  @PostMapping("/search")
+  public ResponseEntity<List<SearchIndividualCustomerResponseDto>> searchByFilters(@RequestBody SearchIndividualCustomerRequestDto individualCustomerRequestDto){
+    List<SearchIndividualCustomerResponseDto> customerResponseDtoList = individualCustomerService.searchByFilters(individualCustomerRequestDto);
+
+    return ResponseEntity.status(HttpStatus.OK).body(customerResponseDtoList);
   }
 
   @PostMapping

@@ -5,11 +5,9 @@ import com.etiya.customerservice.mapper.IndividualCustomerMapper;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.dto.request.individualCustomer.CreateIndividualCustomerRequestDto;
+import com.etiya.customerservice.service.dto.request.individualCustomer.SearchIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.UpdateIndividualCustomerRequestDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.CreateIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.GetByIdIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.ListIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.UpdateIndividualCustomerResponseDto;
+import com.etiya.customerservice.service.dto.response.individualCustomer.*;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -55,5 +53,20 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
     @Override
     public void delete(Long id) {
         individualCustomerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<SearchIndividualCustomerResponseDto> searchByFilters(SearchIndividualCustomerRequestDto dto){
+        return individualCustomerRepository.searchCustomers(
+                dto.getNatId(),
+                dto.getCustomerId(),
+                dto.getFirstName(),
+                dto.getLastName(),
+                dto.getPhoneNo(),
+                dto.getEmail(),
+                dto.isActive(),
+                dto.getCreatedDate()
+
+        );
     }
 }

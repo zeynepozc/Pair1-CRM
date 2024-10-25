@@ -3,10 +3,7 @@ package com.etiya.customerservice.mapper;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.service.dto.request.individualCustomer.CreateIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.UpdateIndividualCustomerRequestDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.CreateIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.GetByIdIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.ListIndividualCustomerResponseDto;
-import com.etiya.customerservice.service.dto.response.individualCustomer.UpdateIndividualCustomerResponseDto;
+import com.etiya.customerservice.service.dto.response.individualCustomer.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -29,4 +26,6 @@ public abstract class IndividualCustomerMapper {
 
     public abstract ListIndividualCustomerResponseDto individualCustomerToIndividualCustomerResponseDto(IndividualCustomer individualCustomer);
 
+    // todo
+    public abstract List<SearchIndividualCustomerResponseDto> searchIndividualCustomerResponseDtoFromIndividualCustomer(List<IndividualCustomer> individualCustomerList);
 }
