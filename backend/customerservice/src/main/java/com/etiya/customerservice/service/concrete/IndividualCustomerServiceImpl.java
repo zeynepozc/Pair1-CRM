@@ -68,7 +68,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
                         .and(CustomerSpecifications.hasLastName(dto.getLastName()))
                         .and(CustomerSpecifications.hasPhoneNo(dto.getPhoneNo()))
                         .and(CustomerSpecifications.hasEmail(dto.getEmail()))
-                        .and(CustomerSpecifications.isActive(dto.isActive()))
+                        .and(CustomerSpecifications.isActive(dto.getIsActive()))
                         .and(CustomerSpecifications.hasCreatedDate(dto.getCreatedDate()));
 
          List<IndividualCustomer> customers = individualCustomerRepository.findAll(spec);
@@ -107,7 +107,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
         }
 
         responseDto.setCreatedDate(customer.getCreatedDate());
-        responseDto.setActive(customer.getDeletedDate() == null ? true : false);
+        responseDto.setIsActive(customer.getDeletedDate() == null ? true : false);
         return responseDto;
     }
 

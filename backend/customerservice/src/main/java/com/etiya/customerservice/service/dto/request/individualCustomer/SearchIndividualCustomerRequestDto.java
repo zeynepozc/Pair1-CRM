@@ -18,7 +18,7 @@ public class SearchIndividualCustomerRequestDto {
     private String lastName;
     private String phoneNo;
     private String email;
-    @JsonProperty("isActive")
-    private boolean isActive;
+    // @JsonProperty("isActive")
+    private Boolean isActive;
     private LocalDateTime createdDate;
 }

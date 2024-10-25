@@ -82,7 +82,7 @@ public class CustomerSpecifications {
             if (isActive == null) {
                 return criteriaBuilder.conjunction();
             }
-            return isActive ? criteriaBuilder.isNull(root.get("deletedDate")) : criteriaBuilder.conjunction();
+            return isActive ? criteriaBuilder.isNull(root.get("deletedDate")) : criteriaBuilder.isNotNull(root.get("deletedDate"));
         };
     }
 
