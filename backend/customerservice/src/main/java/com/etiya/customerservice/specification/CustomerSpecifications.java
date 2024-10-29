@@ -13,7 +13,7 @@ public class CustomerSpecifications {
 
     public static Specification<IndividualCustomer> hasNatId(String natId) {
         return (root, query, criteriaBuilder) -> {
-            if (natId == null) {
+            if (natId == null || natId.isBlank()) {
                 return criteriaBuilder.conjunction();
             }
             return criteriaBuilder.equal(root.get("natID"), natId);
@@ -31,7 +31,7 @@ public class CustomerSpecifications {
 
     public static Specification<IndividualCustomer> hasFirstName(String firstName) {
         return (root, query, criteriaBuilder) -> {
-            if (firstName == null) {
+            if (firstName == null || firstName.isBlank()) {
                 return criteriaBuilder.conjunction();
             }
 
@@ -42,7 +42,7 @@ public class CustomerSpecifications {
 
     public static Specification<IndividualCustomer> hasLastName(String lastName) {
         return (root, query, criteriaBuilder) -> {
-            if (lastName == null) {
+            if (lastName == null || lastName.isBlank()) {
                 return criteriaBuilder.conjunction();
             }
             return criteriaBuilder.equal(root.get("lastName"), lastName);
@@ -51,7 +51,7 @@ public class CustomerSpecifications {
 
     public static Specification<IndividualCustomer> hasPhoneNo(String phoneNo) {
         return (root, query, criteriaBuilder) -> {
-            if (phoneNo == null) {
+            if (phoneNo == null || phoneNo.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
             Join<IndividualCustomer, ContactMedium> contactMediumJoin =
@@ -66,7 +66,7 @@ public class CustomerSpecifications {
 
     public static Specification<IndividualCustomer> hasEmail(String email) {
         return (root, query, criteriaBuilder) -> {
-            if (email == null) {
+            if (email == null || email.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
             Join<IndividualCustomer, ContactMedium> contactMediumJoin =
