@@ -92,13 +92,16 @@
         <label for="isActive" class="block text-sm font-medium text-gray-700"
           >Is Active:</label
         >
-        <input
+        <select
           id="isActive"
-          type="checkbox"
-          class="mt-1 block w-full h-full border border-gray-300 rounded-md"
+          class="mt-1 block w-full border border-gray-300 rounded-md"
           name="isActive"
           formControlName="isActive"
-        />
+        >
+          <option value="" disabled selected>Select an option</option>
+          <option [value]="true">True</option>
+          <option [value]="false">False</option>
+        </select>
       </div>
 
       <div class="col-span-1">
@@ -118,15 +121,25 @@
 
   <div class="flex justify-end mt-4">
     <button
-      class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded mr-2"
+      class="text-white font-bold py-2 px-4 rounded mr-2"
       (click)="clearForm()"
+      [disabled]="!isAnyFieldFilled()"
+      [ngClass]="{
+        'bg-gray-500 hover:bg-gray-600': isAnyFieldFilled(),
+        'bg-gray-400 cursor-not-allowed': !isAnyFieldFilled()
+      }"
     >
       Clear
     </button>
     <button
       type="submit"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      class="text-white font-bold py-2 px-4 rounded"
       (click)="submitForm()"
+      [disabled]="!isAnyFieldFilled()"
+      [ngClass]="{
+        'bg-blue-600 hover:bg-blue-700': isAnyFieldFilled(),
+        'bg-gray-400 cursor-not-allowed': !isAnyFieldFilled()
+      }"
     >
       Search
     </button>
@@ -134,7 +147,7 @@
 </div>
 
 <div class="relative overflow-x-auto sm:rounded-lg max-w-7xl mx-auto p-6">
-  @if (searchData) {
+  @if (searchData && searchData.length > 0) {
   <h2 class="mb-4">Search Result</h2>
   <hr />
 
@@ -301,12 +314,11 @@
     </tbody>
   </table>
   } @else {
-    <button
-      routerLink="/customer/create-customer"
-      
-      class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    >
-      Create Customer
-    </button>
+  <button
+    routerLink="/customer/create-customer"
+    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Create Customer
+  </button>
   }
 </div>

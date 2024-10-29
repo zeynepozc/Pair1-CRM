@@ -2,7 +2,7 @@ package com.etiya.customerservice.specification;
 
 import com.etiya.customerservice.entity.ContactMedium;
 import com.etiya.customerservice.entity.IndividualCustomer;
-import com.etiya.customerservice.helper.StringFormatter;
+import com.etiya.customerservice.helper.Formatter;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,7 +16,9 @@ public class CustomerSpecifications {
             if (natId == null || natId.isBlank()) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("natID"), natId);
+            String pattern = Formatter.formatString(natId);
+
+            return criteriaBuilder.equal(root.get("natID"), pattern);
         };
     }
 
@@ -35,7 +37,7 @@ public class CustomerSpecifications {
                 return criteriaBuilder.conjunction();
             }
 
-            String pattern = StringFormatter.formatInput(firstName);
+            String pattern = Formatter.formatString(firstName);
             return criteriaBuilder.like(root.get("firstName"), pattern);
         };
     }
@@ -45,7 +47,8 @@ public class CustomerSpecifications {
             if (lastName == null || lastName.isBlank()) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("lastName"), lastName);
+            String pattern = Formatter.formatString(lastName);
+            return criteriaBuilder.like(root.get("lastName"), pattern);
         };
     }
 
@@ -54,11 +57,12 @@ public class CustomerSpecifications {
             if (phoneNo == null || phoneNo.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
+            String pattern = Formatter.formatString(phoneNo);
             Join<IndividualCustomer, ContactMedium> contactMediumJoin =
                     root.join("contactMediumList", JoinType.LEFT);
             return criteriaBuilder.or(
-                    criteriaBuilder.equal(contactMediumJoin.get("homePhone"), phoneNo),
-                    criteriaBuilder.equal(contactMediumJoin.get("mobilePhone"), phoneNo)
+                    criteriaBuilder.like(contactMediumJoin.get("homePhone"), pattern),
+                    criteriaBuilder.like(contactMediumJoin.get("mobilePhone"), pattern)
             );
         };
     }
@@ -69,9 +73,11 @@ public class CustomerSpecifications {
             if (email == null || email.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
+            String pattern = Formatter.formatString(email);
+
             Join<IndividualCustomer, ContactMedium> contactMediumJoin =
                     root.join("contactMediumList", JoinType.LEFT);
-            return criteriaBuilder.equal(contactMediumJoin.get("email"), email);
+            return criteriaBuilder.like(contactMediumJoin.get("email"), pattern);
         };
     }
 

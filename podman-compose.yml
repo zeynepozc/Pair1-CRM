@@ -14,7 +14,7 @@ services:
     networks:
       - common
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -46,10 +46,18 @@ services:
     volumes:
       - mongo_data:/data/db
     networks:
-       - common
+      - common
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    networks:
+      - common
 
   configserver:
     container_name: configserver
+    build: "./backend/configserver"
     image: "localhost/configserver"
     ports:
       - 8001:8001
@@ -71,6 +79,7 @@ services:
 
   eureka:
     container_name: eureka
+    build: "./backend/eureka"
     image: "localhost/eureka"
     ports:
       - 8888:8888
@@ -85,13 +94,14 @@ services:
       configserver:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
       interval: 5s
       timeout: 10s
       retries: 5
 
   gateway:
     container_name: gateway
+    build: "./backend/gateway"
     image: "localhost/gateway"
     ports:
       - 8090:8090
@@ -110,6 +120,7 @@ services:
 
   customerservice:
     container_name: customerservice
+    build: "./backend/customerservice"
     image: "localhost/customerservice"
     ports:
       - 8081:8081
@@ -127,6 +138,7 @@ services:
 
   productservice:
     container_name: productservice
+    build: "./backend/productservice"
     image: "localhost/productservice"
     ports:
       - 8080:8080
@@ -144,6 +156,7 @@ services:
 
   userservice:
     container_name: userservice
+    build: "./backend/userservice"
     image: "localhost/userservice"
     ports:
       - 8083:8083
