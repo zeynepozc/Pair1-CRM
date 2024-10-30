@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CustomerService } from '../../../../shared/services/customer.service';
+import { CustomerService } from '../../services/customer.service';
 import { CustomerSearchResponse } from '../../models/customerSearchResponse';
 
 @Component({

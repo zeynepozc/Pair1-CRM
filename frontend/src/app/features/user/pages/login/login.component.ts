@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { TokenResponse } from '../../../../shared/models/auth/loginResponse';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../shared/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../../../shared/services/storage.service';
 
 @Component({
