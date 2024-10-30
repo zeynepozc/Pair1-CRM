@@ -8,8 +8,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CustomerService } from '../../../../shared/services/customer.service';
+import { CustomerService } from '../../services/customer.service';
 import { CustomerSearchResponse } from '../../models/customerSearchResponse';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-search-customer',
@@ -76,7 +77,6 @@ export class SearchCustomerComponent implements OnInit {
     console.log('clear');
     this.form.reset();
     this.searchData = [];
-    console.log(this.searchData);
   }
 
   hasError(controlName: string) {

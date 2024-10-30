@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { TokenResponse } from '../../../../shared/models/auth/loginResponse';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../shared/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../../../shared/services/storage.service';
 
 @Component({
@@ -19,6 +19,7 @@ import { StorageService } from '../../../../shared/services/storage.service';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  errorMessage: string | null = null;
   // Reactive Forms
   constructor(
     private formBuilder: FormBuilder,
@@ -53,6 +54,9 @@ export class LoginComponent implements OnInit {
         console.log('Giriş başarılı token alındı:', response);
         this.storageService.set('token', response.token);
         this.router.navigateByUrl('/customer/search-customer');
+      },
+      error: (error) => {
+        this.errorMessage = error.error;
       },
     });
   }

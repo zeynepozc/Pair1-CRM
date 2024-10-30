@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Getter
@@ -41,6 +42,18 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    @Column(name = "login_attempts")
+    private Integer loginAttempts = 0;
+
+    @Column(name = "account_locked")
+    private Boolean accountLocked = false;
+
+    @Column(name = "locked_date")
+    private LocalDateTime lockedDate;
+    @Override
+    public boolean isAccountNonLocked() {
+        return !accountLocked;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

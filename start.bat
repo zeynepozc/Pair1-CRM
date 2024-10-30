@@ -3,6 +3,18 @@ chcp 65001>nul
 
 setlocal enabledelayedexpansion
 
+:: GitHub pull islemi sorusu
+set /p pull_option="Github'dan guncellemeleri cekmek istiyor musunuz? Evet icin 1, Hayir icin 2 giriniz: "
+
+if "%pull_option%"=="1" (
+    echo GitHub'dan guncellemeler cekiliyor...
+    git pull origin master
+    if errorlevel 1 (
+        echo GitHub'dan guncellemeler alinamadi. Islemi iptal ediyorum...
+        exit /b 1
+    )
+)
+
 echo Mevcut containerlar durduruluyor...
 podman compose -f podman-compose.yml down 
 

@@ -122,6 +122,7 @@
   <div class="flex justify-end mt-4">
     <button
       class="text-white font-bold py-2 px-4 rounded mr-2"
+      id="clear-button"
       (click)="clearForm()"
       [disabled]="!isAnyFieldFilled()"
       [ngClass]="{
@@ -134,6 +135,7 @@
     <button
       type="submit"
       class="text-white font-bold py-2 px-4 rounded"
+      id="search-button"
       (click)="submitForm()"
       [disabled]="!isAnyFieldFilled()"
       [ngClass]="{
@@ -307,7 +309,7 @@
         </td>
         <td class="px-6 py-4">@if(key.isActive){ True }@else { False }</td>
         <td class="px-6 py-4">
-          {{ key.createdDate | date : "dd/MM/yyyy, h:mm a" }}
+          {{ key.createdDate | date : "dd/MM/yyyy" }}
         </td>
       </tr>
       }
@@ -316,6 +318,7 @@
   } @else {
   <button
     routerLink="/customer/create-customer"
+    id="create-customer"
     class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
   >
     Create Customer

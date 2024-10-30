@@ -15,7 +15,6 @@ import org.hibernate.annotations.SQLRestriction;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-@SQLRestriction(value = "deleted_date IS NULL")
 public class Customer extends BaseEntity
 {
     @Id
