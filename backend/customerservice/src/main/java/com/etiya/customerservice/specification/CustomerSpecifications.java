@@ -18,7 +18,7 @@ public class CustomerSpecifications {
             }
             String pattern = Formatter.formatString(natId);
 
-            return criteriaBuilder.equal(root.get("natID"), pattern);
+            return criteriaBuilder.like(root.get("natID"), pattern);
         };
     }
 
