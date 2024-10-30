@@ -7,6 +7,7 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class CustomerSpecifications {
@@ -92,12 +93,17 @@ public class CustomerSpecifications {
         };
     }
 
-    public static Specification<IndividualCustomer> hasCreatedDate(LocalDateTime createdDate) {
+    public static Specification<IndividualCustomer> hasCreatedDate(LocalDate createdDate) {
         return (root, query, criteriaBuilder) -> {
             if (createdDate == null) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("createdDate"), createdDate);
+            LocalDateTime startDateTime = createdDate.atStartOfDay();
+            LocalDateTime endDateTime = createdDate.plusDays(1).atStartOfDay();
+            return criteriaBuilder.and(
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("createdDate"), startDateTime),
+                    criteriaBuilder.lessThan(root.get("createdDate"), endDateTime)
+            );
         };
     }
 }

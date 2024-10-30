@@ -1,5 +1,6 @@
 package com.etiya.userservice.service.user;
 
+import com.etiya.userservice.entity.User;
 import com.etiya.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(""));
+                .orElseThrow(() -> new UsernameNotFoundException("Email veya sifre hatali."));
     }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+
 }

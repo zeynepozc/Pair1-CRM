@@ -19,6 +19,7 @@ import { StorageService } from '../../../../shared/services/storage.service';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  errorMessage: string | null = null;
   // Reactive Forms
   constructor(
     private formBuilder: FormBuilder,
@@ -53,6 +54,9 @@ export class LoginComponent implements OnInit {
         console.log('Giriş başarılı token alındı:', response);
         this.storageService.set('token', response.token);
         this.router.navigateByUrl('/customer/search-customer');
+      },
+      error: (error) => {
+        this.errorMessage = error.error;
       },
     });
   }
