@@ -32,7 +32,7 @@ export class SearchCustomerComponent implements OnInit {
 
   buildForm(): void {
     this.form = this.formBuilder.group({
-      natId: [null, []],
+      natID: [null, []],
       customerId: [null, []],
       firstName: [null, []],
       lastName: [null, []],
