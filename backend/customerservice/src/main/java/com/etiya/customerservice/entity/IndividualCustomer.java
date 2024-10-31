@@ -18,7 +18,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "customer_id")
 public class IndividualCustomer extends Customer
 {
-    @Column(name = "nat_ID")
+    @Column(name = "nat_ID", unique = true)
     private String natID;
 
     @Column(name = "first_name")
@@ -41,8 +41,5 @@ public class IndividualCustomer extends Customer
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
-
-    @OneToMany(mappedBy = "customer")
-    private List<ContactMedium> contactMediumList;
 
 }

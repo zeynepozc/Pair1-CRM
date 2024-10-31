@@ -24,4 +24,5 @@ public class ContactAddress {
     @ManyToOne
     @JoinColumn(name = "neighborhood_id")
     private Neighborhood neighborhood;
+
 }

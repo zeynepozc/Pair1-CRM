@@ -4,6 +4,7 @@ import com.etiya.customerservice.entity.ContactMedium;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.mapper.IndividualCustomerMapper;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
+import com.etiya.customerservice.service.abstracts.ContactMediumService;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.dto.request.individualCustomer.CreateIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.SearchIndividualCustomerRequestDto;
@@ -26,6 +27,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
 {
     private final IndividualCustomerRepository individualCustomerRepository;
     private final IndividualCustomerMapper individualCustomerMapper;
+    private final ContactMediumService contactMediumService;
 
 
     @Override
@@ -42,14 +44,14 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
 
     @Override
     public CreateIndividualCustomerResponseDto add(CreateIndividualCustomerRequestDto createIndividualCustomerRequestDto) {
-        // todo check if the given city exists
+
         IndividualCustomer individualCustomer = individualCustomerMapper.individualCustomerFromCreateIndividualCustomerRequestDto(createIndividualCustomerRequestDto);
         return individualCustomerMapper.createIndividualCustomerResponseDtoFromIndividualCustomer(individualCustomerRepository.save(individualCustomer));
     }
 
     @Override
     public UpdateIndividualCustomerResponseDto update(UpdateIndividualCustomerRequestDto updateIndividualCustomerRequestDto) {
-        // todo check if the given city exists
+
         IndividualCustomer individualCustomer = individualCustomerMapper.individualCustomerFromUpdateIndividualCustomerRequestDto(updateIndividualCustomerRequestDto);
         individualCustomer = individualCustomerRepository.save(individualCustomer);
         return individualCustomerMapper.updateIndividualCustomerResponseDtoFromIndividualCustomer(individualCustomer);
@@ -78,10 +80,9 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
                 .collect(Collectors.toList());
     }
 
-
     private SearchIndividualCustomerResponseDto convertToDto(IndividualCustomer customer) {
-        // todo liste dönebilir
-        ContactMedium contactMedium = customer.getContactMediumList().isEmpty() ? null : customer.getContactMediumList().get(0);
+
+        ContactMedium contactMedium = contactMediumService.findByCustomerId(customer.getId()).get();
 
         SearchIndividualCustomerResponseDto responseDto = new SearchIndividualCustomerResponseDto();
 

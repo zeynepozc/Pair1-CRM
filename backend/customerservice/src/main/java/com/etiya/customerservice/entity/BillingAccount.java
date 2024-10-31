@@ -22,7 +22,7 @@ public class BillingAccount extends BaseEntity {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_account_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_account_id", referencedColumnName = "id", unique=true)
     private CustomerAccount customerAccount;
 
     @Column(name = "billing_date")

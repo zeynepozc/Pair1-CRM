@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.abstracts;
 
+import com.etiya.customerservice.entity.ContactMedium;
 import com.etiya.customerservice.service.dto.request.contactMedium.CreateContactMediumRequestDto;
 import com.etiya.customerservice.service.dto.request.contactMedium.UpdateContactMediumRequestDto;
 import com.etiya.customerservice.service.dto.response.contactMedium.CreateContactMediumResponseDto;
@@ -8,6 +9,7 @@ import com.etiya.customerservice.service.dto.response.contactMedium.ListContactM
 import com.etiya.customerservice.service.dto.response.contactMedium.UpdateContactMediumResponseDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ContactMediumService {
     List<ListContactMediumResponseDto> getAll();
@@ -15,4 +17,7 @@ public interface ContactMediumService {
     CreateContactMediumResponseDto add(CreateContactMediumRequestDto dto);
     UpdateContactMediumResponseDto update(UpdateContactMediumRequestDto dto);
     void delete(Long id);
+
+    Optional<ContactMedium> findByCustomerId(Long id);
+
 }

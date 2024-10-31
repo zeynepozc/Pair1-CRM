@@ -54,4 +54,9 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     public void delete(Long id) {
         contactMediumRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<ContactMedium> findByCustomerId(Long id){
+       return contactMediumRepository.findByCustomerId(id);
+    }
 }

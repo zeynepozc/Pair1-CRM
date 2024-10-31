@@ -26,4 +26,7 @@ public class ContactMediumAddress extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "contact_address_id")
     private ContactAddress contactAddress;
+
+    @Column(name = "primary_address")
+    private Boolean primaryAddress;
 }

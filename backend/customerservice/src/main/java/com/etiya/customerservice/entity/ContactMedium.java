@@ -19,8 +19,8 @@ public class ContactMedium extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @OneToOne
+    @JoinColumn(name = "customer_id", unique=true)
     private Customer customer;
 
     @Column(name = "email")

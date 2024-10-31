@@ -3,8 +3,9 @@ import { CanActivateFn, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  console.log('Guard kontrolü yapılıyor..');
 
+  console.log('Guard kontrolü yapılıyor..');
+  return true;
   const router = inject(Router);
   const storageService = inject(StorageService);
   //token validasyonu yap
@@ -13,5 +14,5 @@ export const authGuard: CanActivateFn = (route, state) => {
     router.navigateByUrl('/user/login');
     return false;
   }
-  return true;
+  //return true;
 };

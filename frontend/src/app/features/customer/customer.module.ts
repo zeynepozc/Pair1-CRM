@@ -8,9 +8,22 @@ import { SearchCustomerComponent } from './pages/search-customer/search-customer
 import { ListCustomerComponent } from './components/list-customer/list-customer.component';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 import { CreateCustomerComponent } from './pages/create-customer/create-customer.component';
+import { CustomerInfoComponent } from './components/customer-info/customer-info.component';
+import { CustomerAccountComponent } from './components/customer-account/customer-account.component';
+import { AddressComponent } from './components/address/address.component';
+import { ContactMediumComponent } from './components/contact-medium/contact-medium.component';
 
 @NgModule({
-  declarations: [SearchCustomerComponent,ListCustomerComponent,SearchFilterComponent,CreateCustomerComponent],
+  declarations: [
+    SearchCustomerComponent,
+    ListCustomerComponent,
+    SearchFilterComponent,
+    CreateCustomerComponent,
+    CustomerInfoComponent,
+    CustomerAccountComponent,
+    AddressComponent,
+    ContactMediumComponent,
+  ],
   imports: [
     CommonModule,
     CustomerRoutingModule,

@@ -5,6 +5,8 @@ import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.helper.Formatter;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
@@ -59,12 +61,19 @@ public class CustomerSpecifications {
                 return criteriaBuilder.conjunction();
             }
             String pattern = Formatter.formatString(phoneNo);
-            Join<IndividualCustomer, ContactMedium> contactMediumJoin =
-                    root.join("contactMediumList", JoinType.LEFT);
-            return criteriaBuilder.or(
-                    criteriaBuilder.like(contactMediumJoin.get("homePhone"), pattern),
-                    criteriaBuilder.like(contactMediumJoin.get("mobilePhone"), pattern)
-            );
+            Subquery<Long> subquery = query.subquery(Long.class);
+            Root<ContactMedium> contactRoot = subquery.from(ContactMedium.class);
+
+            subquery.select(contactRoot.get("customer").get("id"))
+                    .where(criteriaBuilder.and(
+                            criteriaBuilder.equal(contactRoot.get("customer").get("id"), root.get("id")),
+                            criteriaBuilder.or(
+                                    criteriaBuilder.like(contactRoot.get("homePhone"), pattern),
+                                    criteriaBuilder.like(contactRoot.get("mobilePhone"), pattern)
+                            )
+                    ));
+
+            return criteriaBuilder.exists(subquery);
         };
     }
 
@@ -76,9 +85,16 @@ public class CustomerSpecifications {
             }
             String pattern = Formatter.formatString(email);
 
-            Join<IndividualCustomer, ContactMedium> contactMediumJoin =
-                    root.join("contactMediumList", JoinType.LEFT);
-            return criteriaBuilder.like(contactMediumJoin.get("email"), pattern);
+            Subquery<Long> subquery = query.subquery(Long.class);
+            Root<ContactMedium> contactRoot = subquery.from(ContactMedium.class);
+
+            subquery.select(contactRoot.get("customer").get("id"))
+                    .where(criteriaBuilder.and(
+                            criteriaBuilder.equal(contactRoot.get("customer").get("id"), root.get("id")),
+                            criteriaBuilder.like(contactRoot.get("email"), pattern)
+                    ));
+
+            return criteriaBuilder.exists(subquery);
         };
     }
 
