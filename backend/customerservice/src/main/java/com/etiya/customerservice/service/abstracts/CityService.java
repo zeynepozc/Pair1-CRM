@@ -9,10 +9,13 @@ import com.etiya.customerservice.service.dto.response.city.UpdateCityResponseDto
 
 import java.util.List;
 
+import com.etiya.customerservice.entity.City;
 public interface CityService {
     List<ListCityResponseDto> getAll();
     GetByIdCityResponseDto getById(Long id);
     CreateCityResponseDto add(CreateCityRequestDto dto);
     UpdateCityResponseDto update(UpdateCityRequestDto dto);
     void delete(Long id);
+
+    City add(City city);
 }

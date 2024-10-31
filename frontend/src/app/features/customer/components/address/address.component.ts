@@ -14,11 +14,7 @@ export class AddressComponent {
   selectedTab: string = 'Address';
   isModalOpen: boolean = false;
 
-  addresses: Address[] = [
-    { title: 'Ev adresi', description: 'Caferağa Mah. Martı Sok. Deniz Apt. 23/11 Hacı Bakkal yanı, Kadıköy/Istanbul' },
-    { title: 'Ev adresi2', description: 'Another Address' },
-    { title: 'Is adresi', description: 'Work Address' }
-  ];
+  addresses!: Address[];
 
   newAddress = { name: '', street: '', city: '', description: '' };
 
@@ -42,5 +38,14 @@ export class AddressComponent {
 
   selectTab(tab: string) {
     this.selectedTab = tab;
+  }
+  goToPreviousPage() {
+    // Logic to go to the previous page or section
+    console.log("Going to previous page...");
+  }
+  
+  goToNextPage() {
+    // Logic to go to the next page or section
+    console.log("Going to next page...");
   }
 }
