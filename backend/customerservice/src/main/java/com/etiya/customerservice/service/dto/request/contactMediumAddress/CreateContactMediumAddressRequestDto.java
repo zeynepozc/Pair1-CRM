@@ -16,4 +16,6 @@ public class CreateContactMediumAddressRequestDto {
 
     @NotNull
     private Long contactAddressId;
+
+    private Boolean primaryAddress;
 }

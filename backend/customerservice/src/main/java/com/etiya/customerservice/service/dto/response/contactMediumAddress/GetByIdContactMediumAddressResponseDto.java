@@ -12,5 +12,6 @@ import lombok.Setter;
 public class GetByIdContactMediumAddressResponseDto {
     private Long contactMediumId;
     private Long contactAddressId;
+    private Boolean primaryAddress;
 }
 

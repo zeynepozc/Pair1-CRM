@@ -13,5 +13,6 @@ public class ListContactMediumAddressResponseDto {
     private Long id;
     private Long contactMediumId;
     private Long contactAddressId;
+    private Boolean primaryAddress;
 }
 

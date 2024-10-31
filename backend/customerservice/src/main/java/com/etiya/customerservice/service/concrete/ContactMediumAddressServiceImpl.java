@@ -55,4 +55,10 @@ public class ContactMediumAddressServiceImpl implements ContactMediumAddressServ
     public void delete(Long id) {
         contactMediumAddressRepository.deleteById(id);
     }
+
+    // todo dto nesnesi
+    @Override
+    public GetByIdContactMediumAddressResponseDto getPrimaryAddressByCustomerId(Long customerId) {
+        return contactMediumAddressMapper.getByIdContactMediumAddressResponseDtoFromContactMediumAddress(contactMediumAddressRepository.findByContactMediumCustomerIdAndPrimaryAddressTrue(customerId));
+    }
 }

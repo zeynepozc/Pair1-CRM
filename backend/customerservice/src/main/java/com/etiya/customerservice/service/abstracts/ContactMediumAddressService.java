@@ -15,4 +15,6 @@ public interface ContactMediumAddressService {
     CreateContactMediumAddressResponseDto add(CreateContactMediumAddressRequestDto dto);
     UpdateContactMediumAddressResponseDto update(UpdateContactMediumAddressRequestDto dto);
     void delete(Long id);
+
+    GetByIdContactMediumAddressResponseDto getPrimaryAddressByCustomerId(Long customerId);
 }

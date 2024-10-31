@@ -13,4 +13,5 @@ public class CreateContactMediumAddressResponseDto {
     private Long id;
     private Long contactMediumId;
     private Long contactAddressId;
+    private Boolean primaryAddress;
 }

@@ -19,4 +19,6 @@ public class UpdateContactMediumAddressRequestDto {
 
     @NotNull
     private Long contactAddressId;
+
+    private Boolean primaryAddress;
 }

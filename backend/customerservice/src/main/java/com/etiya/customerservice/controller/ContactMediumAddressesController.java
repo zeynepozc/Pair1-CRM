@@ -72,5 +72,16 @@ public class ContactMediumAddressesController {
         }
     }
 
+    @GetMapping("/primary/{customerId}")
+    public ResponseEntity<GetByIdContactMediumAddressResponseDto> getPrimaryAddressByCustomerId(@PathVariable Long customerId) {
+        GetByIdContactMediumAddressResponseDto contactMediumAddressDto = contactMediumAddressService.getPrimaryAddressByCustomerId(customerId);
+
+        if (contactMediumAddressDto != null) {
+            return ResponseEntity.ok(contactMediumAddressDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 
 }
