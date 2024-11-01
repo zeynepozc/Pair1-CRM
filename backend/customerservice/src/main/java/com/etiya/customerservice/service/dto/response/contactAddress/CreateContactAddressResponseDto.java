@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateContactAddressResponseDto {
     private Long id;
+    private String name;
     private String addressDesc;
     private Long neighborhoodId;
 }

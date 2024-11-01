@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCityResponseDto {
+    public Long id;
     public String cityName;
     public Short countryId;
 }

@@ -12,6 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateContactAddressRequestDto {
+
+    @NotEmpty
+    private String name;
+
     @NotEmpty
     private String addressDesc;
 

@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateContactAddressResponseDto {
     private Long id;
+    private String name;
     private String addressDesc;
     private Long neighborhoodId;
 }

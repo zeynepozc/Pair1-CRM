@@ -15,6 +15,8 @@ public class UpdateContactAddressRequestDto {
     @NotEmpty
     private Long id;
     @NotEmpty
+    private String name;
+    @NotEmpty
     private String addressDesc;
     @NotNull
     private Long neighborhoodId;

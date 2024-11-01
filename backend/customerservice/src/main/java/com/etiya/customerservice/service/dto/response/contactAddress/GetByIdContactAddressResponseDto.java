@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetByIdContactAddressResponseDto {
+    private String name;
     private String addressDesc;
     private Long neighborhoodId;
 }

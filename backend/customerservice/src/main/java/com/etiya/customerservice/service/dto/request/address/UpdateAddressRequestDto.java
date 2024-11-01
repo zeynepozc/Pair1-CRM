@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateAddressRequestDto {
-    private Long customer;
+    private Long customerId;
     private String name;
     private String city;
     private String district;
