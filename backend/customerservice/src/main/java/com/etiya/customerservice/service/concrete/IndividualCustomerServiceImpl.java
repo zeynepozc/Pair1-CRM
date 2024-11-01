@@ -82,7 +82,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
 
     private SearchIndividualCustomerResponseDto convertToDto(IndividualCustomer customer) {
 
-        ContactMedium contactMedium = contactMediumService.findByCustomerId(customer.getId()).get();
+        Optional<ContactMedium> contactMedium = contactMediumService.findByCustomerId(customer.getId());
 
         SearchIndividualCustomerResponseDto responseDto = new SearchIndividualCustomerResponseDto();
 
@@ -91,19 +91,19 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
         responseDto.setFirstName(customer.getFirstName());
         responseDto.setLastName(customer.getLastName());
 
-        if (contactMedium != null) {
-            if (contactMedium.getHomePhone() != null) {
-                responseDto.setPhoneNo(contactMedium.getHomePhone());
+        if (contactMedium.isPresent()) {
+            if (contactMedium.get().getMobilePhone() != null) {
+                responseDto.setPhoneNo(contactMedium.get().getHomePhone());
             } else {
-                responseDto.setPhoneNo(contactMedium.getMobilePhone());
+                responseDto.setPhoneNo(null);
+            }
+            if (contactMedium.get().getEmail() != null) {
+                responseDto.setEmail(contactMedium.get().getEmail());
+            } else {
+                responseDto.setEmail(null);
             }
         } else {
             responseDto.setPhoneNo(null);
-        }
-
-        if (contactMedium != null) {
-            responseDto.setEmail(contactMedium.getEmail());
-        } else {
             responseDto.setEmail(null);
         }
 
