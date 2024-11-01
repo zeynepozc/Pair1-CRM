@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateAddressResponseDto {
+    private Long id;
     private Long customerId;
     private String name;
     private String city;

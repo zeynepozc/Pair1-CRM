@@ -29,21 +29,37 @@ public class AddressServiceImpl implements AddressService {
     private final ContactMediumService contactMediumService;
 
     @Override
-    public CreateContactAddressResponseDto add(CreateAddressRequestDto dto){
+    public CreateAddressResponseDto add(CreateAddressRequestDto dto){
+        CreateAddressResponseDto createAddressResponseDto = new CreateAddressResponseDto();
+        
         Optional<ContactMedium> contactMedium = contactMediumService.findByCustomerId(dto.getCustomerId());
-
+        if (contactMedium.isPresent()){
+            createAddressResponseDto.setCustomerId(dto.getCustomerId());
+        }
+        
         CreateCityRequestDto createCityRequestDto = new CreateCityRequestDto(dto.getCity(), (short) 1);
         CreateCityResponseDto createCityResponseDto = cityService.add(createCityRequestDto);
+        createAddressResponseDto.setCity(createCityResponseDto.getName());
 
         CreateDistrictRequestDto createDistrictRequestDto = new CreateDistrictRequestDto(dto.getDistrict(),createCityResponseDto.getId());
         CreateDistrictResponseDto createDistrictResponseDto = districtService.add(createDistrictRequestDto);
+        createAddressResponseDto.setDistrict(createDistrictResponseDto.getName());
 
         CreateNeighborhoodRequestDto createNeighborhoodRequestDto = new CreateNeighborhoodRequestDto(dto.getNeighborhood(),dto.getPostalCode(),dto.getHouseNo(),createDistrictResponseDto.getId());
         CreateNeighborhoodResponseDto createNeighborhoodResponseDto = neighborhoodService.add(createNeighborhoodRequestDto);
+        createAddressResponseDto.setNeighborhood(createNeighborhoodResponseDto.getName());
 
         CreateContactAddressRequestDto createContactAddressRequestDto = new CreateContactAddressRequestDto(dto.getName(),dto.getDescription(),createNeighborhoodResponseDto.getId());
+        CreateContactAddressResponseDto createContactAddressResponseDto = contactAddressService.add(createContactAddressRequestDto);
+        createAddressResponseDto.setDescription(createContactAddressResponseDto.getAddressDesc());
 
-        return contactAddressService.add(createContactAddressRequestDto);
+        createAddressResponseDto.setId(createContactAddressResponseDto.getId());
+        createAddressResponseDto.setName(dto.getName());
+        createAddressResponseDto.setPostalCode(dto.getPostalCode());
+        createAddressResponseDto.setHouseNo(dto.getHouseNo());
+
+
+        return createAddressResponseDto;
     }
 
 }

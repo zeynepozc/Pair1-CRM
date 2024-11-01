@@ -24,7 +24,7 @@ public abstract class CityMapper {
     @Mapping(source="countryId", target = "country.id")
     public abstract City cityFromUpdateCityRequestDto(UpdateCityRequestDto dto);
 
-    @Mapping(source="name", target = "cityName")
+    // @Mapping(source="name", target = "cityName")
     @Mapping(source="country.id", target = "countryId")
     public abstract CreateCityResponseDto createCityResponseDtoFromCity(City city);
 

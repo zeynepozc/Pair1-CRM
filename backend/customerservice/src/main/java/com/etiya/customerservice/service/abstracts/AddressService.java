@@ -5,5 +5,5 @@ import com.etiya.customerservice.service.dto.response.address.CreateAddressRespo
 import com.etiya.customerservice.service.dto.response.contactAddress.CreateContactAddressResponseDto;
 
 public interface AddressService {
-    CreateContactAddressResponseDto add(CreateAddressRequestDto dto);
+    CreateAddressResponseDto add(CreateAddressRequestDto dto);
 }

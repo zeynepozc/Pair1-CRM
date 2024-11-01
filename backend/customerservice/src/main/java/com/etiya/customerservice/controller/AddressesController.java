@@ -20,11 +20,11 @@ public class AddressesController {
     private final AddressService addressService;
 
     @PostMapping
-    public ResponseEntity<CreateContactAddressResponseDto> add(@RequestBody @Valid CreateAddressRequestDto createAddressRequestDto){
-        CreateContactAddressResponseDto createContactAddressResponseDto = addressService.add(createAddressRequestDto);
+    public ResponseEntity<CreateAddressResponseDto> add(@RequestBody @Valid CreateAddressRequestDto createAddressRequestDto){
+        CreateAddressResponseDto createAddressResponseDto = addressService.add(createAddressRequestDto);
 
-        if (createContactAddressResponseDto != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(createContactAddressResponseDto);
+        if (createAddressResponseDto != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createAddressResponseDto);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

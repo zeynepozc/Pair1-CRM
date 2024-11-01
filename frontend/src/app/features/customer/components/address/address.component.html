@@ -13,9 +13,9 @@
 
     <!-- Address Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div *ngFor="let address of addresses" class="border p-4">
-        <p class="font-semibold">{{ address.title }}</p>
-        <p>{{ address.description }}</p>
+      <div *ngFor="let address of addresses" class="border p-4">     
+        <p class="font-semibold">{{ address.name }}</p>
+        <p>{{ concatenateAddressDetails(address) }}</p>
       </div>
     </div>
 
@@ -27,21 +27,33 @@
       <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <h3 class="text-lg font-bold mb-4">Add New Address</h3>
 
-        <form (ngSubmit)="addAddress()">
+        <form [formGroup]="form" >
           <label class="block mb-2">Name:</label>
-          <input type="text" class="w-full border rounded p-2 mb-4" [(ngModel)]="newAddress.name" name="name" required>
-
-          <label class="block mb-2">Street:</label>
-          <input type="text" class="w-full border rounded p-2 mb-4" [(ngModel)]="newAddress.street" name="street" required>
+          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="name" name="name" required>
 
           <label class="block mb-2">City:</label>
-          <input type="text" class="w-full border rounded p-2 mb-4" [(ngModel)]="newAddress.city" name="city" required>
+          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="city" name="city" required>
+          
+          <label class="block mb-2">District:</label>
+          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="district" name="district" required>
+
+          <label class="block mb-2">Neighborhood:</label>
+          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="neighborhood" name="neighborhood" required>
+
+          <label class="block mb-2">Postal Code:</label>
+          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="postalCode" name="postalCode" required>
+
+          <label class="block mb-2">House No:</label>
+          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="houseNo" name="houseNo" required>
+
+          <label class="block mb-2">House No:</label>
+          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="customerId" name="customerId" required>
 
           <label class="block mb-2">Address Description:</label>
-          <textarea class="w-full border rounded p-2 mb-4" [(ngModel)]="newAddress.description" name="description" required></textarea>
+          <textarea class="w-full border rounded p-2 mb-4" formControlName="description" name="description" required></textarea>
 
-          <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded">Save</button>
-          <button type="button" (click)="closeModal()" class="px-4 py-2 bg-gray-500 text-white rounded ml-2">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded" (click)="submitForm()">Save</button>
+          <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded ml-2" (click)="closeModal()" >Cancel</button>
         </form>
       </div>
     </div>
