@@ -5,14 +5,11 @@ import {
   Validators,
   FormBuilder,
 } from '@angular/forms';
-import { CustomerService } from '../../services/customer.service';
 import { CustomerCreateAddressResponse } from '../../models/customerCreateAddressResponse';
 import { CustomerCreateAddressRequest } from '../../models/customerCreateAddressRequest';
-
-interface Address {
-  title: string;
-  description: string;
-}
+import { AddressService } from '../../services/address.service';
+import { StorageService } from '../../../../shared/services/storage.service';
+import { AddressForStorage } from '../../models/addressForStorage';
 
 @Component({
   selector: 'app-address',
@@ -22,22 +19,27 @@ interface Address {
 export class AddressComponent implements OnInit {
   form!: FormGroup;
   selectedTab: string = 'Address';
+  customerId: string | null = null;
   isModalOpen: boolean = false;
   addedAddress!: CustomerCreateAddressResponse;
   addresses: CustomerCreateAddressResponse[] = [];
+  addressList: AddressForStorage[] = [];
   
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private addressService: AddressService,
+    private storageService: StorageService
   ) {}
   
   ngOnInit(): void {
+    this.customerId = this.storageService.get("customerId");
     this.buildForm();
   }
 
   buildForm(): void {
     this.form = this.formBuilder.group({
+      primaryAddress: [false],
       name: [null, [Validators.required]],
       district: [null, [Validators.required]],
       city: [null, [Validators.required]],
@@ -45,7 +47,7 @@ export class AddressComponent implements OnInit {
       neighborhood: [null, [Validators.required]],
       houseNo: [null, [Validators.required]],
       postalCode: [null, [Validators.required]],
-      customerId: [null,[]]
+      customerId: [this.customerId,[]]
     });
   }
 
@@ -60,22 +62,26 @@ export class AddressComponent implements OnInit {
 
   submitForm() {
     console.log('Eklenecek Address:', this.form.value);
-    console.log(this.form);
     if (!this.form.valid) {
       return console.log('Not Valid');
     }
-    this.customerService
+    this.addressService
       .createAddress(this.form.value as CustomerCreateAddressRequest)
       .subscribe({
         next: (response: CustomerCreateAddressResponse) => {
           console.log(response);
           this.addedAddress = response;
           this.addresses.push(this.addedAddress);
+
+          const address: AddressForStorage = {
+            id: response.id,
+            primaryAddress: response.primaryAddress
+          };
+          this.addressList.push(address);
+          this.storageService.set("addresses",JSON.stringify(this.addressList))
           this.closeModal();
         },
       });
-
-    
   }
 
   concatenateAddressDetails(address: CustomerCreateAddressResponse): string {

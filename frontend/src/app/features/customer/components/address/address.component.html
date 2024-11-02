@@ -28,6 +28,11 @@
         <h3 class="text-lg font-bold mb-4">Add New Address</h3>
 
         <form [formGroup]="form" >
+          <div class="flex ">
+            <input type="checkbox" class=" border rounded p-2 mb-4" formControlName="primaryAddress" name="primaryAddress">
+            <label class="ml-2">Set as Primary Address</label>
+          </div>
+        
           <label class="block mb-2">Name:</label>
           <input type="text" class="w-full border rounded p-2 mb-4" formControlName="name" name="name" required>
 
@@ -45,9 +50,6 @@
 
           <label class="block mb-2">House No:</label>
           <input type="text" class="w-full border rounded p-2 mb-4" formControlName="houseNo" name="houseNo" required>
-
-          <label class="block mb-2">House No:</label>
-          <input type="text" class="w-full border rounded p-2 mb-4" formControlName="customerId" name="customerId" required>
 
           <label class="block mb-2">Address Description:</label>
           <textarea class="w-full border rounded p-2 mb-4" formControlName="description" name="description" required></textarea>

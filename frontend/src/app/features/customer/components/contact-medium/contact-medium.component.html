@@ -1,1 +1,123 @@
-<p>contact-medium works!</p>
+<!-- contact-medium.component.html -->
+<div class="p-4">
+  <h2 class="text-xl font-semibold mb-4">Contact Medium</h2>
+
+  <form [formGroup]="form" class="grid grid-cols-2 gap-4">
+    <!-- E-mail input alanı -->
+    <div>
+      <label class="block font-medium mb-1">E-mail*</label>
+      <div class="flex items-center gap-2">
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="border p-2 rounded focus:outline-none focus:ring-2 w-full"
+          [ngClass]="{
+            'bg-green-200': emailExist === false,
+            'bg-red-200': emailExist === true
+          }"
+          (blur)="checkEmail()"
+          placeholder="Enter your email"
+        />
+
+        <button
+          (click)="checkEmail()"
+          class="p-2"
+          [ngClass]="{
+            'bg-green-200': emailExist === false,
+            'bg-red-200': emailExist === true,
+            'bg-gray-200': emailExist === undefined
+          }"
+        >
+          <span
+            *ngIf="emailExist === false || emailExist === undefined"
+            class="text-green-500"
+            >✔️</span
+          >
+          <span *ngIf="emailExist === true" class="text-red-500">❌</span>
+        </button>
+      </div>
+      <p *ngIf="emailExist === true" class="text-red-500 text-sm">
+        *A customer already exists with this email
+      </p>
+    </div>
+
+    <!-- Mobile Phone input alanı -->
+    <div>
+      <label class="block font-medium mb-1">Mobile Phone*</label>
+      <div class="flex items-center gap-2">
+        <input
+          id="mobilePhone"
+          type="tel"
+          formControlName="mobilePhone"
+          class="border p-2 rounded focus:outline-none focus:ring-2 w-full"
+          placeholder="Enter your mobile phone"
+          [ngClass]="{
+            'bg-green-200': mobilePhoneExist === false,
+            'bg-red-200': mobilePhoneExist === true
+          }"
+          (blur)="checkMobilePhone()"
+        />
+
+        <button
+          (click)="checkMobilePhone()"
+          class="p-2"
+          [ngClass]="{
+            'bg-green-200': mobilePhoneExist === false,
+            'bg-red-200': mobilePhoneExist === true,
+            'bg-gray-200': mobilePhoneExist === undefined
+          }"
+        >
+          <span
+            *ngIf="mobilePhoneExist === false || mobilePhoneExist === undefined"
+            class="text-green-500"
+            >✔️</span
+          >
+          <span *ngIf="mobilePhoneExist === true" class="text-red-500">❌</span>
+        </button>
+        
+      </div>
+      <p *ngIf="mobilePhoneExist === true" class="text-red-500 text-sm">
+        *A customer already exists with this mobile phone
+      </p>
+    </div>
+
+    <!-- Ek alanlar -->
+    <div>
+      <label class="block font-medium mb-1" name="homePhone">Home Phone</label>
+      <input
+        id="homePhone"
+        formControlName="homePhone"
+        type="tel"
+        class="border p-2 rounded w-full focus:outline-none focus:ring-2"
+      />
+    </div>
+    <div>
+      <label class="block font-medium mb-1" name="fax">Fax</label>
+      <input
+        id="fax"
+        type="tel"
+        formControlName="fax"
+        class="border p-2 rounded w-full focus:outline-none focus:ring-2"
+      />
+    </div>
+  </form>
+
+  <!-- Previous ve Save butonları -->
+  <div class="flex justify-end mt-4 space-x-2">
+    <button
+      id="previous-button"
+      class="bg-gray-400 text-white px-4 py-2 rounded"
+    >
+      Previous
+    </button>
+    <button
+      *ngIf="emailExist === false && mobilePhoneExist === false"
+      id="save-button"
+      class="px-4 py-2 rounded bg-gray-600 text-white"
+      (click)="submitForm()"
+    >
+      Save
+    </button>
+  </div>
+</div>

@@ -9,6 +9,9 @@ import { CustomerService } from '../../services/customer.service';
 import { CustomerSearchRequest } from '../../models/customerSearchRequest';
 import { CustomerCreateRequest } from '../../models/customerCreateRequest';
 import { CustomerCreateResponse } from '../../models/customerCreateResponse';
+import { IsCustomerExistsWithNatIDRequest } from '../../models/isCustomerExistsWithNatIDRequest';
+import { IsCustomerExistsWithNatIDResponse } from '../../models/isCustomerExistsWithNatIDResponse';
+import { StorageService } from '../../../../shared/services/storage.service';
 
 @Component({
   selector: 'app-customer-info',
@@ -18,10 +21,12 @@ import { CustomerCreateResponse } from '../../models/customerCreateResponse';
 export class CustomerInfoComponent {
   form!: FormGroup;
   createData!: CustomerCreateResponse;
+  natIDExists!: Boolean;
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +57,26 @@ export class CustomerInfoComponent {
       .subscribe({
         next: (response: CustomerCreateResponse) => {
           console.log(response);
+          this.storageService.set('customerId', response.id);
           this.createData = response;
+        },
+      });
+  }
+
+  checkNatID(){
+    if (!this.form.get('natID')?.valid) {
+      return console.log('NatID empty');
+    } 
+
+    const natID = this.form.get('natID')?.value;
+    const request: IsCustomerExistsWithNatIDRequest = { natID };
+
+    this.customerService
+      .isCustomerExistsWithNatID(request)
+      .subscribe({
+        next: (response: IsCustomerExistsWithNatIDResponse) => {
+          console.log(response);
+          this.natIDExists = response.isExists;
         },
       });
   }

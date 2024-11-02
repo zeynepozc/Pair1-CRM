@@ -10,4 +10,8 @@ import java.util.Optional;
 @Repository
 public interface ContactMediumRepository extends JpaRepository<ContactMedium, Long> {
     Optional<ContactMedium> findByCustomerId(Long id);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByMobilePhone(String mobilePhone);
 }

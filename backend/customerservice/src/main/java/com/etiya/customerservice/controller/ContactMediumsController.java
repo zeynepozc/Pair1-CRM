@@ -2,11 +2,13 @@ package com.etiya.customerservice.controller;
 
 import com.etiya.customerservice.service.abstracts.ContactMediumService;
 import com.etiya.customerservice.service.dto.request.contactMedium.CreateContactMediumRequestDto;
+import com.etiya.customerservice.service.dto.request.contactMedium.IsContactMediumExistsWithEmailRequestDto;
+import com.etiya.customerservice.service.dto.request.contactMedium.IsContactMediumExistsWithMobilePhoneRequestDto;
 import com.etiya.customerservice.service.dto.request.contactMedium.UpdateContactMediumRequestDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.CreateContactMediumResponseDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.GetByIdContactMediumResponseDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.ListContactMediumResponseDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.UpdateContactMediumResponseDto;
+import com.etiya.customerservice.service.dto.request.individualCustomer.UpdateIndividualCustomerRequestDto;
+import com.etiya.customerservice.service.dto.response.contactMedium.*;
+import com.etiya.customerservice.service.dto.response.individualCustomer.GetByIdIndividualCustomerResponseDto;
+import com.etiya.customerservice.service.dto.response.individualCustomer.UpdateIndividualCustomerResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -70,5 +72,16 @@ public class ContactMediumsController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+
+    @PostMapping("/isContactMediumExistsWithEmail")
+    public ResponseEntity<IsContactMediumExistsWithEmailResponseDto> isContactMediumExistsWithEmail(@RequestBody @Valid IsContactMediumExistsWithEmailRequestDto dto){
+        return ResponseEntity.status(HttpStatus.OK).body(contactMediumService.isContactMediumExistsWithEmail(dto));
+    }
+
+    @PostMapping("/isContactMediumExistsWithMobilePhone")
+    public ResponseEntity<IsContactMediumExistsWithMobilePhoneResponseDto> isContactMediumExistsWithMobilePhone(@RequestBody @Valid IsContactMediumExistsWithMobilePhoneRequestDto dto){
+        return ResponseEntity.status(HttpStatus.OK).body(contactMediumService.isContactMediumExistsWithMobilePhone(dto));
     }
 }

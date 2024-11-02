@@ -2,6 +2,7 @@ package com.etiya.customerservice.controller;
 
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.dto.request.individualCustomer.CreateIndividualCustomerRequestDto;
+import com.etiya.customerservice.service.dto.request.individualCustomer.IsCustomerExistsWithNatIDRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.SearchIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.UpdateIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.response.individualCustomer.*;
@@ -77,4 +78,17 @@ public class IndividualCustomersController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
   }
+
+  @PostMapping("/isCustomerExistsWithNatID")
+  public ResponseEntity<IsCustomerExistsWithNatIDResponseDto> isCustomerExistsWithNatID(@RequestBody IsCustomerExistsWithNatIDRequestDto dto){
+    IsCustomerExistsWithNatIDResponseDto isCustomerExist = individualCustomerService.isCustomerExistsWithNatID(dto);
+
+    if (isCustomerExist != null) {
+      return ResponseEntity.status(HttpStatus.OK).body(isCustomerExist);
+    } else {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+  }
+
+
 }

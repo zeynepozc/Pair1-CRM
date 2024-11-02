@@ -7,5 +7,6 @@ export interface CustomerCreateAddressResponse{
     neighborhood: string,
     postalCode: string,
     houseNo: string,
-    description: string
+    description: string,
+    primaryAddress: boolean
 }

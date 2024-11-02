@@ -6,16 +6,16 @@ import { Observable } from 'rxjs';
 import { CustomerSearchResponse } from '../models/customerSearchResponse';
 import { CustomerCreateRequest } from '../models/customerCreateRequest';
 import { CustomerCreateResponse } from '../models/customerCreateResponse';
-import { CustomerCreateAddressRequest } from '../models/customerCreateAddressRequest';
-import { CustomerCreateAddressResponse } from '../models/customerCreateAddressResponse';
+import { IsCustomerExistsWithNatIDResponse } from '../models/isCustomerExistsWithNatIDResponse';
+import { IsCustomerExistsWithNatIDRequest } from '../models/isCustomerExistsWithNatIDRequest';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
   controllerUrl: string = `${environment.MS_V1_API_URL}/individualcustomers`;
-  addressControllerUrl: string = `${environment.MS_V1_API_URL}/addresses`;
-  
+
   constructor(private httpClient: HttpClient) {}
 
   searchCustomer(
@@ -36,12 +36,13 @@ export class CustomerService {
     );
   }
 
-  createAddress(
-    createRequest: CustomerCreateAddressRequest
-  ): Observable<CustomerCreateAddressResponse>{
-    return this.httpClient.post<CustomerCreateAddressResponse>(
-      `${this.addressControllerUrl}`,
-      createRequest
+  isCustomerExistsWithNatID(
+    request: IsCustomerExistsWithNatIDRequest
+  ): Observable<IsCustomerExistsWithNatIDResponse>{
+    return this.httpClient.post<IsCustomerExistsWithNatIDResponse>(
+      `${this.controllerUrl}/isCustomerExistsWithNatID`,
+      request
     );
   }
+
 }

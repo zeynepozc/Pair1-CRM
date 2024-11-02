@@ -6,11 +6,13 @@ import com.etiya.customerservice.service.abstracts.*;
 import com.etiya.customerservice.service.dto.request.address.CreateAddressRequestDto;
 import com.etiya.customerservice.service.dto.request.city.CreateCityRequestDto;
 import com.etiya.customerservice.service.dto.request.contactAddress.CreateContactAddressRequestDto;
+import com.etiya.customerservice.service.dto.request.contactMediumAddress.CreateContactMediumAddressRequestDto;
 import com.etiya.customerservice.service.dto.request.district.CreateDistrictRequestDto;
 import com.etiya.customerservice.service.dto.request.neighborhood.CreateNeighborhoodRequestDto;
 import com.etiya.customerservice.service.dto.response.address.CreateAddressResponseDto;
 import com.etiya.customerservice.service.dto.response.city.CreateCityResponseDto;
 import com.etiya.customerservice.service.dto.response.contactAddress.CreateContactAddressResponseDto;
+import com.etiya.customerservice.service.dto.response.contactMediumAddress.CreateContactMediumAddressResponseDto;
 import com.etiya.customerservice.service.dto.response.district.CreateDistrictResponseDto;
 import com.etiya.customerservice.service.dto.response.neighborhood.CreateNeighborhoodResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +29,16 @@ public class AddressServiceImpl implements AddressService {
     public final NeighborhoodService neighborhoodService;
     public final ContactAddressService contactAddressService;
     private final ContactMediumService contactMediumService;
+    private final ContactMediumAddressService contactMediumAddressService;
 
     @Override
     public CreateAddressResponseDto add(CreateAddressRequestDto dto){
         CreateAddressResponseDto createAddressResponseDto = new CreateAddressResponseDto();
-        
+
         Optional<ContactMedium> contactMedium = contactMediumService.findByCustomerId(dto.getCustomerId());
-        if (contactMedium.isPresent()){
+        boolean isContactMediumPresent = contactMedium.isPresent();
+
+        if (isContactMediumPresent){
             createAddressResponseDto.setCustomerId(dto.getCustomerId());
         }
         
@@ -57,7 +62,16 @@ public class AddressServiceImpl implements AddressService {
         createAddressResponseDto.setName(dto.getName());
         createAddressResponseDto.setPostalCode(dto.getPostalCode());
         createAddressResponseDto.setHouseNo(dto.getHouseNo());
+        createAddressResponseDto.setPrimaryAddress(dto.getPrimaryAddress());
 
+        if (isContactMediumPresent) {
+            CreateContactMediumAddressRequestDto contactMediumAddressRequestDto = new CreateContactMediumAddressRequestDto(
+                    contactMedium.get().getId(),
+                    createContactAddressResponseDto.getId(),
+                    dto.getPrimaryAddress()
+            );
+            contactMediumAddressService.add(contactMediumAddressRequestDto);
+        }
 
         return createAddressResponseDto;
     }

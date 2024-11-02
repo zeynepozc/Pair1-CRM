@@ -7,6 +7,7 @@ import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.abstracts.ContactMediumService;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.dto.request.individualCustomer.CreateIndividualCustomerRequestDto;
+import com.etiya.customerservice.service.dto.request.individualCustomer.IsCustomerExistsWithNatIDRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.SearchIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.UpdateIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.response.individualCustomer.*;
@@ -78,6 +79,14 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
          return customers.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+    @Override
+    public IsCustomerExistsWithNatIDResponseDto isCustomerExistsWithNatID(IsCustomerExistsWithNatIDRequestDto dto){
+        Boolean isCustomerExistsWithNatID = individualCustomerRepository.existsByNatID(dto.getNatID());
+        IsCustomerExistsWithNatIDResponseDto isCustomerExistsWithNatIDResponseDto = new IsCustomerExistsWithNatIDResponseDto();
+        isCustomerExistsWithNatIDResponseDto.setIsExists(isCustomerExistsWithNatID);
+
+        return isCustomerExistsWithNatIDResponseDto;
     }
 
     private SearchIndividualCustomerResponseDto convertToDto(IndividualCustomer customer) {

@@ -1,4 +1,5 @@
 export interface CustomerCreateResponse{
+    id: number,
     natID: string,
     firstName: string,
     lastName: string,

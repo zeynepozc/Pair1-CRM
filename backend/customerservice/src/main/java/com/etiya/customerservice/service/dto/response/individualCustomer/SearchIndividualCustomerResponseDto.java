@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchIndividualCustomerResponseDto {
+    private Long id;
     private String natID;
     private Long customerId;
     private String firstName;

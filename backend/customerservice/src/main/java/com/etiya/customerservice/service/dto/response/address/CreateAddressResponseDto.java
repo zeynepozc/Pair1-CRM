@@ -19,4 +19,5 @@ public class CreateAddressResponseDto {
     private String postalCode;
     private String houseNo;
     private String description;
+    private Boolean primaryAddress;
 }

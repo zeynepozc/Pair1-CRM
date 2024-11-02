@@ -5,11 +5,10 @@ import com.etiya.customerservice.mapper.ContactMediumMapper;
 import com.etiya.customerservice.repository.ContactMediumRepository;
 import com.etiya.customerservice.service.abstracts.ContactMediumService;
 import com.etiya.customerservice.service.dto.request.contactMedium.CreateContactMediumRequestDto;
+import com.etiya.customerservice.service.dto.request.contactMedium.IsContactMediumExistsWithEmailRequestDto;
+import com.etiya.customerservice.service.dto.request.contactMedium.IsContactMediumExistsWithMobilePhoneRequestDto;
 import com.etiya.customerservice.service.dto.request.contactMedium.UpdateContactMediumRequestDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.CreateContactMediumResponseDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.GetByIdContactMediumResponseDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.ListContactMediumResponseDto;
-import com.etiya.customerservice.service.dto.response.contactMedium.UpdateContactMediumResponseDto;
+import com.etiya.customerservice.service.dto.response.contactMedium.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -59,4 +58,19 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     public Optional<ContactMedium> findByCustomerId(Long id){
        return contactMediumRepository.findByCustomerId(id);
     }
+
+    @Override
+    public IsContactMediumExistsWithEmailResponseDto isContactMediumExistsWithEmail(IsContactMediumExistsWithEmailRequestDto dto) {
+        return new IsContactMediumExistsWithEmailResponseDto(contactMediumRepository.existsByEmail(dto.getEmail()));
+    }
+
+    @Override
+    public IsContactMediumExistsWithMobilePhoneResponseDto isContactMediumExistsWithMobilePhone(IsContactMediumExistsWithMobilePhoneRequestDto dto) {
+        boolean isExists = contactMediumRepository.existsByMobilePhone(dto.getMobilePhone());
+        IsContactMediumExistsWithMobilePhoneResponseDto responseDto =new IsContactMediumExistsWithMobilePhoneResponseDto();
+        responseDto.setExists(isExists);
+        return responseDto;
+    }
+
+
 }

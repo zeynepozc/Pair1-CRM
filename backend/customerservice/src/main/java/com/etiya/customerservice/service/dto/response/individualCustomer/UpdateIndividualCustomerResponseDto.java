@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateIndividualCustomerResponseDto {
-
+    private Long id;
     private String natID;
     private String firstName;
     private String lastName;

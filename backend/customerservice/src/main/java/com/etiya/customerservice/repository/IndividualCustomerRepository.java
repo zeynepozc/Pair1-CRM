@@ -19,4 +19,6 @@ import java.util.Objects;
 public interface IndividualCustomerRepository extends JpaRepository<IndividualCustomer, Long>, JpaSpecificationExecutor<IndividualCustomer> {
 
     List<IndividualCustomer> findAll(Specification<IndividualCustomer> spec);
+
+    boolean existsByNatID(String natID);
 }

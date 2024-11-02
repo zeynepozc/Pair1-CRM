@@ -18,5 +18,6 @@ public class CreateAddressRequestDto {
     private String postalCode;
     private String houseNo;
     private String description;
+    private Boolean primaryAddress;
 }
 
