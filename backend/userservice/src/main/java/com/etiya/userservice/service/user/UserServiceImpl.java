@@ -13,9 +13,8 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Email veya sifre hatali."));
+    public UserDetails loadUserByUsername(String username){
+        return userRepository.findByEmail(username).orElse(null);
     }
 
     @Override

@@ -15,7 +15,6 @@ public class UpdateCustomerAccountResponseDto {
     private String accountNumber;
     private String accountName;
     private String accountType;
-    private String action;
     private String accountDescription;
 }
 

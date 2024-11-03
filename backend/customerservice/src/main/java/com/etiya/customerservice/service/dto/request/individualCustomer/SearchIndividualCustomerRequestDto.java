@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.dto.request.individualCustomer;
 
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.SQLRestriction;
 
 @Entity
@@ -14,7 +16,7 @@ import org.hibernate.annotations.SQLRestriction;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "customer_accounts")
-@SQLRestriction(value = "deleted_date IS NULL")
+// @SQLRestriction(value = "deleted_date IS NULL")
 public class CustomerAccount extends BaseEntity
 {
     @Id
@@ -30,6 +32,7 @@ public class CustomerAccount extends BaseEntity
     private String accountStatus;
 
     @Column(name = "account_number")
+    //@GeneratorType(type = SequenceSKUGenerator.class, when = GenerationTime.INSERT)
     private String accountNumber;
 
     @Column(name = "account_name")
@@ -37,9 +40,6 @@ public class CustomerAccount extends BaseEntity
 
     @Column(name = "account_type")
     private String accountType;
-
-    @Column(name = "action")
-    private String action;
 
     @Column(name = "account_description")
     private String accountDescription;

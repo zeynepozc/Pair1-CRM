@@ -4,6 +4,8 @@ import com.etiya.customerservice.entity.CustomerAccount;
 import com.etiya.customerservice.mapper.CustomerAccountMapper;
 import com.etiya.customerservice.repository.CustomerAccountRepository;
 import com.etiya.customerservice.service.abstracts.CustomerAccountService;
+import com.etiya.customerservice.service.abstracts.BillingAccountService;
+import com.etiya.customerservice.service.dto.request.billingAccount.CreateBillingAccountRequestDto;
 import com.etiya.customerservice.service.dto.request.customerAccount.CreateCustomerAccountRequestDto;
 import com.etiya.customerservice.service.dto.request.customerAccount.UpdateCustomerAccountRequestDto;
 import com.etiya.customerservice.service.dto.response.customerAccount.CreateCustomerAccountResponseDto;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class CustomerAccountServiceImpl implements CustomerAccountService {
     private final CustomerAccountRepository customerAccountRepository;
     private final CustomerAccountMapper customerAccountMapper;
+    private final BillingAccountService billingAccountService;
 
 
     @Override
@@ -35,9 +38,11 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
         return customerAccountMapper.getByIdCustomerAccountResponseDtoFromCustomerAccount(customerAccount.get());
     }
 
+    // todo accountNumber generation??
     @Override
     public CreateCustomerAccountResponseDto add(CreateCustomerAccountRequestDto createCustomerAccountRequestDto) {
         CustomerAccount customerAccount = customerAccountMapper.customerAccountFromCreateCustomerAccountRequestDto(createCustomerAccountRequestDto);
+        // customerAccount.setAccountType("Billing Account");
         return customerAccountMapper.createCustomerAccountResponseDtoFromCustomerAccount(customerAccountRepository.save(customerAccount));
     }
 
@@ -47,6 +52,15 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
         customerAccount = customerAccountRepository.save(customerAccount);
         return customerAccountMapper.updateCustomerAccountResponseDtoFromCustomerAccount(customerAccount);
     }
+
+    @Override
+    public CreateCustomerAccountResponseDto addCustomerAccountAndBillingAccount(CreateCustomerAccountRequestDto customerAccountRequestDto){
+        CreateCustomerAccountResponseDto custAcc = this.add(customerAccountRequestDto);
+        CreateBillingAccountRequestDto billingAccountDto = new CreateBillingAccountRequestDto();
+        billingAccountService.add(billingAccountDto);
+        return custAcc;
+    }
+
 
     @Override
     public void delete(Long id) {

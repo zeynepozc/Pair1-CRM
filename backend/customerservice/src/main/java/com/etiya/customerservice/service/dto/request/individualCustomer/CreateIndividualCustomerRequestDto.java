@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class CreateIndividualCustomerRequestDto {
 
     @NotEmpty
-    @Size(min = 11, max = 11)
+    @Size(min = 11, max = 11, message = "National ID must be 11 digits.")
     private String natID;
 
     @NotEmpty

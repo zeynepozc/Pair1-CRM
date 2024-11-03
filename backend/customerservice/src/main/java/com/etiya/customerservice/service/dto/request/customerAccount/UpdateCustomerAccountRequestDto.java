@@ -31,8 +31,5 @@ public class UpdateCustomerAccountRequestDto {
     private String accountType;
 
     @NotEmpty
-    private String action;
-
-    @NotEmpty
     private String accountDescription;
 }

@@ -28,8 +28,5 @@ public class CreateCustomerAccountRequestDto {
     private String accountType;
 
     @NotEmpty
-    private String action;
-
-    @NotEmpty
     private String accountDescription;
 }
