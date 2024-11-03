@@ -4,9 +4,10 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { CustomerService } from '../../services/customer.service';
-import { CustomerSearchRequest } from '../../models/customerSearchRequest';
 import { CustomerCreateRequest } from '../../models/customerCreateRequest';
 import { CustomerCreateResponse } from '../../models/customerCreateResponse';
 import { IsCustomerExistsWithNatIDRequest } from '../../models/isCustomerExistsWithNatIDRequest';
@@ -16,7 +17,7 @@ import { StorageService } from '../../../../shared/services/storage.service';
 @Component({
   selector: 'app-customer-info',
   templateUrl: './customer-info.component.html',
-  styleUrl: './customer-info.component.scss'
+  styleUrl: './customer-info.component.scss',
 })
 export class CustomerInfoComponent {
   form!: FormGroup;
@@ -42,13 +43,18 @@ export class CustomerInfoComponent {
       gender: [null, [Validators.required]],
       motherName: [null, [Validators.required]],
       fatherName: [null, [Validators.required]],
-      natID: [null, [Validators.required]],
+      natID: [null, [Validators.required, this.elevenDigitValidator]],
     });
+  }
+
+  elevenDigitValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    const isValid = /^\d{11}$/.test(value);
+    return isValid ? null : { elevenDigit: true };
   }
 
   submitForm() {
     console.log('Eklenecek Customer:', this.form.value);
-    console.log(this.form);
     if (!this.form.valid) {
       return console.log('Not Valid');
     }
@@ -63,26 +69,23 @@ export class CustomerInfoComponent {
       });
   }
 
-  checkNatID(){
+  checkNatID() {
     if (!this.form.get('natID')?.valid) {
       return console.log('NatID empty');
-    } 
+    }
 
     const natID = this.form.get('natID')?.value;
     const request: IsCustomerExistsWithNatIDRequest = { natID };
 
-    this.customerService
-      .isCustomerExistsWithNatID(request)
-      .subscribe({
-        next: (response: IsCustomerExistsWithNatIDResponse) => {
-          console.log(response);
-          this.natIDExists = response.isExists;
-        },
-      });
+    this.customerService.isCustomerExistsWithNatID(request).subscribe({
+      next: (response: IsCustomerExistsWithNatIDResponse) => {
+        console.log(response);
+        this.natIDExists = response.isExists;
+      },
+    });
   }
 
   get isFormValid() {
     return this.form.valid;
   }
-
 }

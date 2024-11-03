@@ -95,22 +95,25 @@
         (blur)="checkNatID()"
       />
       <button
-          (click)="checkNatID()"
-          class="p-2 ml-2"
-          [ngClass]="{
-            'bg-green-200': natIDExists === false,
-            'bg-red-200': natIDExists === true,
-            'bg-gray-200': natIDExists === undefined
-          }"
+        (click)="checkNatID()"
+        class="p-2 ml-2 cursor-pointer"
+        [ngClass]="{
+          'bg-green-200': natIDExists === false,
+          'bg-red-200': natIDExists === true,
+          'bg-gray-200': natIDExists === undefined
+        }"
+        [disabled]="
+          !form.controls['natID'] ||
+          form.controls['natID'].toString().length !== 11
+        "
+      >
+        <span
+          *ngIf="natIDExists === false || natIDExists === undefined"
+          class="text-green-500"
+          >✔️</span
         >
-          <span
-            *ngIf="natIDExists === false || natIDExists === undefined"
-            class="text-green-500"
-            >✔️</span
-          >
-          <span *ngIf="natIDExists === true" class="text-red-500">❌</span>
-        </button>
-          
+        <span *ngIf="natIDExists === true" class="text-red-500">❌</span>
+      </button>
     </div>
     <p *ngIf="natIDExists === true" class="text-red-500 text-sm">
       *A customer already exists with this natID.

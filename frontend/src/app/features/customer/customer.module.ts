@@ -12,6 +12,7 @@ import { CustomerInfoComponent } from './components/customer-info/customer-info.
 import { CustomerAccountComponent } from './components/customer-account/customer-account.component';
 import { AddressComponent } from './components/address/address.component';
 import { ContactMediumComponent } from './components/contact-medium/contact-medium.component';
+import { CreateBillingAccountComponent } from './components/create-billing-account/create-billing-account.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { ContactMediumComponent } from './components/contact-medium/contact-medi
     CustomerAccountComponent,
     AddressComponent,
     ContactMediumComponent,
+    CustomerAccountComponent,
+    CreateBillingAccountComponent,
   ],
   imports: [
     CommonModule,

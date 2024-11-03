@@ -103,7 +103,7 @@ export class ContactMediumComponent {
         next: (response: CustomerCreateContactMediumResponse) => {
           console.log(response);
           this.addedContactMedium = response;
-          this.addContactMediumAddresses()
+          this.addContactMediumAddresses();
         },
       });
   }
@@ -131,5 +131,6 @@ export class ContactMediumComponent {
           },
         });
     });
+    this.storageService.remove('addresses');
   }
 }

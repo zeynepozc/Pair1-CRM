@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9257abce-84c2-48c0-b885-a6fc4d23e55d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/address/address.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/address/address.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/contact-medium/contact-medium.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/contact-medium/contact-medium.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-account/customer-account.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-account/customer-account.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-account/customer-account.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-account/customer-account.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-info/customer-info.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-info/customer-info.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-info/customer-info.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/customer/components/customer-info/customer-info.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/customer/customer.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/customer/customer.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/user/pages/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/user/pages/login/login.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../frontend/src/app/features/user/pages/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/features/user/pages/login/login.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../frontend/src/app/shared/interceptors/auth.interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/app/shared/interceptors/auth.interceptor.ts" afterDir="false" />
@@ -87,7 +92,7 @@
       <workItem from="1729772183291" duration="139000" />
       <workItem from="1730627233394" duration="1483000" />
       <workItem from="1730628822560" duration="2288000" />
-      <workItem from="1730636188609" duration="619000" />
+      <workItem from="1730636188609" duration="620000" />
     </task>
     <servers />
   </component>

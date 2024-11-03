@@ -9,7 +9,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({
     setHeaders: {
       Authorization: `Bearer ${storageService.get('token')}`,
-      
+      'Accept-Language': 'tr',
     },
   });
 
@@ -20,7 +20,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((err) => {
       // global hata yönetimi
       console.log('interceptor hata yakaladı:', err);
-      throw err;
+      throw err.error.message;
     })
   );
 };

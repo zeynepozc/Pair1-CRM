@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   submitForm() {
     this.form.markAllAsTouched();
     if (!this.form.valid) {
-      console.log('sasdasfasfsd');
+      console.log('Form Not Valid');
 
       return;
     }
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/customer/search-customer');
       },
       error: (error) => {
-        this.errorMessage = error.error;
+        this.errorMessage = error;
       },
     });
   }
