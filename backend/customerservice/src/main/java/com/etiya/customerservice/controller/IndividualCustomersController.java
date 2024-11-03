@@ -68,7 +68,7 @@ public class IndividualCustomersController {
   }
 
   @PutMapping
-  public ResponseEntity<UpdateIndividualCustomerResponseDto> update(@RequestBody @Valid UpdateIndividualCustomerRequestDto individualCustomer){
+  public ResponseEntity<UpdateIndividualCustomerResponseDto> update(@RequestBody UpdateIndividualCustomerRequestDto individualCustomer){
     GetByIdIndividualCustomerResponseDto individualCustomerDto = individualCustomerService.getById(individualCustomer.getId());
 
     if (individualCustomerDto != null) {

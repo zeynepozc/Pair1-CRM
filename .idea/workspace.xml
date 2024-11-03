@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="66ce21f9-2ed7-47bb-9d0a-5e37056ff240" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/customer/components/address/address.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/customer/components/address/address.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/customer/components/address/address.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/customer/components/address/address.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/customer/components/customer-info/customer-info.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/customer/components/customer-info/customer-info.component.html" afterDir="false" />
     </list>
     <list id="1019d5dd-2b9a-482d-802d-cf1076ce1094" name="Changes by cagatay.sero" comment="" />
-    <list id="c9204764-a81f-415a-80c4-c72870cdf6d2" name="Changes by cemre.senyuva" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/customerservice/src/main/java/com/etiya/customerservice/service/abstracts/CityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/customerservice/src/main/java/com/etiya/customerservice/service/abstracts/CityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/customerservice/src/main/java/com/etiya/customerservice/service/concrete/CityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/customerservice/src/main/java/com/etiya/customerservice/service/concrete/CityServiceImpl.java" afterDir="false" />
-    </list>
+    <list id="c9204764-a81f-415a-80c4-c72870cdf6d2" name="Changes by cemre.senyuva" comment="" />
     <list id="5ef27240-1ab7-4932-b3d7-09512dbb959f" name="Changes by mehmet.acar" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,24 +30,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/zeynep.ozcan/Desktop/Pair1-CRM/backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zeynep.ozcan/Desktop/Pair1-CRM/backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
