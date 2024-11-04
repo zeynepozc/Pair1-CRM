@@ -32,7 +32,6 @@ public class CustomerAccount extends BaseEntity
     private String accountStatus;
 
     @Column(name = "account_number")
-    //@GeneratorType(type = SequenceSKUGenerator.class, when = GenerationTime.INSERT)
     private String accountNumber;
 
     @Column(name = "account_name")

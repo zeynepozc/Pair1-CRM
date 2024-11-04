@@ -1,5 +1,6 @@
 package com.etiya.customerservice.controller;
 
+import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.dto.request.individualCustomer.CreateIndividualCustomerRequestDto;
 import com.etiya.customerservice.service.dto.request.individualCustomer.IsCustomerExistsWithNatIDRequestDto;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api/individualcustomers")
@@ -57,10 +59,10 @@ public class IndividualCustomersController {
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(@PathVariable Long id){
-    GetByIdIndividualCustomerResponseDto customer = individualCustomerService.getById(id);
+    Optional<IndividualCustomer> customer = individualCustomerService.findById(id);
 
-    if (customer != null) {
-      individualCustomerService.delete(id);
+    if (customer.isPresent()) {
+      individualCustomerService.delete(customer.get());
       return new ResponseEntity<>(HttpStatus.OK);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

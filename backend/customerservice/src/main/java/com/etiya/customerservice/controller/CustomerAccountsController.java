@@ -39,7 +39,7 @@ public class CustomerAccountsController {
 
     @PostMapping
     public ResponseEntity<CreateCustomerAccountResponseDto> add(@RequestBody /*@Valid*/ CreateCustomerAccountRequestDto customerAccount){
-        CreateCustomerAccountResponseDto _customerAccount = customerAccountService.add(customerAccount);
+        CreateCustomerAccountResponseDto _customerAccount = customerAccountService.addCustomerAccountAndBillingAccount(customerAccount);
 
         if (_customerAccount != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(_customerAccount);

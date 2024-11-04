@@ -18,11 +18,12 @@ import java.time.LocalDateTime;
 public class BillingAccount extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_account_id", referencedColumnName = "id", unique=true)
+    @OneToOne
+    @JoinColumn(name = "customer_account_id", unique=true)
     private CustomerAccount customerAccount;
 
     @Column(name = "billing_date")

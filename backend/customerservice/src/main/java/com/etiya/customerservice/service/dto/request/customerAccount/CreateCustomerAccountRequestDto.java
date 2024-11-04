@@ -19,9 +19,6 @@ public class CreateCustomerAccountRequestDto {
     private String accountStatus;
 
     @NotEmpty
-    private String accountNumber;
-
-    @NotEmpty
     private String accountName;
 
     @NotEmpty

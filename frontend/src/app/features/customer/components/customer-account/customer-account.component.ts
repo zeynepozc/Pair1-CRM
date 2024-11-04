@@ -14,8 +14,6 @@ interface Account {
   number: string;
   name: string;
   type: string;
-  products: Product[];
-  showDetails: boolean;
 }
 
 @Component({
@@ -29,39 +27,58 @@ export class CustomerAccountComponent {
       number: '011112987',
       name: 'ExampleAccount',
       type: 'Billing Account',
-      products: [
-        {
-          id: '001',
-          name: 'ADSL 8MB',
-          offerName: 'Her eve internet',
-          offerId: '1',
-          campaignName: 'Campaign 1',
-          campaignId: '1',
-        },
-        {
-          id: '002',
-          name: 'ADSL Data Modem',
-          offerName: 'Her eve internet',
-          offerId: '1',
-          campaignName: 'Campaign 1',
-          campaignId: '1',
-        },
-      ],
-      showDetails: false,
     },
-    // Diğer hesaplar buraya eklenebilir
+    // Other accounts can be added here
   ];
 
-  pages = [1, 2, 3, 4];
-  currentPage = 1;
+  // This will hold the fetched products for each account
+  fetchedProducts: { [key: string]: Product[] } = {};
+  
+  selectedIndex: number | null = null; // Track the currently selected account index
 
-  toggleDetails(account: Account) {
-    console.log(account.showDetails);
+  toggleDetails(index: number) {
+    // Toggle the details for the clicked account
+    if (this.selectedIndex === index) {
+      this.selectedIndex = null; // Collapse if already selected
+    } else {
+      this.selectedIndex = index; // Set the index of the currently selected account
+      
+      const account = this.accounts[index];
 
-    account.showDetails = !account.showDetails;
+      // Fetch products if not already fetched
+      if (!this.fetchedProducts[account.number]) {
+        this.fetchProducts(account.number).then(products => {
+          this.fetchedProducts[account.number] = products;
+        });
+      }
+    }
   }
 
-  goToPage(page: number) {
-    this.currentPage = page;
+  async fetchProducts(accountNumber: string): Promise<Product[]> {
+    // Simulate a backend call
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          {
+            id: '001',
+            name: 'ADSL 8MB',
+            offerName: 'Her eve internet',
+            offerId: '1',
+            campaignName: 'Campaign 1',
+            campaignId: '1',
+          },
+          {
+            id: '002',
+            name: 'ADSL Data Modem',
+            offerName: 'Her eve internet',
+            offerId: '1',
+            campaignName: 'Campaign 1',
+            campaignId: '1',
+          },
+        ]);
+      }, 1000); // Simulate a network delay
+    });
   }
+
+  // Other methods can be added here
 }

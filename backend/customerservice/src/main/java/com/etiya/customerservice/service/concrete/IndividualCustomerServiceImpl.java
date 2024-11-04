@@ -1,6 +1,7 @@
 package com.etiya.customerservice.service.concrete;
 
 import com.etiya.customerservice.entity.ContactMedium;
+import com.etiya.customerservice.entity.Customer;
 import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.mapper.IndividualCustomerMapper;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +46,11 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
     }
 
     @Override
+    public Optional<IndividualCustomer> findById(Long id) {
+        return individualCustomerRepository.findById(id);
+    }
+
+    @Override
     public CreateIndividualCustomerResponseDto add(CreateIndividualCustomerRequestDto createIndividualCustomerRequestDto) {
 
         IndividualCustomer individualCustomer = individualCustomerMapper.individualCustomerFromCreateIndividualCustomerRequestDto(createIndividualCustomerRequestDto);
@@ -61,6 +68,12 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
     @Override
     public void delete(Long id) {
         individualCustomerRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(IndividualCustomer individualCustomer) {
+        individualCustomer.setDeletedDate(LocalDateTime.now());
+        individualCustomerRepository.save(individualCustomer);
     }
 
     @Override

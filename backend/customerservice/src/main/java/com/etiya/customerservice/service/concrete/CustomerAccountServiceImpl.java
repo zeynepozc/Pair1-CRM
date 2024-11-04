@@ -15,6 +15,7 @@ import com.etiya.customerservice.service.dto.response.customerAccount.UpdateCust
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,11 +39,10 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
         return customerAccountMapper.getByIdCustomerAccountResponseDtoFromCustomerAccount(customerAccount.get());
     }
 
-    // todo accountNumber generation??
     @Override
     public CreateCustomerAccountResponseDto add(CreateCustomerAccountRequestDto createCustomerAccountRequestDto) {
         CustomerAccount customerAccount = customerAccountMapper.customerAccountFromCreateCustomerAccountRequestDto(createCustomerAccountRequestDto);
-        // customerAccount.setAccountType("Billing Account");
+        customerAccount.setAccountNumber(generateAccountNumber());
         return customerAccountMapper.createCustomerAccountResponseDtoFromCustomerAccount(customerAccountRepository.save(customerAccount));
     }
 
@@ -55,15 +55,23 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
 
     @Override
     public CreateCustomerAccountResponseDto addCustomerAccountAndBillingAccount(CreateCustomerAccountRequestDto customerAccountRequestDto){
-        CreateCustomerAccountResponseDto custAcc = this.add(customerAccountRequestDto);
-        CreateBillingAccountRequestDto billingAccountDto = new CreateBillingAccountRequestDto();
+        CustomerAccount customerAccount = customerAccountMapper.customerAccountFromCreateCustomerAccountRequestDto(customerAccountRequestDto);
+        customerAccount.setAccountNumber(generateAccountNumber());
+        customerAccount  = customerAccountRepository.save(customerAccount);
+        CreateBillingAccountRequestDto billingAccountDto = new CreateBillingAccountRequestDto(customerAccount.getId(), LocalDateTime.now());
         billingAccountService.add(billingAccountDto);
-        return custAcc;
+        return customerAccountMapper.createCustomerAccountResponseDtoFromCustomerAccount(customerAccount);
     }
 
 
     @Override
     public void delete(Long id) {
         customerAccountRepository.deleteById(id);
+    }
+
+    private String generateAccountNumber(){
+        String maxAccountNumber = customerAccountRepository.findMaxAccountNumber();
+        Long newAccountNumber = Long.parseLong(maxAccountNumber) + 1;
+        return String.valueOf(newAccountNumber);
     }
 }
