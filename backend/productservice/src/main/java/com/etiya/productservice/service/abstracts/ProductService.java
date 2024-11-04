@@ -1,6 +1,7 @@
 package com.etiya.productservice.service.abstracts;
 
 
+import com.etiya.productservice.entity.Product;
 import com.etiya.productservice.service.dto.request.product.CreateProductRequestDto;
 import com.etiya.productservice.service.dto.request.product.UpdateProductRequestDto;
 import com.etiya.productservice.service.dto.responses.product.CreateProductResponseDto;
@@ -16,4 +17,6 @@ public interface ProductService {
     CreateProductResponseDto add(CreateProductRequestDto dto);
     UpdateProductResponseDto update(UpdateProductRequestDto dto);
     void delete(Long id);
+    List<ListProductResponseDto> search(List<Long> ids) ;
+
 }

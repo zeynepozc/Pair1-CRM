@@ -52,4 +52,10 @@ public class ProductServiceImpl implements ProductService
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<ListProductResponseDto> search(List<Long> ids) {
+        List<Product> product = productRepository.findByIdIn(ids);
+        return productMapper.listProductResponseDtoListFromProductList(product);
+    }
 }

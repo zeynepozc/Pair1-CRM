@@ -33,10 +33,4 @@ public class GlobalExceptionHandler {
         return new BusinessExceptionResponse(exception.getMessage());
     }
 
-
-    @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleRuntimeException(){
-        return "Bilinmedik hata";
-    }
 }

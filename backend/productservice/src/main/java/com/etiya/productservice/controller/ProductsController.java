@@ -1,5 +1,6 @@
 package com.etiya.productservice.controller;
 
+import com.etiya.productservice.entity.Product;
 import com.etiya.productservice.service.dto.request.product.CreateProductRequestDto;
 import com.etiya.productservice.service.dto.request.product.UpdateProductRequestDto;
 import com.etiya.productservice.service.dto.responses.product.CreateProductResponseDto;
@@ -70,5 +71,11 @@ public class ProductsController {
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+  }
+
+  @PostMapping("search")
+  public List<ListProductResponseDto> getByIds(@RequestBody List<Long> ids)
+  {
+    return productService.search(ids);
   }
 }
