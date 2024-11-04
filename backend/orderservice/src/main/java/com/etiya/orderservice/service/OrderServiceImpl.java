@@ -8,7 +8,7 @@ import com.etiya.orderservice.entity.Order;
 import com.etiya.orderservice.entity.Product;
 import com.etiya.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,7 +19,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final ProductServiceClient productServiceClient;
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final StreamBridge streamBridge;
     @Override
     public List<Order> getAll() {
         return orderRepository.findAll();
@@ -42,6 +42,8 @@ public class OrderServiceImpl implements OrderService{
         order.setProducts(response);
         orderRepository.save(order);
 
-        kafkaTemplate.send("orderTopic", new OrderCreatedEvent(order.getId()));
+        OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
+        orderCreatedEvent.setId(order.getId());
+        streamBridge.send("orderCreatedEvent-out-0", orderCreatedEvent);
     }
 }

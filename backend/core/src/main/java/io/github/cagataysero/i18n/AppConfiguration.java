@@ -1,4 +1,4 @@
-package com.etiya.userservice.core.configuration;
+package io.github.cagataysero.i18n;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

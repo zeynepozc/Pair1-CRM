@@ -8,7 +8,21 @@ spring:
       uri: http://localhost:8001
       profile: local
       label: main
+    stream:
+      defaultBinder: kafka
+      function:
+        bindings:
+          processOrderEvent-in-0: order-topic
+      bindings:
+        processOrderEvent-in-0:
+          destination: order-topic
+          content-type: application/json
 
+      kafka:
+        binder:
+          brokers: localhost:9092
+          consumerProperties:
+            group.id: customer-service-group
 
 
 # http://localhost:8001/customerservice/dev/master
