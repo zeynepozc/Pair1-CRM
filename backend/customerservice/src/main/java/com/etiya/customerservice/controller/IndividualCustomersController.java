@@ -75,6 +75,7 @@ public class IndividualCustomersController {
 
     if (individualCustomerDto != null) {
       UpdateIndividualCustomerResponseDto individualCustomerResponseDto = individualCustomerService.update(individualCustomer);
+      individualCustomerResponseDto.setNatID(individualCustomerDto.getNatID());
       return ResponseEntity.ok(individualCustomerResponseDto);
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

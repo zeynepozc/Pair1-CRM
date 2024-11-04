@@ -1,29 +1,180 @@
-<!-- Account Table -->
-<table class="w-full border-collapse border border-gray-300 text-sm mb-4">
-  <thead>
-    <tr class="bg-gray-300 text-left">
-      <th class="p-2 border border-gray-300">Account Status</th>
-      <th class="p-2 border border-gray-300">Account Number</th>
-      <th class="p-2 border border-gray-300">Account Name</th>
-      <th class="p-2 border border-gray-300">Account Type</th>
-      <th class="p-2 border border-gray-300">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let account of accounts; let i = index">
-      <td class="p-2 border border-gray-300">
-        <button (click)="toggleDetails(i)" class="focus:outline-none">
-          <span [ngClass]="{ 'rotate-90': selectedIndex === i }">▼</span>
-        </button>
-        {{ account.status }}
-      </td>
-      <td class="p-2 border border-gray-300">{{ account.number }}</td>
-      <td class="p-2 border border-gray-300">{{ account.name }}</td>
-      <td class="p-2 border border-gray-300">{{ account.type }}</td>
-      <td class="p-2 border border-gray-300 flex gap-2">
-        <button class="text-blue-600 hover:text-blue-800">✏️</button>
-        <button class="text-red-600 hover:text-red-800">🗑️</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <div class="flex justify-end mb-4">
+    <button
+      routerLink="/customer/create-customer/create-billing-account"
+      id="create-billing-account"
+      class="border hover:bg-blue-70 font-bold py-2 px-4 rounded"
+    >
+      Create Billing Account
+    </button>
+  </div>
+  <table class="min-w-full bg-white border-0">
+    <thead>
+      <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+        <th class="py-3 px-6 text-left">Account Status</th>
+        <th class="py-3 px-6 text-left">Account Number</th>
+        <th class="py-3 px-6 text-left">Account Name</th>
+        <th class="py-3 px-6 text-left">Account Type</th>
+        <th class="py-3 px-6 text-left">Action</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-600 text-sm font-light">
+      <ng-container *ngFor="let account of accounts">
+        <tr
+          (click)="toggleExpand(account)"
+          class="cursor-pointer hover:bg-gray-100 border border-gray-400"
+        >
+          <td class="py-3 px-6">{{ account.status }}</td>
+          <td class="py-3 px-6">{{ account.number }}</td>
+          <td class="py-3 px-6">{{ account.name }}</td>
+          <td class="py-3 px-6">{{ account.type }}</td>
+          <td class="py-3 px-6">
+            <div class="flex items-center">
+              <button class="mr-2">
+                <svg
+                  class="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                  />
+                </svg>
+              </button>
+              <button>
+                <svg
+                  class="w-[24px] h-[24px] text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="account.expanded" class="">
+          <td colspan="5" class="py-3 px-6">
+            <div>
+              <table class="min-w-full bg-white border mt-2">
+                <thead>
+                  <tr
+                    class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                  >
+                    <th class="py-3 px-6 text-left">Product ID</th>
+                    <th class="py-3 px-6 text-left">Product Name Action</th>
+                    <th class="py-3 px-6 text-left">Offer Name</th>
+                    <th class="py-3 px-6 text-left">Offer Id</th>
+                    <th class="py-3 px-6 text-left">Campaign Name</th>
+                    <th class="py-3 px-6 text-left">Campaign Id</th>
+                    <th class="py-3 px-6 text-left">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                  <ng-container *ngIf="account.offers; else loadingOffers">
+                    <ng-container *ngFor="let offer of account.offers">
+                      <tr>
+                        <td class="py-3 px-6">{{ offer.id }}</td>
+                        <td class="py-3 px-6">{{ offer.offerName }}</td>
+                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
+                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
+                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
+                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
+                        <td class="py-3 px-6">
+                          <!-- Actions Column -->
+
+                          <button
+                            (click)="deleteOffer(offer)"
+                            class="text-red-500 hover:text-red-700 mr-2"
+                          >
+                            <svg
+                              class="w-[20px] h-[20px] text-gray-800 dark:text-white"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1"
+                                d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            (click)="viewOffer(offer)"
+                            class="text-blue-500 hover:text-blue-700"
+                          >
+                            <svg
+                              class="w-[20px] h-[20px] text-gray-800 dark:text-white"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke="currentColor"
+                                stroke-width="1"
+                                d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"
+                              />
+                              <path
+                                stroke="currentColor"
+                                stroke-width="1"
+                                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                              />
+                            </svg>
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+
+                  <ng-template #loadingOffers>
+                    <tr>
+                      <td colspan="3" class="py-3 px-6 text-center">
+                        Loading offers...
+                      </td>
+                    </tr>
+                  </ng-template>
+                </tbody>
+              </table>
+              <div class="flex justify-start mb-4">
+                <button
+                  routerLink="/customer/order"
+                  id="create-billing-account"
+                  class="border bg-white hover:bg-blue-70 font-bold py-2 px-4 mt-6 rounded"
+                >
+                  Start New Sale
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

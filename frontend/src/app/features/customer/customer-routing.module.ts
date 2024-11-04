@@ -6,6 +6,7 @@ import { CustomerInfoComponent } from './components/customer-info/customer-info.
 import { AddressComponent } from './components/address/address.component';
 import { ContactMediumComponent } from './components/contact-medium/contact-medium.component';
 import { CustomerAccountComponent } from './components/customer-account/customer-account.component';
+import { CreateBillingAccountComponent } from './components/create-billing-account/create-billing-account.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       { path: 'address', component: AddressComponent },
       { path: 'contact-medium', component: ContactMediumComponent },
       { path: 'customer-account', component: CustomerAccountComponent },
+      {
+        path: 'create-billing-account',
+        component: CreateBillingAccountComponent,
+      },
       { path: '', redirectTo: 'customer-info', pathMatch: 'full' }, // İlk sekme varsayılan
     ],
   },

@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 
-interface Product {
+interface Account {
+  status: string;
+  number: string;
+  name: string;
+  type: string;
+  expanded?: boolean; // to track if the account row is expanded
+  offers?: Offer[]; // list of offers associated with the account
+}
+
+interface Offer {
   id: string;
   name: string;
   offerName: string;
   offerId: string;
   campaignName: string;
   campaignId: string;
-}
-
-interface Account {
-  status: string;
-  number: string;
-  name: string;
-  type: string;
 }
 
 @Component({
@@ -27,58 +29,65 @@ export class CustomerAccountComponent {
       number: '011112987',
       name: 'ExampleAccount',
       type: 'Billing Account',
+      expanded: false,
     },
-    // Other accounts can be added here
+    {
+      status: 'Active',
+      number: '011112987',
+      name: 'ExampleAccount',
+      type: 'Billing Account',
+      expanded: false,
+    },
+    // You can add more accounts here
   ];
 
-  // This will hold the fetched products for each account
-  fetchedProducts: { [key: string]: Product[] } = {};
-  
-  selectedIndex: number | null = null; // Track the currently selected account index
+  // Example offer data (this simulates an API response)
+  allOffers: Offer[] = [
+    {
+      id: '001',
+      name: 'ADSL 8MB',
+      offerName: 'Her eve internet',
+      offerId: '1',
+      campaignName: 'Campaign 1',
+      campaignId: '1',
+    },
+    {
+      id: '002',
+      name: 'ADSL Data Modem',
+      offerName: 'Her eve internet',
+      offerId: '1',
+      campaignName: 'Campaign 1',
+      campaignId: '1',
+    },
+  ];
 
-  toggleDetails(index: number) {
-    // Toggle the details for the clicked account
-    if (this.selectedIndex === index) {
-      this.selectedIndex = null; // Collapse if already selected
-    } else {
-      this.selectedIndex = index; // Set the index of the currently selected account
-      
-      const account = this.accounts[index];
+  toggleExpand(account: Account) {
+    // Toggle the expanded state
+    account.expanded = !account.expanded;
 
-      // Fetch products if not already fetched
-      if (!this.fetchedProducts[account.number]) {
-        this.fetchProducts(account.number).then(products => {
-          this.fetchedProducts[account.number] = products;
-        });
-      }
+    // If expanded, fetch offers if they haven't been fetched yet
+    if (account.expanded && !account.offers) {
+      this.fetchOffers(account);
     }
   }
 
-  async fetchProducts(accountNumber: string): Promise<Product[]> {
-    // Simulate a backend call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve([
-          {
-            id: '001',
-            name: 'ADSL 8MB',
-            offerName: 'Her eve internet',
-            offerId: '1',
-            campaignName: 'Campaign 1',
-            campaignId: '1',
-          },
-          {
-            id: '002',
-            name: 'ADSL Data Modem',
-            offerName: 'Her eve internet',
-            offerId: '1',
-            campaignName: 'Campaign 1',
-            campaignId: '1',
-          },
-        ]);
-      }, 1000); // Simulate a network delay
-    });
+  fetchOffers(account: Account) {
+    // Simulate an API call to fetch offers based on account number
+    // In a real application, replace this with an actual HTTP call
+    // For example: this.http.get<Offer[]>(`api/offers/${account.number}`).subscribe(offers => { ... });
+    setTimeout(() => {
+      account.offers = this.allOffers; // Simulating a response
+    }, 1000); // Simulate a delay
   }
 
-  // Other methods can be added here
+  viewOffer(offer: Offer) {
+    console.log('Viewing offer:', offer);
+    // Implement your view logic here, e.g., navigate to a detail page
+  }
+
+  deleteOffer(offer: Offer) {
+    console.log('Deleting offer:', offer);
+    // Implement your delete logic here, e.g., make an API call to delete the offer
+    // Optionally, remove the offer from the account's offers list
+  }
 }

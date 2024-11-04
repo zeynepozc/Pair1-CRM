@@ -20,7 +20,7 @@ public class ContactMediumAddress extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "contact_medium_id")
     private ContactMedium contactMedium;
 
     @ManyToOne
