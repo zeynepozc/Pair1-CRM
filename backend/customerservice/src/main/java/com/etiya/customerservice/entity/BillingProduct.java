@@ -17,11 +17,12 @@ import java.util.List;
 @Table(name = "billing_products")
 public class BillingProduct extends BaseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "billing_account_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "billing_account_id")
     private BillingAccount billingAccount;
 
     @ElementCollection

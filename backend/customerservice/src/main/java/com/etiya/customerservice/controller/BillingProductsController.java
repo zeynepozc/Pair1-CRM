@@ -1,5 +1,6 @@
 package com.etiya.customerservice.controller;
 
+import com.etiya.customerservice.entity.Product;
 import com.etiya.customerservice.service.abstracts.BillingProductService;
 import com.etiya.customerservice.service.dto.request.billingProduct.CreateBillingProductRequestDto;
 import com.etiya.customerservice.service.dto.response.billingProduct.CreateBillingProductResponseDto;
@@ -16,8 +17,7 @@ import java.util.List;
 @RestController()
 @RequestMapping("/api/billingproducts")
 @RequiredArgsConstructor
-public class
-BillingProductsController {
+public class BillingProductsController {
     private final BillingProductService billingProductService;
 
     @GetMapping
@@ -34,6 +34,16 @@ BillingProductsController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> getProducts(@RequestParam List<Long> idList) {
+        List<Product> products = billingProductService.getProducts(idList);
+
+        if (products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Ürün bulunamazsa 404 döner
+        }
+        return ResponseEntity.ok(products); // Ürünler bulunduğunda 200 ile döner
     }
 
     @PostMapping

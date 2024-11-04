@@ -32,9 +32,20 @@ public class BillingProductServiceImpl implements BillingProductService
     }
 
     @Override
+    public List<Product> getProducts(List<Long> idList) {
+        return productServiceClient.findAllByIds(idList);
+    }
+
+    // todo
+    @Override
     public GetByIdBillingProductResponseDto getById(Long id) {
         Optional<BillingProduct> billingProduct = billingProductRepository.findById(id);
         return billingProductMapper.getByIdBillingProductResponseDtoFromBillingProduct(billingProduct.get());
+    }
+
+    @Override
+    public List<BillingProduct> findBillingProductsByBillingAccountId(Long id){
+        return billingProductRepository.findBillingProductsByBillingAccount_Id(id);
     }
 
     @Override

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../../../shared/services/storage.service';
+import { CustomerAccountService } from '../../services/customer-account.service';
+import { GetCustomerAccountsByCustomerIdResponse } from '../../models/getCustomerAccountsByCustomerIdResponse';
 
 interface Account {
   status: string;
@@ -22,7 +25,8 @@ interface Offer {
   selector: 'app-customer-account',
   templateUrl: './customer-account.component.html',
 })
-export class CustomerAccountComponent {
+export class CustomerAccountComponent implements OnInit {
+  customerId: string | null = null;
   accounts: Account[] = [
     {
       status: 'Active',
@@ -60,6 +64,26 @@ export class CustomerAccountComponent {
       campaignId: '1',
     },
   ];
+
+  constructor(
+    private customerAccountService: CustomerAccountService,
+    private storageService: StorageService
+  ) {}
+
+  ngOnInit(): void {
+    this.customerId = this.storageService.get('customerId');
+    this.fethAccounts();
+  }
+
+  fethAccounts() {
+    this.customerAccountService
+      .getCustomerAccountsByCustomerId(Number(this.customerId))
+      .subscribe({
+        next: (response: GetCustomerAccountsByCustomerIdResponse[]) => {
+          console.log(response);
+        },
+      });
+  }
 
   toggleExpand(account: Account) {
     // Toggle the expanded state

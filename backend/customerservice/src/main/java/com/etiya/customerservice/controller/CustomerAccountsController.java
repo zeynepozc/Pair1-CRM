@@ -3,10 +3,7 @@ package com.etiya.customerservice.controller;
 import com.etiya.customerservice.service.abstracts.CustomerAccountService;
 import com.etiya.customerservice.service.dto.request.customerAccount.CreateCustomerAccountRequestDto;
 import com.etiya.customerservice.service.dto.request.customerAccount.UpdateCustomerAccountRequestDto;
-import com.etiya.customerservice.service.dto.response.customerAccount.CreateCustomerAccountResponseDto;
-import com.etiya.customerservice.service.dto.response.customerAccount.GetByIdCustomerAccountResponseDto;
-import com.etiya.customerservice.service.dto.response.customerAccount.ListCustomerAccountResponseDto;
-import com.etiya.customerservice.service.dto.response.customerAccount.UpdateCustomerAccountResponseDto;
+import com.etiya.customerservice.service.dto.response.customerAccount.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +23,17 @@ public class CustomerAccountsController {
         return customerAccountService.getAll();
     }
 
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<List<ListCustomerAccountWithProductsResponseDto>> getByCustomerId(@PathVariable Long id){
+        List<ListCustomerAccountWithProductsResponseDto> customerAccountResponseListDto = customerAccountService.getAllByCustomerId(id);
+
+        if (!customerAccountResponseListDto.isEmpty()) {
+            return ResponseEntity.ok(customerAccountResponseListDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<GetByIdCustomerAccountResponseDto> getById(@PathVariable Long id){
         GetByIdCustomerAccountResponseDto customerAccountResponseDto = customerAccountService.getById(id);
@@ -38,7 +46,7 @@ public class CustomerAccountsController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateCustomerAccountResponseDto> add(@RequestBody /*@Valid*/ CreateCustomerAccountRequestDto customerAccount){
+    public ResponseEntity<CreateCustomerAccountResponseDto> add(@RequestBody @Valid CreateCustomerAccountRequestDto customerAccount){
         CreateCustomerAccountResponseDto _customerAccount = customerAccountService.addCustomerAccountAndBillingAccount(customerAccount);
 
         if (_customerAccount != null) {

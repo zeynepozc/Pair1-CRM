@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { CustomerAccountService } from '../../services/customer-account.service';
-import { CustomerAccountCreateRequest } from '../../models/customerAccountcreateRequest';
-import { CustomerAccountCreateResponse } from '../../models/customerAccountcreateResponse';
+import { CustomerAccountCreateRequest } from '../../models/customerAccountCreateRequest';
+import { CustomerAccountCreateResponse } from '../../models/customerAccountCreateResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-billing-account',
@@ -12,26 +13,32 @@ import { CustomerAccountCreateResponse } from '../../models/customerAccountcreat
 })
 export class CreateBillingAccountComponent {
   form!: FormGroup;
+  customerId: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
     private customerAccountService: CustomerAccountService,
     private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
+    this.customerId = this.storageService.get('customerId');
     this.buildForm();
   }
 
   buildForm(): void {
     this.form = this.formBuilder.group({
+      accountStatus: ['Active', []],
+      accountType: ['Billing Account', []],
+      customerId: [this.customerId, []],
       accountName: [null, [Validators.required]],
-      accontDescription: [null, [Validators.required]],
+      accountDescription: [null, [Validators.required]],
     });
   }
 
   submitForm() {
-    console.log('Eklenecek Customer:', this.form.value);
+    console.log('Eklenecek Billing Account:', this.form.value);
     if (!this.form.valid) {
       return console.log('Not Valid');
     }
@@ -40,7 +47,9 @@ export class CreateBillingAccountComponent {
       .subscribe({
         next: (response: CustomerAccountCreateResponse) => {
           console.log(response);
-          // this.storageService.set('customerId', response.id);
+          this.router.navigateByUrl(
+            '/customer/create-customer/customer-account'
+          );
         },
       });
   }

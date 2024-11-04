@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9257abce-84c2-48c0-b885-a6fc4d23e55d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/package-lock.json" afterDir="false" />
-    </list>
+    <list default="true" id="9257abce-84c2-48c0-b885-a6fc4d23e55d" name="Changes" comment="" />
     <list id="c7bfc7b7-e024-4f7f-9b02-62960e5aa946" name="Changes by cemre.senyuva" comment="" />
     <list id="76cd073a-ea83-42f5-8135-62c5d509f722" name="Changes by mehmet.acar" comment="" />
     <list id="14cb990f-5d95-4e84-bd5b-8c8a7d02d785" name="Changes by zeynep.ozcan" comment="" />
@@ -44,7 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/cagatay.sero/Desktop/Projects/java/Pair1-CRM/backend/core",
+    "last_opened_file_path": "C:/Users/cagatay.sero/Desktop/Projects/java/Pair1-CRM/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,7 +83,8 @@
       <workItem from="1730628822560" duration="2288000" />
       <workItem from="1730636188609" duration="620000" />
       <workItem from="1730701637419" duration="92000" />
-      <workItem from="1730704074823" duration="1973000" />
+      <workItem from="1730704074823" duration="1975000" />
+      <workItem from="1730746967722" duration="687000" />
     </task>
     <servers />
   </component>
