@@ -36,6 +36,17 @@ public class BillingProductsController {
         }
     }
 
+    @GetMapping("/billingaccount/{id}")
+    public ResponseEntity<List<Product>> getBillingAccountById(@PathVariable Long id){
+        List<Product> billingProductResponseDto = billingProductService.getProductsByBillingAccountId(id);
+
+        if (billingProductResponseDto != null) {
+            return ResponseEntity.ok(billingProductResponseDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<Product>> getProducts(@RequestParam List<Long> idList) {
         List<Product> products = billingProductService.getProducts(idList);

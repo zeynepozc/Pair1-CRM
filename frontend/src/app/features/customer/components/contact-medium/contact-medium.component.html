@@ -1,9 +1,7 @@
-<!-- contact-medium.component.html -->
 <div class="p-4">
   <h2 class="text-xl font-semibold mb-4">Contact Medium</h2>
 
   <form [formGroup]="form" class="grid grid-cols-2 gap-4">
-    <!-- E-mail input alanı -->
     <div>
       <label class="block font-medium mb-1">E-mail*</label>
       <div class="flex items-center gap-2">
@@ -41,8 +39,6 @@
         *A customer already exists with this email
       </p>
     </div>
-
-    <!-- Mobile Phone input alanı -->
     <div>
       <label class="block font-medium mb-1">Mobile Phone*</label>
       <div class="flex items-center gap-2">
@@ -80,8 +76,6 @@
         *A customer already exists with this mobile phone
       </p>
     </div>
-
-    <!-- Ek alanlar -->
     <div>
       <label class="block font-medium mb-1" name="homePhone">Home Phone</label>
       <input
@@ -101,8 +95,6 @@
       />
     </div>
   </form>
-
-  <!-- Previous ve Save butonları -->
   <div class="flex justify-end mt-4 space-x-2">
     <button
       routerLink="/customer/create-customer/address"

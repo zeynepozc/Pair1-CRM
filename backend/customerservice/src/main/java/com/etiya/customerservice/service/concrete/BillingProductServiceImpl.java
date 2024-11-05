@@ -13,6 +13,7 @@ import com.etiya.customerservice.service.dto.response.billingProduct.ListBilling
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,20 @@ public class BillingProductServiceImpl implements BillingProductService
     @Override
     public List<Product> getProducts(List<Long> idList) {
         return productServiceClient.findAllByIds(idList);
+    }
+
+    @Override
+    public List<Product> getProductsByBillingAccountId(Long id) {
+        List<BillingProduct> billingProductList = billingProductRepository.findBillingProductsByBillingAccount_Id(id);
+        List<Product> products = new ArrayList<>();
+
+        // Ürünleri ekle
+        billingProductList.forEach(_billingProduct -> {
+            List<Long> productIdList = _billingProduct.getProductIdList();
+            products.addAll(productServiceClient.findAllByIds(productIdList)); // Ürünleri products listesine ekle
+        });
+
+        return products;
     }
 
     // todo

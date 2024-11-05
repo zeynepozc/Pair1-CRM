@@ -16,6 +16,8 @@ public interface BillingProductService {
 
     List<Product> getProducts(List<Long> idList);
 
+    List<Product> getProductsByBillingAccountId(Long id);
+
     List<BillingProduct> findBillingProductsByBillingAccountId(Long id);
     CreateBillingProductResponseDto add(CreateBillingProductRequestDto dto);
     void delete(Long id);

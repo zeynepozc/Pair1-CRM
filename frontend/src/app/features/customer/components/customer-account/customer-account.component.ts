@@ -2,24 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { CustomerAccountService } from '../../services/customer-account.service';
 import { GetCustomerAccountsByCustomerIdResponse } from '../../models/getCustomerAccountsByCustomerIdResponse';
-
-interface Account {
-  status: string;
-  number: string;
-  name: string;
-  type: string;
-  expanded?: boolean; // to track if the account row is expanded
-  offers?: Offer[]; // list of offers associated with the account
-}
-
-interface Offer {
-  id: string;
-  name: string;
-  offerName: string;
-  offerId: string;
-  campaignName: string;
-  campaignId: string;
-}
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-customer-account',
@@ -27,44 +10,8 @@ interface Offer {
 })
 export class CustomerAccountComponent implements OnInit {
   customerId: string | null = null;
-  accounts: Account[] = [
-    {
-      status: 'Active',
-      number: '011112987',
-      name: 'ExampleAccount',
-      type: 'Billing Account',
-      expanded: false,
-    },
-    {
-      status: 'Active',
-      number: '011112987',
-      name: 'ExampleAccount',
-      type: 'Billing Account',
-      expanded: false,
-    },
-    // You can add more accounts here
-  ];
-
-  // Example offer data (this simulates an API response)
-  allOffers: Offer[] = [
-    {
-      id: '001',
-      name: 'ADSL 8MB',
-      offerName: 'Her eve internet',
-      offerId: '1',
-      campaignName: 'Campaign 1',
-      campaignId: '1',
-    },
-    {
-      id: '002',
-      name: 'ADSL Data Modem',
-      offerName: 'Her eve internet',
-      offerId: '1',
-      campaignName: 'Campaign 1',
-      campaignId: '1',
-    },
-  ];
-
+  accounts: GetCustomerAccountsByCustomerIdResponse[] = [];
+  
   constructor(
     private customerAccountService: CustomerAccountService,
     private storageService: StorageService
@@ -80,38 +27,21 @@ export class CustomerAccountComponent implements OnInit {
       .getCustomerAccountsByCustomerId(Number(this.customerId))
       .subscribe({
         next: (response: GetCustomerAccountsByCustomerIdResponse[]) => {
-          console.log(response);
+          this.accounts = response;
         },
       });
+
+    
   }
 
-  toggleExpand(account: Account) {
-    // Toggle the expanded state
+  toggleExpand(account: GetCustomerAccountsByCustomerIdResponse) {
     account.expanded = !account.expanded;
-
-    // If expanded, fetch offers if they haven't been fetched yet
-    if (account.expanded && !account.offers) {
-      this.fetchOffers(account);
-    }
   }
 
-  fetchOffers(account: Account) {
-    // Simulate an API call to fetch offers based on account number
-    // In a real application, replace this with an actual HTTP call
-    // For example: this.http.get<Offer[]>(`api/offers/${account.number}`).subscribe(offers => { ... });
-    setTimeout(() => {
-      account.offers = this.allOffers; // Simulating a response
-    }, 1000); // Simulate a delay
+  viewProduct(product: Product) {
   }
 
-  viewOffer(offer: Offer) {
-    console.log('Viewing offer:', offer);
-    // Implement your view logic here, e.g., navigate to a detail page
-  }
+  deleteProduct(product: Product) {
 
-  deleteOffer(offer: Offer) {
-    console.log('Deleting offer:', offer);
-    // Implement your delete logic here, e.g., make an API call to delete the offer
-    // Optionally, remove the offer from the account's offers list
   }
 }

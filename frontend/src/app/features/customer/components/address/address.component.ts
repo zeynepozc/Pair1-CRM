@@ -33,7 +33,6 @@ export class AddressComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.customerId = this.storageService.get("customerId");
     this.buildForm();
   }
 
@@ -61,15 +60,14 @@ export class AddressComponent implements OnInit {
   }
 
   submitForm() {
-    console.log('Eklenecek Address:', this.form.value);
+    this.form.get('customerId')?.setValue(this.storageService.get("customerId"));
     if (!this.form.valid) {
-      return console.log('Not Valid');
+      return;
     }
     this.addressService
       .createAddress(this.form.value as CustomerCreateAddressRequest)
       .subscribe({
         next: (response: CustomerCreateAddressResponse) => {
-          console.log(response);
           this.addedAddress = response;
           this.addresses.push(this.addedAddress);
 
@@ -96,12 +94,8 @@ export class AddressComponent implements OnInit {
     this.selectedTab = tab;
   }
   goToPreviousPage() {
-    // Logic to go to the previous page or section
-    console.log("Going to previous page...");
   }
   
   goToNextPage() {
-    // Logic to go to the next page or section
-    console.log("Going to next page...");
   }
 }

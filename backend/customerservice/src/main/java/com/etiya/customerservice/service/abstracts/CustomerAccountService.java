@@ -13,6 +13,8 @@ public interface CustomerAccountService {
     GetByIdCustomerAccountResponseDto getById(Long id);
 
     CreateCustomerAccountResponseDto addCustomerAccountAndBillingAccount(CreateCustomerAccountRequestDto customerAccountRequestDto);
+
+    CustomerAccountProductListResponseDto getProductsByCustomerAccountId(Long customerAccountId);
     CreateCustomerAccountResponseDto add(CreateCustomerAccountRequestDto customerAccountRequestDto);
 
     UpdateCustomerAccountResponseDto update(UpdateCustomerAccountRequestDto updateCustomerAccountRequestDto);

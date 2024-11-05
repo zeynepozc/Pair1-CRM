@@ -24,10 +24,10 @@
           (click)="toggleExpand(account)"
           class="cursor-pointer hover:bg-gray-100 border border-gray-400"
         >
-          <td class="py-3 px-6">{{ account.status }}</td>
-          <td class="py-3 px-6">{{ account.number }}</td>
-          <td class="py-3 px-6">{{ account.name }}</td>
-          <td class="py-3 px-6">{{ account.type }}</td>
+          <td class="py-3 px-6">{{ account.accountStatus }}</td>
+          <td class="py-3 px-6">{{ account.accountNumber }}</td>
+          <td class="py-3 px-6">{{ account.accountName }}</td>
+          <td class="py-3 px-6">{{ account.accountType }}</td>
           <td class="py-3 px-6">
             <div class="flex items-center">
               <button class="mr-2">
@@ -74,35 +74,30 @@
         <tr *ngIf="account.expanded" class="">
           <td colspan="5" class="py-3 px-6">
             <div>
+              <ng-container *ngIf="account.productList">
+
               <table class="min-w-full bg-white border mt-2">
                 <thead>
                   <tr
-                    class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                    class="bg-gray-200 text-gray-600 uppercase text-xs leading-normal"
                   >
                     <th class="py-3 px-6 text-left">Product ID</th>
-                    <th class="py-3 px-6 text-left">Product Name Action</th>
-                    <th class="py-3 px-6 text-left">Offer Name</th>
-                    <th class="py-3 px-6 text-left">Offer Id</th>
-                    <th class="py-3 px-6 text-left">Campaign Name</th>
-                    <th class="py-3 px-6 text-left">Campaign Id</th>
+                    <th class="py-3 px-6 text-left">Product Name</th>
+                    <th class="py-3 px-6 text-left">Product Description</th>
+                    <th class="py-3 px-6 text-left">Product Price</th>
                     <th class="py-3 px-6 text-left">Action</th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-600 text-sm font-light">
-                  <ng-container *ngIf="account.offers; else loadingOffers">
-                    <ng-container *ngFor="let offer of account.offers">
+                    <ng-container *ngFor="let product of account.productList">
                       <tr>
-                        <td class="py-3 px-6">{{ offer.id }}</td>
-                        <td class="py-3 px-6">{{ offer.offerName }}</td>
-                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
-                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
-                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
-                        <td class="py-3 px-6">{{ offer.campaignName }}</td>
+                        <td class="py-3 px-6">{{ product.id }}</td>
+                         <td class="py-3 px-6">{{ product.name }}</td>
+                        <td class="py-3 px-6">{{ product.description }}</td>
+                        <td class="py-3 px-6">{{ product.price }}</td>
                         <td class="py-3 px-6">
-                          <!-- Actions Column -->
-
                           <button
-                            (click)="deleteOffer(offer)"
+                            (click)="deleteProduct(product)"
                             class="text-red-500 hover:text-red-700 mr-2"
                           >
                             <svg
@@ -124,7 +119,7 @@
                             </svg>
                           </button>
                           <button
-                            (click)="viewOffer(offer)"
+                            (click)="viewProduct(product)"
                             class="text-blue-500 hover:text-blue-700"
                           >
                             <svg
@@ -151,17 +146,10 @@
                         </td>
                       </tr>
                     </ng-container>
-                  </ng-container>
-
-                  <ng-template #loadingOffers>
-                    <tr>
-                      <td colspan="3" class="py-3 px-6 text-center">
-                        Loading offers...
-                      </td>
-                    </tr>
-                  </ng-template>
                 </tbody>
               </table>
+            </ng-container>
+
               <div class="flex justify-start mb-4">
                 <button
                   routerLink="/customer/order"

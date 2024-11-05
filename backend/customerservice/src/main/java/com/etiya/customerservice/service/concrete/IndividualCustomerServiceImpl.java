@@ -115,7 +115,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
 
         if (contactMedium.isPresent()) {
             if (contactMedium.get().getMobilePhone() != null) {
-                responseDto.setPhoneNo(contactMedium.get().getHomePhone());
+                responseDto.setPhoneNo(contactMedium.get().getMobilePhone());
             } else {
                 responseDto.setPhoneNo(null);
             }

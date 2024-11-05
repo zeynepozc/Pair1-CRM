@@ -20,13 +20,14 @@ import { StorageService } from '../../../../shared/services/storage.service';
 export class LoginComponent implements OnInit {
   form!: FormGroup;
   errorMessage: string | null = null;
-  // Reactive Forms
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private storageService: StorageService
   ) {}
+
   ngOnInit(): void {
     this.buildForm();
   }
@@ -44,14 +45,10 @@ export class LoginComponent implements OnInit {
   submitForm() {
     this.form.markAllAsTouched();
     if (!this.form.valid) {
-      console.log('Form Not Valid');
-
       return;
     }
-    // http isteği
     this.authService.login(this.form.value).subscribe({
       next: (response: TokenResponse) => {
-        console.log('Giriş başarılı token alındı:', response);
         this.storageService.set('token', response.token);
         this.router.navigateByUrl('/customer/search-customer');
       },

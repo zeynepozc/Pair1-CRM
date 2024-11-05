@@ -45,28 +45,6 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
         Optional<CustomerAccount> customerAccount = customerAccountRepository.findById(id);
         return customerAccountMapper.getByIdCustomerAccountResponseDtoFromCustomerAccount(customerAccount.get());
     }
-/*
-    @Override
-    public List<ListCustomerAccountResponseDto> getAllByCustomerId(Long id){
-        List<CustomerAccount> customerAccountList = customerAccountRepository.getCustomerAccountsByCustomer_Id(id);
-
-        customerAccountList.stream()
-                .map(customerAccount -> {
-                    BillingAccount billingAccount = billingAccountService.getBillingAccountById(customerAccount.getId()).get();
-                    List<BillingProduct> billingProduct = billingProductService.getBillingProductById(billingAccount.getId());
-                    List<Product> products = new ArrayList<>();
-                    billingProduct.stream().map(
-                            _billingProduct -> {
-                               List<Long> productIdList =  _billingProduct.getProductIdList();
-                               return products.addAll(productServiceClient.findAllByIds(productIdList));
-                            }
-                    )
-
-                })
-                .collect(Collectors.toList());
-
-        return customerAccountMapper.listCustomerAccountResponseDtoListFromCustomerAccountList(customerAccountList);
-    }*/
 
     @Override
     public List<ListCustomerAccountWithProductsResponseDto> getAllByCustomerId(Long id) {
@@ -106,6 +84,41 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
                 .filter(Objects::nonNull) // Null olanları filtrele
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public CustomerAccountProductListResponseDto getProductsByCustomerAccountId(Long customerAccountId) {
+        // Müşteri hesabını al
+        CustomerAccount customerAccount = customerAccountRepository.findById(customerAccountId).orElse(null);
+
+        // Eğer müşteri hesabı yoksa, geçersiz bir yanıt döndür
+        if (customerAccount == null) {
+            return null; // veya uygun bir hata yönetimi
+        }
+
+        // Faturalama hesabını al
+        BillingAccount billingAccount = billingAccountService.getBillingAccountById(customerAccount.getId()).orElse(null);
+
+        // Eğer faturalama hesabı yoksa, bu müşteri hesabı için geçersiz bir yanıt döndür
+        if (billingAccount == null) {
+            return null; // veya uygun bir hata yönetimi
+        }
+
+        // Faturalama ürünlerini al
+        List<BillingProduct> billingProductList = billingProductService.findBillingProductsByBillingAccountId(billingAccount.getId());
+        List<Product> products = new ArrayList<>();
+
+        // Ürünleri ekle
+        billingProductList.forEach(_billingProduct -> {
+            List<Long> productIdList = _billingProduct.getProductIdList();
+            products.addAll(productServiceClient.findAllByIds(productIdList)); // Ürünleri products listesine ekle
+        });
+
+        // DTO'yu oluştur
+        return new CustomerAccountProductListResponseDto(
+                products // productList
+        );
+    }
+
 
     @Override
     public CreateCustomerAccountResponseDto add(CreateCustomerAccountRequestDto createCustomerAccountRequestDto) {

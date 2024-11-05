@@ -42,6 +42,11 @@ public class BillingAccountServiceImpl implements BillingAccountService
     }
 
     @Override
+    public List<BillingAccount> getBillingAccountsByCustomerAccountId(Long id) {
+        return billingAccountRepository.findBillingAccountsByCustomerAccount_Id(id);
+    }
+
+    @Override
     public CreateBillingAccountResponseDto add(CreateBillingAccountRequestDto createBillingAccountRequestDto) {
         BillingAccount billingAccount = billingAccountMapper.billingAccountFromCreateBillingAccountRequestDto(createBillingAccountRequestDto);
         return billingAccountMapper.createBillingAccountResponseDtoFromBillingAccount(billingAccountRepository.save(billingAccount));

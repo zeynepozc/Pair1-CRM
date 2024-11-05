@@ -15,6 +15,7 @@ public interface BillingAccountService {
     List<ListBillingAccountResponseDto> getAll();
     GetByIdBillingAccountResponseDto getById(Long id);
     Optional<BillingAccount> getBillingAccountById(Long id);
+    List<BillingAccount> getBillingAccountsByCustomerAccountId(Long id);
     CreateBillingAccountResponseDto add(CreateBillingAccountRequestDto dto);
     UpdateBillingAccountResponseDto update(UpdateBillingAccountRequestDto dto);
     void delete(Long id);

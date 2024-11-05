@@ -1,3 +1,4 @@
+
 export interface GetCustomerAccountsByCustomerIdResponse {
   customerId: number;
   accountStatus: string;
@@ -5,6 +6,17 @@ export interface GetCustomerAccountsByCustomerIdResponse {
   accountName: string;
   accountType: string;
   accountDescription: string;
-  products: [];
+  productList: Product[];
   expanded?: boolean;
 }
+
+interface Product {
+  id: number,
+  name: string,
+  description: string,
+  price: number,
+  stockQuantity:number,
+  active: boolean
+}
+
+

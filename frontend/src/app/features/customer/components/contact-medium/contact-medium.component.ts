@@ -55,7 +55,7 @@ export class ContactMediumComponent {
 
   checkEmail() {
     if (!this.form.get('email')?.valid) {
-      return console.log('Email empty');
+      return;
     }
 
     const email = this.form.get('email')?.value;
@@ -72,9 +72,8 @@ export class ContactMediumComponent {
 
   checkMobilePhone() {
     if (!this.form.get('mobilePhone')?.valid) {
-      return console.log('MobilePhone empty');
+      return;
     }
-    console.log(this.emailExist, this.mobilePhoneExist);
     const mobilePhone = this.form.get('mobilePhone')?.value;
     const request: IsContactMediumExistsWithMobilePhoneRequest = {
       mobilePhone,
@@ -84,16 +83,14 @@ export class ContactMediumComponent {
       .isContactMediumExistsWithMobilePhone(request)
       .subscribe({
         next: (response: IsContactMediumExistsWithMobilePhoneResponse) => {
-          console.log(response);
           this.mobilePhoneExist = response.exists;
         },
       });
   }
 
   submitForm() {
-    console.log('Eklenecek Contact Medium:', this.form.value);
     if (!this.form.valid) {
-      return console.log('Not Valid');
+      return;
     }
     this.contactMediumService
       .createContactMedium(
@@ -101,7 +98,6 @@ export class ContactMediumComponent {
       )
       .subscribe({
         next: (response: CustomerCreateContactMediumResponse) => {
-          console.log(response);
           this.addedContactMedium = response;
           this.addContactMediumAddresses();
         },
@@ -127,7 +123,6 @@ export class ContactMediumComponent {
         .createContactMediumAddress(request)
         .subscribe({
           next: (response) => {
-            console.log('Address created successfully:', response);
           },
         });
     });

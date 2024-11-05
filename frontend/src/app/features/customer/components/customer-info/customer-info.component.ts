@@ -54,16 +54,15 @@ export class CustomerInfoComponent {
   }
 
   submitForm() {
-    console.log('Eklenecek Customer:', this.form.value);
     if (!this.form.valid) {
-      return console.log('Not Valid');
+      return;
     }
     this.customerService
       .createCustomer(this.form.value as CustomerCreateRequest)
       .subscribe({
         next: (response: CustomerCreateResponse) => {
-          console.log(response);
           this.storageService.set('customerId', response.id);
+          this.storageService.remove("addresses")
           this.createData = response;
         },
       });
@@ -71,7 +70,7 @@ export class CustomerInfoComponent {
 
   checkNatID() {
     if (!this.form.get('natID')?.valid) {
-      return console.log('NatID empty');
+      return;
     }
 
     const natID = this.form.get('natID')?.value;
@@ -79,7 +78,6 @@ export class CustomerInfoComponent {
 
     this.customerService.isCustomerExistsWithNatID(request).subscribe({
       next: (response: IsCustomerExistsWithNatIDResponse) => {
-        console.log(response);
         this.natIDExists = response.isExists;
       },
     });

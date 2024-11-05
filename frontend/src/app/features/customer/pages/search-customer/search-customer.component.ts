@@ -43,10 +43,7 @@ export class SearchCustomerComponent implements OnInit {
     });
   }
   submitForm(): void {
-    console.log('submit');
     if (!this.form.valid) {
-      console.log('not valid');
-
       return;
     }
     const isAnyFieldFilled = Object.values(this.form.controls).some(
@@ -57,24 +54,19 @@ export class SearchCustomerComponent implements OnInit {
     );
 
     if (!isAnyFieldFilled) {
-      console.log('Lütfen en az bir alanı doldurun!');
       return;
     }
-
-    console.log('Arama Verisi:', this.form.value);
 
     this.customerService
       .searchCustomer(this.form.value as CustomerSearchRequest)
       .subscribe({
         next: (response: CustomerSearchResponse[]) => {
-          console.log(response);
           this.searchData = response;
         },
       });
   }
 
   clearForm() {
-    console.log('clear');
     this.form.reset();
     this.searchData = [];
   }

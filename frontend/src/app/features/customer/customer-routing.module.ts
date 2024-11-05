@@ -21,7 +21,7 @@ const routes: Routes = [
         path: 'create-billing-account',
         component: CreateBillingAccountComponent,
       },
-      { path: '', redirectTo: 'customer-info', pathMatch: 'full' }, // İlk sekme varsayılan
+      { path: '', redirectTo: 'customer-info', pathMatch: 'full' },
     ],
   },
   {

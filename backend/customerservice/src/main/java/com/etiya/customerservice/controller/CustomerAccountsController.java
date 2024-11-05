@@ -26,12 +26,7 @@ public class CustomerAccountsController {
     @GetMapping("/customer/{id}")
     public ResponseEntity<List<ListCustomerAccountWithProductsResponseDto>> getByCustomerId(@PathVariable Long id){
         List<ListCustomerAccountWithProductsResponseDto> customerAccountResponseListDto = customerAccountService.getAllByCustomerId(id);
-
-        if (!customerAccountResponseListDto.isEmpty()) {
-            return ResponseEntity.ok(customerAccountResponseListDto);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(customerAccountResponseListDto);
     }
 
     @GetMapping("/{id}")

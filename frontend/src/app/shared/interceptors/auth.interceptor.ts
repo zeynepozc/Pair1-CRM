@@ -18,11 +18,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     finalize(() => {
-      console.log('Interceptor isteğin bitttiğini yakaldı..');
     }),
     catchError((err) => {
-      // global hata yönetimi
-      console.log('interceptor hata yakaladı:', err);
       throw err.error.message;
     })
   );

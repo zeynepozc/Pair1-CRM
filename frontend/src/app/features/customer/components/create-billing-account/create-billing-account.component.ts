@@ -38,15 +38,13 @@ export class CreateBillingAccountComponent {
   }
 
   submitForm() {
-    console.log('Eklenecek Billing Account:', this.form.value);
     if (!this.form.valid) {
-      return console.log('Not Valid');
+      return;
     }
     this.customerAccountService
       .createCustomerAccount(this.form.value as CustomerAccountCreateRequest)
       .subscribe({
         next: (response: CustomerAccountCreateResponse) => {
-          console.log(response);
           this.router.navigateByUrl(
             '/customer/create-customer/customer-account'
           );
