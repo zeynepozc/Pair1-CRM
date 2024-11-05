@@ -18,11 +18,11 @@
         <th class="py-3 px-6 text-left">Action</th>
       </tr>
     </thead>
-    <tbody class="text-gray-600 text-sm font-light">
+    <tbody class="text-gray-600  text-sm font-light">
       <ng-container *ngFor="let account of accounts">
         <tr
           (click)="toggleExpand(account)"
-          class="cursor-pointer hover:bg-gray-100 border border-gray-400"
+          class="cursor-pointer hover:bg-gray-100 border border-gray-400 "
         >
           <td class="py-3 px-6">{{ account.accountStatus }}</td>
           <td class="py-3 px-6">{{ account.accountNumber }}</td>
@@ -72,9 +72,9 @@
           </td>
         </tr>
         <tr *ngIf="account.expanded" class="">
-          <td colspan="5" class="py-3 px-6">
+          <td colspan="5" class="py-3 px-6 bg-gray-100">
             <div>
-              <ng-container *ngIf="account.productList">
+              <ng-container *ngIf="account.productList && account.productList.length > 0">
 
               <table class="min-w-full bg-white border mt-2">
                 <thead>
