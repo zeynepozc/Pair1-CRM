@@ -175,6 +175,8 @@ services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.1
     hostname: zookeeper
+    networks:
+      - common
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -188,6 +190,8 @@ services:
       - zookeeper
     ports:
       - "9092:9092"
+    networks:
+      - common
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
