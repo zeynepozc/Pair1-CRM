@@ -14,7 +14,9 @@ import com.etiya.customerservice.service.dto.request.billingAccount.CreateBillin
 import com.etiya.customerservice.service.dto.request.customerAccount.CreateCustomerAccountRequestDto;
 import com.etiya.customerservice.service.dto.request.customerAccount.UpdateCustomerAccountRequestDto;
 import com.etiya.customerservice.service.dto.response.customerAccount.*;
+import com.etiya.event.ProductsCalledEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,6 +34,7 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
     private final BillingAccountService billingAccountService;
     private final BillingProductService billingProductService;
     private final ProductServiceClient productServiceClient;
+    private final StreamBridge streamBridge;
 
 
     @Override
@@ -52,70 +55,60 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
 
         return customerAccountList.stream()
                 .map(customerAccount -> {
-                    // Faturalama hesabını al
                     BillingAccount billingAccount = billingAccountService.getBillingAccountById(customerAccount.getId()).orElse(null);
-
-                    // Eğer faturalama hesabı yoksa, bu müşteri hesabı için geçersiz bir yanıt döndür
                     if (billingAccount == null) {
-                        return null; // veya uygun bir hata yönetimi
+                        return null;
                     }
 
-                    // Faturalama ürünlerini al
                     List<BillingProduct> billingProductList = billingProductService.findBillingProductsByBillingAccountId(billingAccount.getId());
                     List<Product> products = new ArrayList<>();
 
-                    // Ürünleri ekle
                     billingProductList.forEach(_billingProduct -> {
                         List<Long> productIdList = _billingProduct.getProductIdList();
-                        products.addAll(productServiceClient.findAllByIds(productIdList)); // Ürünleri products listesine ekle
+                        products.addAll(productServiceClient.findAllByIds(productIdList));
+                        ProductsCalledEvent productsCalledEvent = new ProductsCalledEvent();
+                        productsCalledEvent.setId(id);
+                        streamBridge.send("productsCalledEvent-out-0", productsCalledEvent);
                     });
 
-                    // DTO'yu oluştur
                     return new ListCustomerAccountWithProductsResponseDto(
-                            customerAccount.getCustomer().getId(), // customerId
-                            customerAccount.getAccountStatus(), // accountStatus
-                            customerAccount.getAccountNumber(), // accountNumber
-                            customerAccount.getAccountName(), // accountName
-                            customerAccount.getAccountType(), // accountType
-                            customerAccount.getAccountDescription(), // accountDescription
-                            products // productList
+                            customerAccount.getCustomer().getId(),
+                            customerAccount.getAccountStatus(),
+                            customerAccount.getAccountNumber(),
+                            customerAccount.getAccountName(),
+                            customerAccount.getAccountType(),
+                            customerAccount.getAccountDescription(),
+                            products
                     );
                 })
-                .filter(Objects::nonNull) // Null olanları filtrele
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
     @Override
     public CustomerAccountProductListResponseDto getProductsByCustomerAccountId(Long customerAccountId) {
-        // Müşteri hesabını al
         CustomerAccount customerAccount = customerAccountRepository.findById(customerAccountId).orElse(null);
 
-        // Eğer müşteri hesabı yoksa, geçersiz bir yanıt döndür
         if (customerAccount == null) {
-            return null; // veya uygun bir hata yönetimi
+            return null;
         }
 
-        // Faturalama hesabını al
         BillingAccount billingAccount = billingAccountService.getBillingAccountById(customerAccount.getId()).orElse(null);
 
-        // Eğer faturalama hesabı yoksa, bu müşteri hesabı için geçersiz bir yanıt döndür
         if (billingAccount == null) {
-            return null; // veya uygun bir hata yönetimi
+            return null;
         }
 
-        // Faturalama ürünlerini al
         List<BillingProduct> billingProductList = billingProductService.findBillingProductsByBillingAccountId(billingAccount.getId());
         List<Product> products = new ArrayList<>();
 
-        // Ürünleri ekle
         billingProductList.forEach(_billingProduct -> {
             List<Long> productIdList = _billingProduct.getProductIdList();
             products.addAll(productServiceClient.findAllByIds(productIdList)); // Ürünleri products listesine ekle
         });
 
-        // DTO'yu oluştur
         return new CustomerAccountProductListResponseDto(
-                products // productList
+                products
         );
     }
 
