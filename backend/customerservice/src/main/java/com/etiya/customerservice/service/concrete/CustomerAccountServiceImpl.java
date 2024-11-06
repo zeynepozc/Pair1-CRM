@@ -16,7 +16,7 @@ import com.etiya.customerservice.service.dto.request.customerAccount.UpdateCusto
 import com.etiya.customerservice.service.dto.response.customerAccount.*;
 
 
-import com.etiya.event.ProductsCalledEvent;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
@@ -65,13 +65,13 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
                     List<BillingProduct> billingProductList = billingProductService.findBillingProductsByBillingAccountId(billingAccount.getId());
                     List<Product> products = new ArrayList<>();
 
-                    billingProductList.forEach(_billingProduct -> {
-                        List<Long> productIdList = _billingProduct.getProductIdList();
-                        products.addAll(productServiceClient.findAllByIds(productIdList));
-                        ProductsCalledEvent productsCalledEvent = new ProductsCalledEvent();
-                        productsCalledEvent.setId(id);
-                        streamBridge.send("productsCalledEvent-out-0", productsCalledEvent);
-                    });
+//                    billingProductList.forEach(_billingProduct -> {
+//                        List<Long> productIdList = _billingProduct.getProductIdList();
+//                        products.addAll(productServiceClient.findAllByIds(productIdList));
+//                        ProductsCalledEvent productsCalledEvent = new ProductsCalledEvent();
+//                        productsCalledEvent.setId(id);
+//                        streamBridge.send("productsCalledEvent-out-0", productsCalledEvent);
+//                    });
 
                     return new ListCustomerAccountWithProductsResponseDto(
                             customerAccount.getCustomer().getId(),
