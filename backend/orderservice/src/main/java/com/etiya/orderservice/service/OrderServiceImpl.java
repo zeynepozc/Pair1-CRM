@@ -42,8 +42,8 @@ public class OrderServiceImpl implements OrderService{
         order.setProducts(response);
         orderRepository.save(order);
 
-        OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
-        orderCreatedEvent.setId(order.getId());
-        streamBridge.send("orderCreatedEvent-out-0", orderCreatedEvent);
+        //OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
+        //orderCreatedEvent.setId(order.getId());
+        //streamBridge.send("orderCreatedEvent-out-0", orderCreatedEvent);
     }
 }
