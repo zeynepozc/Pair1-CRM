@@ -14,24 +14,22 @@ import { AddressForStorage } from '../../models/addressForStorage';
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
-  styleUrl: './address.component.scss'
+  styleUrl: './address.component.scss',
 })
 export class AddressComponent implements OnInit {
   form!: FormGroup;
-  selectedTab: string = 'Address';
   customerId: string | null = null;
   isModalOpen: boolean = false;
   addedAddress!: CustomerCreateAddressResponse;
   addresses: CustomerCreateAddressResponse[] = [];
   addressList: AddressForStorage[] = [];
-  
 
   constructor(
     private formBuilder: FormBuilder,
     private addressService: AddressService,
     private storageService: StorageService
   ) {}
-  
+
   ngOnInit(): void {
     this.buildForm();
   }
@@ -46,7 +44,7 @@ export class AddressComponent implements OnInit {
       neighborhood: [null, [Validators.required]],
       houseNo: [null, [Validators.required]],
       postalCode: [null, [Validators.required]],
-      customerId: [this.customerId,[]]
+      customerId: [this.customerId, []],
     });
   }
 
@@ -60,7 +58,9 @@ export class AddressComponent implements OnInit {
   }
 
   submitForm() {
-    this.form.get('customerId')?.setValue(this.storageService.get("customerId"));
+    this.form
+      .get('customerId')
+      ?.setValue(this.storageService.get('customerId'));
     if (!this.form.valid) {
       return;
     }
@@ -73,10 +73,13 @@ export class AddressComponent implements OnInit {
 
           const address: AddressForStorage = {
             id: response.id,
-            primaryAddress: response.primaryAddress
+            primaryAddress: response.primaryAddress,
           };
           this.addressList.push(address);
-          this.storageService.set("addresses",JSON.stringify(this.addressList))
+          this.storageService.set(
+            'addresses',
+            JSON.stringify(this.addressList)
+          );
           this.closeModal();
         },
       });
@@ -89,13 +92,7 @@ export class AddressComponent implements OnInit {
   resetNewAddress() {
     this.form.reset();
   }
+  goToPreviousPage() {}
 
-  selectTab(tab: string) {
-    this.selectedTab = tab;
-  }
-  goToPreviousPage() {
-  }
-  
-  goToNextPage() {
-  }
+  goToNextPage() {}
 }

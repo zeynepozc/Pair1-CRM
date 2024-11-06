@@ -62,7 +62,7 @@ export class CustomerInfoComponent {
       .subscribe({
         next: (response: CustomerCreateResponse) => {
           this.storageService.set('customerId', response.id);
-          this.storageService.remove("addresses")
+          this.storageService.remove('addresses');
           this.createData = response;
         },
       });

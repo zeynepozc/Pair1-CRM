@@ -1,15 +1,42 @@
 <div class="max-w-7xl mx-auto p-6 min-h-screen">
-  <div class="flex space-x-4 border-b mb-6">
-    <a routerLink="customer-info" routerLinkActive="active-tab"
-      >Customer Info</a
+  <div class="inline-block bg-gray-200 mb-3">
+    <button
+      class="font-semibold p-4"
+      routerLink="customer-info"
+      routerLinkActive="active-tab"
+      [ngClass]="{ 'bg-gray-400': selectedTab === 'Customer Info' }"
+      (click)="selectTab('Customer Info')"
     >
-    <a routerLink="address" routerLinkActive="active-tab">Address</a>
-    <a routerLink="contact-medium" routerLinkActive="active-tab"
-      >Contact Medium</a
+      Customer Info
+    </button>
+    <button
+      class="font-semibold p-4"
+      routerLink="address"
+      routerLinkActive="active-tab"
+      [ngClass]="{ 'bg-gray-400': selectedTab === 'Address' }"
+      (click)="selectTab('Address')"
     >
-    <a routerLink="customer-account" routerLinkActive="active-tab"
-      >Customer Account</a
+      Address
+    </button>
+    <button
+      class="font-semibold p-4"
+      routerLink="contact-medium"
+      routerLinkActive="active-tab"
+      [ngClass]="{ 'bg-gray-400': selectedTab === 'Contact Medium' }"
+      (click)="selectTab('Contact Medium')"
     >
+      Contact Medium
+    </button>
+    <button
+      class="font-semibold p-4"
+      routerLink="customer-account"
+      routerLinkActive="active-tab"
+      [ngClass]="{ 'bg-gray-400': selectedTab === 'Customer Account' }"
+      (click)="selectTab('Customer Account')"
+    >
+      Customer Account
+    </button>
   </div>
+
   <router-outlet></router-outlet>
 </div>
