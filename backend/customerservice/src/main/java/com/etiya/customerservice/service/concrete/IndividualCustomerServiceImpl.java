@@ -59,11 +59,11 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService
 
     @Override
     public UpdateIndividualCustomerResponseDto update(UpdateIndividualCustomerRequestDto updateIndividualCustomerRequestDto) {
-
         IndividualCustomer individualCustomer = individualCustomerMapper.individualCustomerFromUpdateIndividualCustomerRequestDto(updateIndividualCustomerRequestDto);
+        GetByIdIndividualCustomerResponseDto individualCustomerDto = this.getById(individualCustomer.getId());
+        individualCustomer.setNatID(individualCustomerDto.getNatID());
         individualCustomer = individualCustomerRepository.save(individualCustomer);
-        return individualCustomerMapper.updateIndividualCustomerResponseDtoFromIndividualCustomer(individualCustomer);
-    }
+        return individualCustomerMapper.updateIndividualCustomerResponseDtoFromIndividualCustomer(individualCustomer);}
 
     @Override
     public void delete(Long id) {
