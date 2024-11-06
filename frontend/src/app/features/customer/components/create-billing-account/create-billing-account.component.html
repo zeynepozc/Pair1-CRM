@@ -22,29 +22,25 @@
         placeholder="Enter account description"
       ></textarea>
     </div>
+
+    <h3 class="font-semibold mb-2">Address Info</h3>
     <div class="border-t border-gray-300 pt-6">
-      <h3 class="font-semibold mb-2">Address Info</h3>
-      <div class="flex gap-4 mb-4">
-        <button
-          type="button"
-          class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
-        >
-          Ev adresi
-        </button>
-      </div>
+      <div class="flex gap-4 mb-4"></div>
       <div class="grid grid-cols-3 gap-4">
-        <div class="border p-4 rounded shadow-sm">
-          <p>
-            Caferağa Mah. Martı Sok. Deniz Apt. 23/11 <br />
-            Hacı Bakkal yanı, Kadıköy/İstanbul
-          </p>
+        <div *ngFor="let address of addresses" class="">
+          <div>
+            <div class="flex gap-4 mb-4">
+              <p
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+              >
+                {{ address.name }}
+              </p>
+            </div>
+            <div class="border p-4 rounded shadow-sm">
+              <p>{{ concatenateAddressDetails(address) }}</p>
+            </div>
+          </div>
         </div>
-        <button
-          type="button"
-          class="border border-gray-400 p-4 rounded flex items-center justify-center hover:bg-gray-200"
-        >
-          Add New Address
-        </button>
       </div>
     </div>
     <div class="flex justify-end space-x-4 mt-6">

@@ -31,6 +31,11 @@ public class ContactMediumAddressServiceImpl implements ContactMediumAddressServ
     }
 
     @Override
+    public List<ContactMediumAddress> getAllByContactMediumId(Long id) {
+        return contactMediumAddressRepository.findAllByContactMedium_Id(id);
+    }
+
+    @Override
     public GetByIdContactMediumAddressResponseDto getById(Long id) {
         Optional<ContactMediumAddress> contactMediumAddress = contactMediumAddressRepository.findById(id);
         return contactMediumAddressMapper.getByIdContactMediumAddressResponseDtoFromContactMediumAddress(contactMediumAddress.get());

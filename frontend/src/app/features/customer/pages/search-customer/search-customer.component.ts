@@ -1,16 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerSearchRequest } from '../../models/customerSearchRequest';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../services/customer.service';
 import { CustomerSearchResponse } from '../../models/customerSearchResponse';
-import { formatDate } from '@angular/common';
+import DataTable from 'datatables.net-dt';
 
 @Component({
   selector: 'app-search-customer',

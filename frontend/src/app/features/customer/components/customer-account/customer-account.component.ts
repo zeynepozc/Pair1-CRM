@@ -11,7 +11,7 @@ import { Product } from '../../models/product';
 export class CustomerAccountComponent implements OnInit {
   customerId: string | null = null;
   accounts: GetCustomerAccountsByCustomerIdResponse[] = [];
-  
+
   constructor(
     private customerAccountService: CustomerAccountService,
     private storageService: StorageService
@@ -28,20 +28,16 @@ export class CustomerAccountComponent implements OnInit {
       .subscribe({
         next: (response: GetCustomerAccountsByCustomerIdResponse[]) => {
           this.accounts = response;
+          console.log(response);
         },
       });
-
-    
   }
 
   toggleExpand(account: GetCustomerAccountsByCustomerIdResponse) {
     account.expanded = !account.expanded;
   }
 
-  viewProduct(product: Product) {
-  }
+  viewProduct(product: Product) {}
 
-  deleteProduct(product: Product) {
-
-  }
+  deleteProduct(product: Product) {}
 }

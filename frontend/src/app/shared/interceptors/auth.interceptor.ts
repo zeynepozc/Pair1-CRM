@@ -11,14 +11,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({
     setHeaders: {
       Authorization: `Bearer ${storageService.get('token')}`,
-      //'Accept-Language':
-        //translateService.currentLang || translateService.defaultLang,
+      'Accept-Language': 'en',
     },
   });
 
   return next(req).pipe(
-    finalize(() => {
-    }),
+    finalize(() => {}),
     catchError((err) => {
       throw err.error.message;
     })

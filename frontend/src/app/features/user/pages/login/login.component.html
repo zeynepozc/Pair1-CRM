@@ -1,67 +1,73 @@
-<form
-  class="max-w-sm mx-auto text-white"
-  [formGroup]="form"
-  (submit)="submitForm()"
->
-  <div class="mb-5">
-    <label
-      for="email"
-      class="block mb-2 text-sm font-medium text-white dark:text-white"
-      >Your email</label
+<!-- login.component.html -->
+<div class="flex items-center justify-end min-h-screen mr-52">
+  <div class="flex flex-col items-center space-y-4">
+    <div
+      class="bg-gradient-to-b from-orange-500 to-blue-500 p-20 rounded-3xl shadow-lg"
     >
-    @if(hasError('email')) {
-    <small class="text-danger">Hatalı alan</small>
-    }
-    <input
-      type="email"
-      id="email"
-      class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      placeholder="name@flowbite.com"
-      formControlName="email"
-      required
-    />
-  </div>
-  <div class="mb-5">
-    <label
-      for="password"
-      class="block mb-2 text-sm font-medium text-white dark:text-white"
-      >Your password</label
-    >
-    @if(hasError('password')) {
-    <small class="text-danger">Hatalı alan</small>
-    }
-    <input
-      type="password"
-      id="password"
-      formControlName="password"
-      class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      required
-    />
-  </div>
-  <div class="flex items-start mb-5">
-    <div class="flex items-center h-5">
-      <input
-        id="remember"
-        type="checkbox"
-        value=""
-        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-        required
-      />
+      <form class="space-y-8" [formGroup]="form" (submit)="submitForm()">
+        <div>
+          @if(errorMessage) {
+          <p class="text-red-800 font-bold mb-2">{{ errorMessage }}</p>
+          }
+          <label class="block text-white text-lg font-bold mb-2" for="email">
+            Username*
+          </label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Username"
+            class="w-full p-2 text-lg rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          @if(hasError('email')) {
+          <p class="text-red-700">*Username can not be blank</p>
+          }
+        </div>
+        <div>
+          <label class="block text-white text-lg font-bold mb-2" for="password">
+            Password*
+          </label>
+          <div class="relative">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              formControlName="password"
+              class="w-full p-2 text-lg rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            @if(hasError('password')) {
+            <p class="text-red-700">*Password can not be blank</p>
+            }
+            <!-- <span class="absolute inset-y-0 right-3 flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-gray-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M15 12h.01M9 12h.01M12 12h.01M21 12h-2M17 12h-.01M15 12h.01M9 12h.01M7 12H5M3 12H1"
+                ></path>
+              </svg>
+            </span> -->
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            id="login-button"
+            class="bg-blue-700 text-white px-4 py-2 text-lg rounded hover:bg-blue-600 transition duration-300"
+          >
+            Login
+          </button>
+        </div>
+      </form>
     </div>
-    <label
-      for="remember"
-      class="ms-2 text-sm font-medium text-white dark:text-gray-300"
-      >Remember me</label
-    >
   </div>
-  @if(errorMessage) {
-  <p class="text-red-600">{{ errorMessage }}</p>
-  }
-  <button
-    type="submit"
-    id="login-button"
-    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-  >
-    Submit
-  </button>
-</form>
+</div>

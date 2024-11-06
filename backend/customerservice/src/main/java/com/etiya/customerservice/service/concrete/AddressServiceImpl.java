@@ -2,6 +2,8 @@ package com.etiya.customerservice.service.concrete;
 
 import com.etiya.customerservice.entity.City;
 import com.etiya.customerservice.entity.ContactMedium;
+import com.etiya.customerservice.entity.ContactMediumAddress;
+import com.etiya.customerservice.entity.IndividualCustomer;
 import com.etiya.customerservice.service.abstracts.*;
 import com.etiya.customerservice.service.dto.request.address.CreateAddressRequestDto;
 import com.etiya.customerservice.service.dto.request.city.CreateCityRequestDto;
@@ -10,14 +12,21 @@ import com.etiya.customerservice.service.dto.request.contactMediumAddress.Create
 import com.etiya.customerservice.service.dto.request.district.CreateDistrictRequestDto;
 import com.etiya.customerservice.service.dto.request.neighborhood.CreateNeighborhoodRequestDto;
 import com.etiya.customerservice.service.dto.response.address.CreateAddressResponseDto;
+import com.etiya.customerservice.service.dto.response.address.GetByIdAddressResponseDto;
 import com.etiya.customerservice.service.dto.response.city.CreateCityResponseDto;
+import com.etiya.customerservice.service.dto.response.city.GetByIdCityResponseDto;
 import com.etiya.customerservice.service.dto.response.contactAddress.CreateContactAddressResponseDto;
+import com.etiya.customerservice.service.dto.response.contactAddress.GetByIdContactAddressResponseDto;
 import com.etiya.customerservice.service.dto.response.contactMediumAddress.CreateContactMediumAddressResponseDto;
 import com.etiya.customerservice.service.dto.response.district.CreateDistrictResponseDto;
+import com.etiya.customerservice.service.dto.response.district.GetByIdDistrictResponseDto;
 import com.etiya.customerservice.service.dto.response.neighborhood.CreateNeighborhoodResponseDto;
+import com.etiya.customerservice.service.dto.response.neighborhood.GetByIdNeighborhoodResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -75,5 +84,32 @@ public class AddressServiceImpl implements AddressService {
 
         return createAddressResponseDto;
     }
+
+    @Override
+    public List<GetByIdAddressResponseDto> getById(Long id) {
+        Optional<ContactMedium> contactMedium = contactMediumService.findByCustomerId(id);
+        List<ContactMediumAddress> contactMediumAddressList = contactMediumAddressService.getAllByContactMediumId( contactMedium.get().getId() );
+        List<GetByIdAddressResponseDto> addressResponseDtoList = new ArrayList<>();
+
+        for( ContactMediumAddress contactMediumAddress: contactMediumAddressList ) {
+            GetByIdAddressResponseDto dto = new GetByIdAddressResponseDto();
+            dto.setId(contactMediumAddress.getId());
+            dto.setCustomerId(id);
+            dto.setName(contactMediumAddress.getContactAddress().getName());
+            dto.setDescription(contactMediumAddress.getContactAddress().getAddressDesc());
+            dto.setNeighborhood(contactMediumAddress.getContactAddress().getNeighborhood().getName());
+            dto.setPostalCode(contactMediumAddress.getContactAddress().getNeighborhood().getPostalCode());
+            dto.setHouseNo(contactMediumAddress.getContactAddress().getNeighborhood().getHouseNo());
+            dto.setDistrict(contactMediumAddress.getContactAddress().getNeighborhood().getDistrict().getName());
+            dto.setCity(contactMediumAddress.getContactAddress().getNeighborhood().getDistrict().getCity().getName());
+            dto.setPrimaryAddress(contactMediumAddress.getPrimaryAddress());
+
+            addressResponseDtoList.add(dto);
+        }
+
+        return addressResponseDtoList;
+
+    }
+
 
 }

@@ -6,20 +6,25 @@ import { CustomerCreateAddressResponse } from '../models/customerCreateAddressRe
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AddressService {
   controllerUrl: string = `${environment.MS_V1_API_URL}/addresses`;
-  
-  constructor(private httpClient: HttpClient) {}
 
+  constructor(private httpClient: HttpClient) {}
 
   createAddress(
     createRequest: CustomerCreateAddressRequest
-  ): Observable<CustomerCreateAddressResponse>{
+  ): Observable<CustomerCreateAddressResponse> {
     return this.httpClient.post<CustomerCreateAddressResponse>(
       `${this.controllerUrl}`,
       createRequest
+    );
+  }
+
+  getAddresses(id: number): Observable<CustomerCreateAddressResponse[]> {
+    return this.httpClient.get<CustomerCreateAddressResponse[]>(
+      `${this.controllerUrl}/${id}`
     );
   }
 }

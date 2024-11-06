@@ -8,7 +8,7 @@
       Create Billing Account
     </button>
   </div>
-  <table class="min-w-full bg-white border-0">
+  <table *ngIf="accounts.length != 0" class="min-w-full bg-white border-0">
     <thead>
       <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
         <th class="py-3 px-6 text-left">Account Status</th>
@@ -18,11 +18,11 @@
         <th class="py-3 px-6 text-left">Action</th>
       </tr>
     </thead>
-    <tbody class="text-gray-600  text-sm font-light">
+    <tbody class="text-gray-600 text-sm font-light">
       <ng-container *ngFor="let account of accounts">
         <tr
           (click)="toggleExpand(account)"
-          class="cursor-pointer hover:bg-gray-100 border border-gray-400 "
+          class="cursor-pointer hover:bg-gray-100 border border-gray-400"
         >
           <td class="py-3 px-6">{{ account.accountStatus }}</td>
           <td class="py-3 px-6">{{ account.accountNumber }}</td>
@@ -74,25 +74,26 @@
         <tr *ngIf="account.expanded" class="">
           <td colspan="5" class="py-3 px-6 bg-gray-100">
             <div>
-              <ng-container *ngIf="account.productList && account.productList.length > 0">
-
-              <table class="min-w-full bg-white border mt-2">
-                <thead>
-                  <tr
-                    class="bg-gray-200 text-gray-600 uppercase text-xs leading-normal"
-                  >
-                    <th class="py-3 px-6 text-left">Product ID</th>
-                    <th class="py-3 px-6 text-left">Product Name</th>
-                    <th class="py-3 px-6 text-left">Product Description</th>
-                    <th class="py-3 px-6 text-left">Product Price</th>
-                    <th class="py-3 px-6 text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="text-gray-600 text-sm font-light">
+              <ng-container
+                *ngIf="account.productList && account.productList.length > 0"
+              >
+                <table class="min-w-full bg-white border mt-2">
+                  <thead>
+                    <tr
+                      class="bg-gray-200 text-gray-600 uppercase text-xs leading-normal"
+                    >
+                      <th class="py-3 px-6 text-left">Product ID</th>
+                      <th class="py-3 px-6 text-left">Product Name</th>
+                      <th class="py-3 px-6 text-left">Product Description</th>
+                      <th class="py-3 px-6 text-left">Product Price</th>
+                      <th class="py-3 px-6 text-left">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-gray-600 text-sm font-light">
                     <ng-container *ngFor="let product of account.productList">
                       <tr>
                         <td class="py-3 px-6">{{ product.id }}</td>
-                         <td class="py-3 px-6">{{ product.name }}</td>
+                        <td class="py-3 px-6">{{ product.name }}</td>
                         <td class="py-3 px-6">{{ product.description }}</td>
                         <td class="py-3 px-6">{{ product.price }}</td>
                         <td class="py-3 px-6">
@@ -146,9 +147,9 @@
                         </td>
                       </tr>
                     </ng-container>
-                </tbody>
-              </table>
-            </ng-container>
+                  </tbody>
+                </table>
+              </ng-container>
 
               <div class="flex justify-start mb-4">
                 <button

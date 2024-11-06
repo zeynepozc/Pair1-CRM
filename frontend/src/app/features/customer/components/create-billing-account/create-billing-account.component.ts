@@ -5,6 +5,8 @@ import { CustomerAccountService } from '../../services/customer-account.service'
 import { CustomerAccountCreateRequest } from '../../models/customerAccountCreateRequest';
 import { CustomerAccountCreateResponse } from '../../models/customerAccountCreateResponse';
 import { Router } from '@angular/router';
+import { AddressService } from '../../services/address.service';
+import { CustomerCreateAddressResponse } from '../../models/customerCreateAddressResponse';
 
 @Component({
   selector: 'app-create-billing-account',
@@ -14,16 +16,20 @@ import { Router } from '@angular/router';
 export class CreateBillingAccountComponent {
   form!: FormGroup;
   customerId: string | null = null;
+  addresses: CustomerCreateAddressResponse[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private customerAccountService: CustomerAccountService,
+    private addressService: AddressService,
     private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
     this.customerId = this.storageService.get('customerId');
+
+    this.fetchAddresses();
     this.buildForm();
   }
 
@@ -35,6 +41,20 @@ export class CreateBillingAccountComponent {
       accountName: [null, [Validators.required]],
       accountDescription: [null, [Validators.required]],
     });
+  }
+
+  fetchAddresses() {
+    if (this.customerId != null) {
+      this.addressService.getAddresses(Number(this.customerId)).subscribe({
+        next: (response: CustomerCreateAddressResponse[]) => {
+          this.addresses = response;
+        },
+      });
+    }
+  }
+
+  concatenateAddressDetails(address: CustomerCreateAddressResponse): string {
+    return ` ${address.description}, ${address.neighborhood}, ${address.houseNo} ${address.postalCode}, ${address.district}/${address.city}`;
   }
 
   submitForm() {

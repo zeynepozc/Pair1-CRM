@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { StorageService } from './../../services/storage.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,18 +8,10 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  // lang: string = 'en';
-  // constructor(private translateService: TranslateService) {}
-  // ngOnInit() {
-  //   this.lang =
-  //     this.translateService.currentLang ||
-  //     this.translateService.defaultLang ||
-  //     'en';
-  //   this.translateService.use(this.lang);
-  // }
-  // changeLang() {
-  //   if (this.lang) {
-  //     this.translateService.use(this.lang);
-  //   }
-  // }
+  constructor(private storageService: StorageService, private router: Router) {}
+
+  logout() {
+    this.storageService.clear();
+    this.router.navigateByUrl('/user/login');
+  }
 }

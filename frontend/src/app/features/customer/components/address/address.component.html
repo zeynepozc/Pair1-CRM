@@ -1,23 +1,26 @@
+<h2 class="text-xl font-bold mb-4">Address Info</h2>
+
 <div class="flex flex-col items-center">
-  <!-- Navigation Tabs 
-  <div class="flex justify-around w-full p-4 bg-gray-200">
-    <button class="px-4 py-2 font-semibold" [ngClass]="{'bg-gray-400': selectedTab === 'Customer Info'}">Customer Info</button>
-    <button class="px-4 py-2 font-semibold" [ngClass]="{'bg-gray-400': selectedTab === 'Address'}" (click)="selectTab('Address')">Address</button>
-    <button class="px-4 py-2 font-semibold" [ngClass]="{'bg-gray-400': selectedTab === 'Contact Medium'}">Contact Medium</button>
-    <button class="px-4 py-2 font-semibold" [ngClass]="{'bg-gray-400': selectedTab === 'Customer Account'}">Customer Account</button>
-  </div>
--->
-  <div class="p-4 w-full max-w-2xl">
-    <h2 class="text-xl font-bold mb-4">Address Info</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div *ngFor="let address of addresses" class="border p-4">
-        <p class="font-semibold">{{ address.name }}</p>
-        <p>{{ concatenateAddressDetails(address) }}</p>
+  <div class="grid grid-cols-3 gap-4 p-4 w-full max-w-2xl">
+    <div *ngFor="let address of addresses" class="">
+      <div>
+        <div class="flex gap-4 mb-4">
+          <p
+            class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+          >
+            {{ address.name }}
+          </p>
+        </div>
+        <div class="border p-4 rounded shadow-sm">
+          <p>{{ concatenateAddressDetails(address) }}</p>
+        </div>
       </div>
     </div>
     <button
+      *ngIf="addressList.length < 3"
+      type="button"
       (click)="openModal()"
-      class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+      class="border border-gray-400 p-4 rounded flex items-center justify-center hover:bg-gray-200"
     >
       Add New Address
     </button>
@@ -123,14 +126,12 @@
     <button
       routerLink="/customer/create-customer/customer-info"
       class="px-4 py-2 bg-gray-300 text-gray-700 rounded"
-      (click)="goToPreviousPage()"
     >
       Previous
     </button>
     <button
       routerLink="/customer/create-customer/contact-medium"
-      class="px-4 py-2 bg-gray-300 text-gray-700 rounded ml-4"
-      (click)="goToNextPage()"
+      class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded ml-4"
     >
       Next
     </button>

@@ -1,65 +1,175 @@
-<nav class="border-gray-200 dark:bg-gray-900 bg-blue-800">
+<!-- navbar.component.html -->
+<div
+  class="flex items-center justify-between bg-[#242441] text-white py-3 px-6 space-x-6"
+>
+  <!-- Logo Section -->
   <div
-    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-  >
-    <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <span
-        class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white"
-        >Pair-1 CRM</span
-      >
-    </a>
-    <button
-      data-collapse-toggle="navbar-default"
-      type="button"
-      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-      aria-controls="navbar-default"
-      aria-expanded="false"
+    routerLink="/customer/search-customer"
+    id="etiya-navbar-logo"
+    class="flex items-center space-x-2"
+  ></div>
+
+  <!-- Divider -->
+  <div class="border-l-2 border-white h-11"></div>
+
+  <!-- B2B and B2C Section -->
+  <div class="flex flex-col items-center">
+    <svg
+      class="w-[27px] h-[27px] text-white dark:text-white"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
     >
-      <span class="sr-only">Open main menu</span>
+      <path
+        stroke="currentColor"
+        stroke-width="2"
+        d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+      />
+    </svg>
+
+    <div>B2B</div>
+  </div>
+  <!-- Divider -->
+  <div class="border-l-2 border-white h-11"></div>
+  <div class="flex flex-col items-center">
+    <button routerLink="/customer/search-customer">
       <svg
-        class="w-5 h-5"
+        class="w-[27px] h-[27px] text-white dark:text-white"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
         fill="none"
-        viewBox="0 0 17 14"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-width="2"
+          d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+        />
+      </svg>
+
+      <div>B2C</div>
+    </button>
+  </div>
+
+  <!-- Divider -->
+  <div class="border-l-2 border-white h-11"></div>
+  <svg
+    class="w-[27px] h-[27px] text-white dark:text-white"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-width="2"
+      d="M5 7h14M5 12h14M5 17h14"
+    />
+  </svg>
+  <!-- Divider -->
+  <div class="border-l-2 border-white h-11"></div>
+  <!-- Sales Manager Section -->
+  <div class="flex items-center space-x-2">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 13l4 4L19 7"
+      />
+    </svg>
+    <div>Sales Manager</div>
+  </div>
+
+  <!-- Divider -->
+  <div class="border-l-2 border-white h-11"></div>
+  <svg
+    class="w-6 h-6 text-white dark:text-white"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"
+    />
+  </svg>
+
+  <!-- Divider -->
+  <div class="border-l-2 border-white h-11"></div>
+  <!-- Language Selector -->
+  <div class="flex items-center space-x-2">
+    <div>EN</div>
+    <div class="border-l-2 border-white h-6"></div>
+    <div>TR</div>
+  </div>
+
+  <!-- Divider -->
+  <div class="border-l-2 border-white h-11"></div>
+
+  <!-- User Info and Logout -->
+  <div class="flex items-center space-x-4">
+    <div class="flex items-center space-x-1">
+      <svg
+        class="w-6 h-6 text-white dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
       >
         <path
           stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="2"
-          d="M1 1h15M1 7h15M1 13h15"
+          d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
         />
       </svg>
-    </button>
-    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul
-        class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 bg-blue-800 dark:border-gray-700"
-      >
-        <!-- <li>
-          <select [(ngModel)]="lang" (ngModelChange)="changeLang()">
-            <option value="tr">Türkçe</option>
-            <option value="en">İngilizce</option>
-          </select>
-          <p>{{ "example" | translate }}</p>
-        </li> -->
-        <li>
-          <a
-            id="navbar-search"
-            class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-            routerLink="/customer/search-customer"
-            >Search Customer</a
-          >
-        </li>
-        <li>
-          <a
-            id="navbar-create"
-            class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white"
-            routerLink="/customer/create-customer"
-            >Create Customer</a
-          >
-        </li>
-      </ul>
+
+      <div>admin</div>
     </div>
+    <button class="flex items-center space-x-1" (click)="logout()">
+      <svg
+        class="w-6 h-6 text-white dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"
+        />
+      </svg>
+      <div>Logout</div>
+    </button>
   </div>
-</nav>
+</div>

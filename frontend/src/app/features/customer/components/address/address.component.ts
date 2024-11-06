@@ -86,13 +86,10 @@ export class AddressComponent implements OnInit {
   }
 
   concatenateAddressDetails(address: CustomerCreateAddressResponse): string {
-    return `Address description: ${address.description},Neighborhood: ${address.neighborhood}, House/Flat Number: ${address.houseNo}, Postal Code: ${address.postalCode}, ${address.district}/${address.city}`;
+    return ` ${address.description}, ${address.neighborhood}, ${address.houseNo} ${address.postalCode}, ${address.district}/${address.city}`;
   }
 
   resetNewAddress() {
     this.form.reset();
   }
-  goToPreviousPage() {}
-
-  goToNextPage() {}
 }

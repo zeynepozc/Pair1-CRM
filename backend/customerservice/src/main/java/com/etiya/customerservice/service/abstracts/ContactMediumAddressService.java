@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.abstracts;
 
+import com.etiya.customerservice.entity.ContactMediumAddress;
 import com.etiya.customerservice.service.dto.request.contactMediumAddress.CreateContactMediumAddressRequestDto;
 import com.etiya.customerservice.service.dto.request.contactMediumAddress.UpdateContactMediumAddressRequestDto;
 import com.etiya.customerservice.service.dto.response.contactMediumAddress.CreateContactMediumAddressResponseDto;
@@ -15,6 +16,8 @@ public interface ContactMediumAddressService {
     CreateContactMediumAddressResponseDto add(CreateContactMediumAddressRequestDto dto);
     UpdateContactMediumAddressResponseDto update(UpdateContactMediumAddressRequestDto dto);
     void delete(Long id);
+
+    List<ContactMediumAddress> getAllByContactMediumId(Long id);
 
     GetByIdContactMediumAddressResponseDto getPrimaryAddressByCustomerId(Long customerId);
 }
